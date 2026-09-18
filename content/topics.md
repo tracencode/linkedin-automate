@@ -9,7 +9,7 @@ Stay inside Odoo, applied AI, and practical technology. One topic per line.
 - An integration (payment, inventory, CRM) that taught a sharper lesson than the happy path
 - What I check before I trust an Odoo migration
 - AI that drafts vs AI that is allowed to write into production data
-- Explaining a technical Odoo decision to a non-technical operations owner
+- Explaining a technical Odoo decision to a non-technical operations owner — and standing behind it
 - A module or app people install too fast
 - Why user adoption is the real implementation risk
 - RAG / assistants over company documents — where it helps and where it hallucinates

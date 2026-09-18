@@ -5,15 +5,14 @@ topic: Dirty master data will beat a clever AI workflow
 createdAt: 2026-09-18T11:01:39.338Z
 ---
 
+I will not put an AI feature on one of our Odoo apps until I have seen the master data.
 
-I recently faced a situation where I was convinced AI could streamline our invoice processing in Odoo. We had high hopes: automate approvals, flag discrepancies, and save time. We implemented a sophisticated AI assistant, and it looked great on paper.
+We tried anyway once. Invoice approvals, discrepancy flags, the whole demo-friendly stack. On paper it looked like we had a product. In production the vendor names disagreed with themselves, amounts had typos, and the model spent its intelligence shouting about duplicates that were just dirty records.
 
-Then reality hit. The master data was a mess. Vendor names varied. Some invoices had typos in amounts. The AI flagged a lot of 'errors' that were simply data inconsistencies. Instead of speeding things up, it slowed down our team.
+Our team spent more hours cleaning data than the assistant ever saved. That is on me. I shipped clever before I shipped boring.
 
-We spent more time cleaning up data than benefiting from the AI. The lesson here? No matter how advanced your AI, if your master data is dirty, it will fall flat. A clever workflow can't compensate for inconsistent information.
+Now the rule inside the company is blunt: clean the partners, products, and taxes first. Then we talk about models. A workflow that looks smart on top of a mess just scales the mess.
 
-Before you rush to implement AI in your processes, take a hard look at your data quality first. That’s where the real work is.
-
-Have you faced similar issues when integrating AI into your operations? What steps did you take to resolve them?
+What is the first table you would refuse to automate until it is clean?
 
 #AI #DataQuality #MasterData #Invoices

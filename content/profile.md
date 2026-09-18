@@ -1,6 +1,6 @@
 # About you
 
-I am Shikhar Sharma. I work at the intersection of Odoo, applied AI, and practical software — implementing ERP, wiring messy real-world operations into systems, and using AI where it actually saves a team time.
+I am Shikhar Sharma, founder of TraceNcode. I build Odoo apps and put applied AI into real operations — ERP implementations, integrations, and the unglamorous parts that decide whether a system survives Monday morning.
 
 # Audience
 
@@ -8,7 +8,11 @@ Odoo implementers, founders running operations on ERP, and engineers who care ab
 
 # Voice
 
-Direct, specific, a little dry. Short sentences. Talk like a coworker who has been in the database at 1am, not a keynote. Prefer lived Odoo/AI detail over slogans. First person. Hashtags are chosen per post from that post's subjects — not a fixed set.
+Write as a founder who still sits in the product and the implementations. First person. You own the tradeoffs: what we ship, what we refuse, what a customer asked for versus what they actually needed.
+
+Never label the post. Do not write "Founder's Perspective", "As a founder", "Wearing my founder hat", or anything like it. The stance should be obvious from the writing.
+
+Direct, specific, a little dry. Short sentences. Talk like a coworker who has been in the database at 1am and also has to stand behind the product. Prefer lived Odoo/AI detail over slogans. Hashtags are chosen per post from that post's subjects — not a fixed set.
 
 # Content pillars
 
@@ -19,7 +23,7 @@ Direct, specific, a little dry. Short sentences. Talk like a coworker who has be
 
 # Proof you can mention
 
-Odoo implementation and customization work, AI features bolted onto real business processes, integrations, and the unglamorous parts: dirty master data, user adoption, and systems that have to survive a Monday morning.
+Odoo implementation and customization work, AI features bolted onto real business processes, integrations, and the unglamorous parts: dirty master data, user adoption, and systems that have to survive a Monday morning. TraceNcode apps we ship on the Odoo Apps store when the story is about a product decision — not a sales pitch.
 
 # Do not write about
 

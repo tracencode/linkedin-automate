@@ -6,7 +6,7 @@ This does **not** scrape LinkedIn, auto-comment, or mass-follow. Those tactics v
 
 ## How it works
 
-1. Niche lives in `content/profile.md` (Odoo / AI / tech).
+1. Niche lives in `content/profile.md` (Odoo / AI / tech, written from a founder's stance without labelling it).
 2. Open the UI with `npm run ui` → [http://127.0.0.1:4567](http://127.0.0.1:4567).
 3. Generate or write a post, edit it, queue it. About 40% of auto-drafts get a landscape image; you can force image on/off in the Desk UI. The bot keeps **at least 5 posts** in the queue. The scheduler publishes at **Tue/Wed/Thu 9:15 Asia/Kolkata**.
 4. If the queue is empty and `AUTO_PUBLISH=true`, it generates a post and publishes it.
@@ -50,7 +50,7 @@ npm run status
 
 ### 4. Niche
 
-`content/profile.md` and `content/topics.md` are already pointed at Odoo, applied AI, and technology. Edit them in the UI **Niche** tab so they match your real work.
+`content/profile.md` and `content/topics.md` are already pointed at Odoo, applied AI, and technology, in a founder's voice (ownership and product judgment — never a "Founder's Perspective" label on the post). Edit them in the UI **Niche** tab so they match your real work.
 
 ### 5. OpenAI key (only for AI drafts)
 

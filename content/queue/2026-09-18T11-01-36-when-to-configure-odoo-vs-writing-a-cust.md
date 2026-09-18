@@ -6,17 +6,16 @@ createdAt: 2026-09-18T11:01:36.134Z
 image: 2026-09-18T11-00-39-When-to-configure-Odoo-vs-writin.png
 ---
 
+Every other request we get is "just write a small custom module."
 
-I often see teams rush into coding custom modules for Odoo when a simple configuration could suffice.
+It is rarely small. We are the ones who have to upgrade it, explain it to the next consultant, and own it when Odoo moves a field in 19.0.
 
-Customization can seem appealing. It offers tailored solutions and flexibility. Yet, the reality is that it adds complexity. Maintenance gets tougher. Upgrades can break things.
+Last month a customer wanted a unique inventory workflow. The instinct on their side was development. Ours was: sit on our hands for a day and try the stock of settings first. A few configuration tweaks covered it. No extra module. No extra bill of materials for our maintenance calendar.
 
-Last month, I worked with a client who wanted a unique inventory workflow. They leaped into development mode, but I paused. We revisited the available configurations first. Turns out, a few tweaks to the existing setup met their needs perfectly.
+I would rather lose a customisation invoice than inherit a fork we cannot stand behind after the next upgrade.
 
-That saved time, reduced future headaches, and kept their system aligned with Odoo's core updates.
+We still write modules. We ship them when configuration actually cannot carry the process. The filter is simple: will we still be proud of this code after two version jumps?
 
-The rule of thumb? Always ask: Is this a genuine need for customization, or could an existing configuration handle it? The simpler solution often yields the best long-term results.
-
-What challenges have you faced deciding between configuring and customizing in Odoo?
+When do you push back on a customisation that looks easy on paper?
 
 #Configuration #Customization #Odoo #Inventory

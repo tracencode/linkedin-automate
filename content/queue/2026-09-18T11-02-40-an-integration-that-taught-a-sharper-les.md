@@ -5,13 +5,16 @@ topic: An integration that taught a sharper lesson than the happy path
 createdAt: 2026-09-18T11:02:40.955Z
 ---
 
+We treated a payment-gateway integration as a weekend job.
 
-I once worked on an integration between Odoo and a payment gateway. The plan was straightforward: collect payments and update the accounting records seamlessly. It seemed like a routine task, and the happy path was clear. But once we went live, things got messy.
+Collect the payment. Write the accounting. Happy path in the sandbox. Then live traffic arrived: paid in the gateway, not paid in Odoo, or the reverse. We owned both sides of that lie in front of the customer.
 
-Transactions were not always syncing correctly. Payments were marked as successful in the gateway but failed in Odoo. We spent hours debugging, searching for the issue. It turned out to be a mismatch in the way the payment statuses were defined in both systems. What I thought was a simple integration exposed a critical gap in understanding how each platform handled state transitions.
+The bug was not the API. It was that "success" did not mean the same thing in both systems. Statuses, retries, partial captures — none of that was in the sales conversation.
 
-In the end, we had to create detailed documentation, map out each status, and adjust both sides of the integration. It added an unexpected layer of complexity. This experience taught me that integrations are rarely plug-and-play. They require thorough understanding and careful mapping of processes.
+We stopped, mapped every state, and wrote the boring document nobody wanted. That mapping is now the first artefact I ask for before we take an integration onto our plate.
 
-What's a lesson you've learned from a seemingly straightforward integration?
+I will not sell "it just syncs" again. If we cannot name the failure states, we are not ready to ship.
+
+What status mismatch have you had to explain to a customer after go-live?
 
 #Integrations #Payments #Odoo #Accounting
