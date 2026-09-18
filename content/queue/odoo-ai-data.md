@@ -5,6 +5,7 @@ topic: AI without clean Odoo data
 createdAt: 2026-09-18T00:00:00.000Z
 ---
 
+
 Most “AI for ERP” demos skip the part that actually decides whether it works.
 
 The master data.
@@ -16,3 +17,5 @@ I would rather spend a week cleaning records than ship a chatbot that invents a 
 The unsexy work is the product.
 
 What is the messiest data problem you still trip over in Odoo?
+
+#DataQuality #MasterData #Odoo #AI

@@ -3,6 +3,7 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 import { DRAFTS_DIR, HISTORY_DIR, HISTORY_PATH, MEDIA_DIR, QUEUE_DIR } from "../paths.ts";
 import type { HistoryEntry, HistoryFile, PostDoc } from "../types.ts";
+import { ensureHashtags } from "./hashtags.ts";
 
 function parseFrontMatter(raw: string): { meta: Record<string, string>; body: string } {
   if (!raw.startsWith("---\n")) {
@@ -94,7 +95,7 @@ export async function saveDraft(input: {
     topic: input.topic,
     createdAt,
     image: input.image,
-    text: input.text,
+    text: ensureHashtags(input.text, input.topic),
   };
   await writeFile(filePath, serializePost(doc), "utf8");
   return readPost(filePath);
@@ -118,6 +119,7 @@ export async function approveDraft(fileName?: string): Promise<PostDoc> {
   const queued: Omit<PostDoc, "filePath" | "fileName"> = {
     ...draft,
     status: "queued",
+    text: ensureHashtags(draft.text, draft.topic),
   };
   await writeFile(dest, serializePost(queued), "utf8");
   await unlink(draft.filePath);
@@ -187,7 +189,7 @@ export async function saveQueued(input: {
       topic: input.topic,
       createdAt,
       image: input.image,
-      text: input.text,
+      text: ensureHashtags(input.text, input.topic),
     }),
     "utf8",
   );

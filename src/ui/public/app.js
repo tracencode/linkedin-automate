@@ -30,14 +30,25 @@ function showBanner(message, isError = false) {
 
 function card(item, kind) {
   const article = document.createElement("article");
+  if (item.scheduledLabel || item.postedLabel) {
+    const when = document.createElement("p");
+    when.className = "when";
+    if (item.windowOpen) when.classList.add("open");
+    if (kind === "posted") when.classList.add("posted");
+    when.textContent =
+      kind === "posted"
+        ? `${item.dryRun ? "Dry run" : "Posted"} · ${item.postedLabel || item.dateLocal}`
+        : `${item.windowOpen ? "Due now" : "Scheduled"} · ${item.scheduledLabel}`;
+    article.append(when);
+  }
   const meta = document.createElement("p");
   meta.className = "meta";
-  meta.textContent = [item.topic, item.format, item.dateLocal || item.createdAt?.slice(0, 10)]
+  meta.textContent = [item.topic, item.format, kind === "draft" ? item.createdAt?.slice(0, 10) : ""]
     .filter(Boolean)
     .join(" · ");
+  if (meta.textContent) article.append(meta);
   const body = document.createElement("pre");
   body.textContent = item.text;
-  article.append(meta);
   if (item.imageUrl) {
     const img = document.createElement("img");
     img.className = "card-image";

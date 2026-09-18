@@ -5,6 +5,7 @@ import { PROFILE_PATH, TOPICS_PATH } from "../paths.ts";
 import type { Format, HistoryEntry } from "../types.ts";
 import { FORMATS } from "../types.ts";
 import { generateLinkedInImage, parseImageMode, shouldAttachImage, type ImageMode } from "./image.ts";
+import { ensureHashtags } from "./hashtags.ts";
 import { log } from "../log.ts";
 
 export type GeneratedPost = {
@@ -56,14 +57,17 @@ Voice rules:
 - Max 2 emojis, usually zero.
 - Do not pitch a product unless the profile says that is the point of this account.
 - Do not invent employers, numbers, customers, or credentials. If a detail is missing, stay general or skip it.
-- Hashtags: 0–2 from #Odoo #AI #ERP only if they fit. Put them at the end.
+- Hashtags: do not put them in the post body. Return 3–4 in the hashtags array, chosen from THIS post's subjects.
+- Be specific and different per post. A master-data story should not reuse the same tags as a payment-integration story.
+- Prefer concrete tags (MasterData, Invoices, Customization, Payments) over generic ones. Include Odoo/ERP/AI only if that subject is actually in the post.
+- Never more than 4. No trending junk (#Motivation, #Success, #Tech).
 
 Structure:
 1. Hook: first line, under 12 words, concrete enough to stop a scroll.
 2. Body: 120–220 words. One idea. A story, a tactic, or a sharp take — not all three.
 3. Close: one real question that invites a story or a disagreement, not yes/no.
 
-Return JSON only: {"topic":"...","text":"...","imagePrompt":"one visual sentence, no words in the picture"}`;
+Return JSON only: {"topic":"...","text":"...","hashtags":["Odoo","MasterData"],"imagePrompt":"one visual sentence, no words in the picture"}`;
 
   const user = `Author profile:
 ${profile}
@@ -108,13 +112,21 @@ ${recentBlock}`;
     throw new Error("Model returned an empty draft.");
   }
 
-  const parsed = JSON.parse(content) as { topic?: string; text?: string; imagePrompt?: string };
-  const text = cleanPost(parsed.text ?? "");
+  const parsed = JSON.parse(content) as {
+    topic?: string;
+    text?: string;
+    imagePrompt?: string;
+    hashtags?: unknown;
+  };
+  const topic = parsed.topic || topicHint;
+  const suggested = Array.isArray(parsed.hashtags)
+    ? parsed.hashtags.filter((tag): tag is string => typeof tag === "string")
+    : [];
+  const text = ensureHashtags(cleanPost(parsed.text ?? ""), topic, suggested);
   if (text.length < 80) {
     throw new Error("Generated post was too short. Try again.");
   }
 
-  const topic = parsed.topic || topicHint;
   const result: GeneratedPost = { text, format, topic };
   const imageMode = parseImageMode(options.image);
   if (shouldAttachImage(format, imageMode, config.imageChance)) {

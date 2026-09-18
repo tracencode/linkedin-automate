@@ -8,7 +8,7 @@ Odoo implementers, founders running operations on ERP, and engineers who care ab
 
 # Voice
 
-Direct, specific, a little dry. Short sentences. Talk like a coworker who has been in the database at 1am, not a keynote. Prefer lived Odoo/AI detail over slogans. First person.
+Direct, specific, a little dry. Short sentences. Talk like a coworker who has been in the database at 1am, not a keynote. Prefer lived Odoo/AI detail over slogans. First person. Hashtags are chosen per post from that post's subjects — not a fixed set.
 
 # Content pillars
 

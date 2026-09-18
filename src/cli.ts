@@ -8,7 +8,7 @@ import { getValidAccess, loadTokens, loginWithBrowser } from "./linkedin/oauth.t
 import { fail, log } from "./log.ts";
 import { PROFILE_PATH } from "./paths.ts";
 import { publishNext, runScheduled } from "./schedule/run.ts";
-import { shouldRunNow, zonedParts } from "./schedule/shouldPost.ts";
+import { shouldRunNow, listUpcomingSlots, zonedParts } from "./schedule/shouldPost.ts";
 
 const HELP = `LinkedIn posting bot
 
@@ -91,9 +91,20 @@ async function main() {
         log("Queue is empty.");
         return;
       }
-      for (const item of queue) {
+      const history = await loadHistory();
+      const now = zonedParts(new Date(), config.schedule.timezone);
+      const slots = listUpcomingSlots({
+        count: queue.length,
+        timeZone: config.schedule.timezone,
+        cadence: config.schedule.cadence,
+        hour: config.schedule.hour,
+        minute: config.schedule.minute,
+        weekday: config.schedule.weekday,
+        lastPostedLocalDate: history.posts.find((post) => post.dateLocal === now.dateLocal && !post.dryRun)?.dateLocal,
+      });
+      for (const [index, item] of queue.entries()) {
         const preview = item.text.split("\n")[0] ?? "";
-        console.log(`- ${item.fileName}: ${preview}`);
+        console.log(`- ${slots[index]?.label ?? "unscheduled"}: ${preview}`);
       }
       return;
     }
@@ -142,14 +153,24 @@ async function printStatus(config: ReturnType<typeof loadConfig>) {
   const drafts = await listDrafts();
   const history = await loadHistory();
   const now = zonedParts(new Date(), config.schedule.timezone);
+  const lastPosted = history.posts.find((p) => p.dateLocal === now.dateLocal && !p.dryRun)?.dateLocal;
   const decision = shouldRunNow({
     timeZone: config.schedule.timezone,
     cadence: config.schedule.cadence,
     hour: config.schedule.hour,
     minute: config.schedule.minute,
     weekday: config.schedule.weekday,
-    lastPostedLocalDate: history.posts.find((p) => p.dateLocal === now.dateLocal && !p.dryRun)?.dateLocal,
+    lastPostedLocalDate: lastPosted,
   });
+  const next = listUpcomingSlots({
+    count: 1,
+    timeZone: config.schedule.timezone,
+    cadence: config.schedule.cadence,
+    hour: config.schedule.hour,
+    minute: config.schedule.minute,
+    weekday: config.schedule.weekday,
+    lastPostedLocalDate: lastPosted,
+  })[0];
 
   let authLine = "not signed in";
   if (tokens) {
@@ -168,9 +189,8 @@ async function printStatus(config: ReturnType<typeof loadConfig>) {
   console.log(`Auth:          ${authLine}`);
   console.log(`Profile:       ${profileReady ? "ready" : "fill in content/profile.md"}`);
   console.log(`API:           ${config.linkedin.postApi}`);
-  console.log(
-    `Schedule:      ${config.schedule.cadence} at ${String(config.schedule.hour).padStart(2, "0")}:${String(config.schedule.minute).padStart(2, "0")} ${config.schedule.timezone}`,
-  );
+  console.log(`Schedule:      ${config.schedule.cadence} at ${String(config.schedule.hour).padStart(2, "0")}:${String(config.schedule.minute).padStart(2, "0")} ${config.schedule.timezone}`);
+  console.log(`Next post:     ${next?.label ?? "none"}`);
   console.log(`Auto-publish:  ${config.autoPublish ? "on (generate if queue empty)" : "off (queue only)"}`);
   console.log(`Local date:    ${now.dateLocal} ${String(now.hour).padStart(2, "0")}:${String(now.minute).padStart(2, "0")}`);
   console.log(`Would run:     ${decision.run ? "yes" : "no"} — ${decision.reason}`);

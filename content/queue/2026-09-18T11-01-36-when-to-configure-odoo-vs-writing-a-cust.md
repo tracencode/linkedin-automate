@@ -6,6 +6,7 @@ createdAt: 2026-09-18T11:01:36.134Z
 image: 2026-09-18T11-00-39-When-to-configure-Odoo-vs-writin.png
 ---
 
+
 I often see teams rush into coding custom modules for Odoo when a simple configuration could suffice.
 
 Customization can seem appealing. It offers tailored solutions and flexibility. Yet, the reality is that it adds complexity. Maintenance gets tougher. Upgrades can break things.
@@ -17,3 +18,5 @@ That saved time, reduced future headaches, and kept their system aligned with Od
 The rule of thumb? Always ask: Is this a genuine need for customization, or could an existing configuration handle it? The simpler solution often yields the best long-term results.
 
 What challenges have you faced deciding between configuring and customizing in Odoo?
+
+#Configuration #Customization #Odoo #Inventory

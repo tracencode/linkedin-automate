@@ -132,6 +132,7 @@ LinkedIn’s algorithm rewards dwell time and comments, not hashtag spam.
 - End with a question people can answer from their own work.
 - Reply to comments in the first hour. The bot cannot do that for you — that reply window is where followers come from.
 - Three good posts a week outperform daily mediocre ones. Start with `SCHEDULE=3x` if you are unsure.
+- End with 3–4 hashtags chosen from that post (invoices, master data, payments). Skip generic walls.
 - Do not buy engagement, run comment pods, or scrape profiles.
 
 ## API notes

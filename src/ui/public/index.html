@@ -89,12 +89,12 @@
         <section id="tab-queue" class="tab hidden">
           <header class="page-head">
             <h2>Queue</h2>
-            <p>Oldest post publishes first. The bot keeps at least <span id="queue-min">5</span> posts ready.</p>
+            <p>Oldest post publishes first. Each card shows the date and time it will go out (Tue–Thu 09:15 Asia/Kolkata). The bot keeps at least <span id="queue-min">5</span> posts ready.</p>
           </header>
           <div class="compose stacked">
             <label>
               Write a post
-              <textarea id="manual-text" rows="8" placeholder="Hook on line one. Then one Odoo, AI, or tech idea."></textarea>
+              <textarea id="manual-text" rows="8" placeholder="Hook on line one. Then one Odoo, AI, or tech idea. End with 3–4 hashtags."></textarea>
             </label>
             <button class="primary" id="btn-queue">Add to queue</button>
           </div>
@@ -104,7 +104,7 @@
         <section id="tab-posted" class="tab hidden">
           <header class="page-head">
             <h2>Posted</h2>
-            <p>What already went out.</p>
+            <p>What already went out, with the date and time it published.</p>
           </header>
           <div id="posted-list" class="list"></div>
         </section>

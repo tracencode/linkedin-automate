@@ -101,6 +101,82 @@ export function shouldRunNow(opts: {
 }
 
 const WEEKDAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+export type ScheduleSlot = {
+  dateLocal: string;
+  weekday: string;
+  time: string;
+  timezone: string;
+  label: string;
+  windowOpen: boolean;
+};
+
+export function weekdayOfLocalDate(dateLocal: string): number {
+  const [year, month, day] = parseLocalDate(dateLocal);
+  return new Date(Date.UTC(year, month - 1, day)).getUTCDay();
+}
+
+export function addLocalDays(dateLocal: string, days: number): string {
+  const [year, month, day] = parseLocalDate(dateLocal);
+  const next = new Date(Date.UTC(year, month - 1, day + days));
+  return `${next.getUTCFullYear()}-${pad(next.getUTCMonth() + 1)}-${pad(next.getUTCDate())}`;
+}
+
+export function formatScheduleLabel(dateLocal: string, hour: number, minute: number, timeZone: string): string {
+  const [year, month, day] = parseLocalDate(dateLocal);
+  const weekday = WEEKDAY_NAMES[weekdayOfLocalDate(dateLocal)] ?? "";
+  const monthName = MONTHS[month - 1] ?? "";
+  return `${weekday.slice(0, 3)} ${day} ${monthName} ${year}, ${pad(hour)}:${pad(minute)} ${timeZone}`;
+}
+
+function parseLocalDate(dateLocal: string): [number, number, number] {
+  const [year, month, day] = dateLocal.split("-").map(Number);
+  return [year ?? 1970, month ?? 1, day ?? 1];
+}
+
+export function listUpcomingSlots(opts: {
+  count: number;
+  timeZone: string;
+  cadence: Cadence;
+  hour: number;
+  minute: number;
+  weekday: Weekday;
+  lastPostedLocalDate?: string;
+  now?: Date;
+}): ScheduleSlot[] {
+  const count = Math.max(0, opts.count);
+  if (count === 0) return [];
+
+  const parts = zonedParts(opts.now ?? new Date(), opts.timeZone);
+  const postedToday = opts.lastPostedLocalDate === parts.dateLocal;
+  const slots: ScheduleSlot[] = [];
+  let date = parts.dateLocal;
+  let guard = 0;
+
+  while (slots.length < count && guard < 400) {
+    guard += 1;
+    const weekday = weekdayOfLocalDate(date);
+    const scheduled = isScheduledDay(opts.cadence, weekday, opts.weekday);
+    const isToday = date === parts.dateLocal;
+    if (scheduled && !(isToday && postedToday)) {
+      const windowOpen =
+        isToday &&
+        parts.hour * 60 + parts.minute >= opts.hour * 60 + opts.minute;
+      const label = formatScheduleLabel(date, opts.hour, opts.minute, opts.timeZone);
+      slots.push({
+        dateLocal: date,
+        weekday: WEEKDAY_NAMES[weekday] ?? "",
+        time: `${pad(opts.hour)}:${pad(opts.minute)}`,
+        timezone: opts.timeZone,
+        label: windowOpen ? `${label} · window open` : label,
+        windowOpen,
+      });
+    }
+    date = addLocalDays(date, 1);
+  }
+  return slots;
+}
 
 export function describeNextPost(opts: {
   timeZone: string;
@@ -110,28 +186,8 @@ export function describeNextPost(opts: {
   weekday: Weekday;
   lastPostedLocalDate?: string;
 }): string {
-  const parts = zonedParts(new Date(), opts.timeZone);
-  const timeLabel = `${pad(opts.hour)}:${pad(opts.minute)}`;
-  const postedToday = opts.lastPostedLocalDate === parts.dateLocal;
-  const todayScheduled = isScheduledDay(opts.cadence, parts.weekday, opts.weekday);
-  const minutesNow = parts.hour * 60 + parts.minute;
-  const minutesTarget = opts.hour * 60 + opts.minute;
-
-  if (todayScheduled && !postedToday && minutesNow < minutesTarget) {
-    return `Today at ${timeLabel} ${opts.timeZone}`;
-  }
-  if (todayScheduled && !postedToday && minutesNow >= minutesTarget) {
-    return `Window is open now (${timeLabel} ${opts.timeZone})`;
-  }
-
-  for (let offset = 1; offset <= 7; offset += 1) {
-    const weekday = (parts.weekday + offset) % 7;
-    if (isScheduledDay(opts.cadence, weekday, opts.weekday)) {
-      const day = WEEKDAY_NAMES[weekday] ?? "next posting day";
-      return `${day} at ${timeLabel} ${opts.timeZone}`;
-    }
-  }
-  return `${timeLabel} ${opts.timeZone}`;
+  const next = listUpcomingSlots({ ...opts, count: 1 })[0];
+  return next?.label ?? `${pad(opts.hour)}:${pad(opts.minute)} ${opts.timeZone}`;
 }
 
 function pad(value: number): string {
