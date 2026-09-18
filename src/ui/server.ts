@@ -252,7 +252,7 @@ const server = createServer((req, res) => {
     send(res, 200, { ok: true });
     return;
   }
-  if (UI_PASSWORD && !isAuthorized(req)) {
+  if (hosted && UI_PASSWORD && !isAuthorized(req)) {
     res.writeHead(401, {
       "WWW-Authenticate": 'Basic realm="Personal Poster"',
       "Content-Type": "text/plain; charset=utf-8",
