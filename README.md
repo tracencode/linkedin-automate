@@ -88,17 +88,19 @@ In `.env`:
 | `QUEUE_MIN` | `5` | Keep this many approved posts ready |
 | `IMAGE_CHANCE` | `0.4` | Share of auto-drafts that get an image |
 
-### Option A — Render (recommended, laptop can be off)
+### Option A — Render + GitHub Actions (laptop can be off)
 
-The live service is a Render web app. It runs the Desk UI and the Tue/Wed/Thu 09:15 Asia/Kolkata scheduler.
+Live Desk UI: [linkedin-automate-z4g7.onrender.com](https://linkedin-automate-z4g7.onrender.com) (HTTP basic auth; set `UI_PASSWORD`).
 
-1. Push to [github.com/tracencode/linkedin-automate](https://github.com/tracencode/linkedin-automate).
-2. Create a **Starter** web service from that repo (`npm ci` / `npm run ui`, health check `/health`).
-3. Attach a 1 GB disk at `/var/data` and set `STORE_DIR=/var/data` so the queue and history survive deploys.
-4. Set env vars (Dashboard → Environment): LinkedIn client id/secret, access token, person URN, OpenAI key, `QUEUE_MIN=5`, schedule fields from `.env.example`, and `UI_PASSWORD` so the public URL is not open.
-5. After LinkedIn tokens expire (~60 days), run `npm run auth` locally and update `LINKEDIN_ACCESS_TOKEN` (and refresh token if you have one).
+The **GitHub Action** `.github/workflows/linkedin-post.yml` is what publishes Tue–Thu at 09:15 IST while your laptop is off. The Render web service hosts the white/blue Desk UI.
 
-`render.yaml` in the repo matches this layout.
+Render’s **Starter** plan (always-on + a disk at `/var/data`) needs a card on [Billing](https://dashboard.render.com/billing). Until that is added, the service runs on the free plan and sleeps when idle — use the GitHub Action for the schedule, and open the Render URL when you want the UI.
+
+1. Repo: [github.com/tracencode/linkedin-automate](https://github.com/tracencode/linkedin-automate).
+2. GitHub Actions secrets: `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`, `LINKEDIN_ACCESS_TOKEN`, `LINKEDIN_PERSON_URN`, `OPENAI_API_KEY`.
+3. After LinkedIn tokens expire (~60 days), run `npm run auth` locally and update the access-token secret (and Render env if you use the hosted UI).
+
+`render.yaml` is the Starter + disk layout to apply after billing is on.
 
 ### Option B — GitHub Actions
 
