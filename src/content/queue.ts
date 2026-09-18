@@ -1,4 +1,4 @@
-import { mkdir, readdir, readFile, rename, unlink, writeFile } from "node:fs/promises";
+import { mkdir, readdir, readFile, unlink, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { DRAFTS_DIR, HISTORY_DIR, HISTORY_PATH, MEDIA_DIR, QUEUE_DIR } from "../paths.ts";
@@ -40,7 +40,7 @@ async function readPost(filePath: string): Promise<PostDoc> {
   return {
     filePath,
     fileName: path.basename(filePath),
-    status: meta.status === "queued" ? "queued" : "draft",
+    status: meta.status === "posted" ? "posted" : meta.status === "queued" ? "queued" : "draft",
     format: meta.format,
     topic: meta.topic,
     createdAt: meta.createdAt,
@@ -134,21 +134,21 @@ export async function takeNextQueued(): Promise<PostDoc | undefined> {
 export async function archivePosted(doc: PostDoc, entry: HistoryEntry) {
   await ensureContentDirs();
   const dest = path.join(HISTORY_DIR, doc.fileName);
+  const archived: Omit<PostDoc, "filePath" | "fileName"> = {
+    status: "posted",
+    format: doc.format,
+    topic: doc.topic,
+    createdAt: doc.createdAt,
+    image: doc.image,
+    text: doc.text,
+  };
   if (existsSync(doc.filePath)) {
-    await rename(doc.filePath, dest);
+    await writeFile(dest, serializePost(archived), "utf8");
+    if (path.resolve(doc.filePath) !== path.resolve(dest)) {
+      await unlink(doc.filePath);
+    }
   } else {
-    await writeFile(
-      dest,
-      serializePost({
-        status: "queued",
-        format: doc.format,
-        topic: doc.topic,
-        createdAt: doc.createdAt,
-        image: doc.image,
-        text: doc.text,
-      }),
-      "utf8",
-    );
+    await writeFile(dest, serializePost(archived), "utf8");
   }
   await appendHistory(entry);
 }

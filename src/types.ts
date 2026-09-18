@@ -23,7 +23,7 @@ export type HistoryFile = {
 export type PostDoc = {
   filePath: string;
   fileName: string;
-  status: "draft" | "queued";
+  status: "draft" | "queued" | "posted";
   format?: string;
   topic?: string;
   createdAt?: string;

@@ -1,22 +1,37 @@
-import { cp, mkdir } from "node:fs/promises";
+import { cp, mkdir, unlink } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import type { AppConfig } from "../config.ts";
 import { generatePost } from "./generate.ts";
 import { listQueue, loadHistory, saveQueued } from "./queue.ts";
 import { log } from "../log.ts";
-import { MEDIA_DIR, QUEUE_DIR, REPO_CONTENT_DIR, ROOT, STORE } from "../paths.ts";
+import { HISTORY_PATH, MEDIA_DIR, QUEUE_DIR, REPO_CONTENT_DIR, ROOT, STORE } from "../paths.ts";
 
 export async function seedRuntimeStore() {
   if (path.resolve(STORE) === path.resolve(ROOT)) return;
   await mkdir(QUEUE_DIR, { recursive: true });
   await mkdir(MEDIA_DIR, { recursive: true });
+  const repoHistory = path.join(REPO_CONTENT_DIR, "history.json");
+  if (!existsSync(HISTORY_PATH) && existsSync(repoHistory)) {
+    await mkdir(path.dirname(HISTORY_PATH), { recursive: true });
+    await cp(repoHistory, HISTORY_PATH);
+  }
+  const history = await loadHistory();
+  const alreadyPosted = new Set(
+    history.posts.filter((post) => !post.dryRun && post.file).map((post) => post.file as string),
+  );
   const seeded = await listQueue();
   if (seeded.length === 0) {
     const repoQueue = path.join(REPO_CONTENT_DIR, "queue");
     if (existsSync(repoQueue)) {
       await cp(repoQueue, QUEUE_DIR, { recursive: true });
-      log("Seeded queue from the git repository");
+      const copied = await listQueue();
+      for (const post of copied) {
+        if (alreadyPosted.has(post.fileName)) {
+          await unlink(post.filePath);
+        }
+      }
+      log("Seeded queue from the git repository (skipped already-published files)");
     }
   }
   const repoMedia = path.join(REPO_CONTENT_DIR, "media");
@@ -48,5 +63,20 @@ export async function fillQueue(config: AppConfig): Promise<number> {
     added += 1;
     log(`Queue now has ${(await listQueue()).length}/${min}: ${generated.topic}${generated.image ? " (image)" : ""}`);
   }
+  const size = (await listQueue()).length;
+  if (size < min) {
+    throw new Error(`Queue is ${size}/${min} after refill. Check OPENAI_API_KEY and try again.`);
+  }
   return added;
+}
+
+let maintaining: Promise<number> | undefined;
+
+export async function maintainQueue(config: AppConfig): Promise<number> {
+  if (!maintaining) {
+    maintaining = fillQueue(config).finally(() => {
+      maintaining = undefined;
+    });
+  }
+  return maintaining;
 }

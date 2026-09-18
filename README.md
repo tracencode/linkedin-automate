@@ -8,7 +8,7 @@ This does **not** scrape LinkedIn, auto-comment, or mass-follow. Those tactics v
 
 1. Niche lives in `content/profile.md` (Odoo / AI / tech, written from a founder's stance without labelling it).
 2. Open the UI with `npm run ui` → [http://127.0.0.1:4567](http://127.0.0.1:4567).
-3. Generate or write a post, edit it, queue it. About 40% of auto-drafts get a landscape image; you can force image on/off in the Desk UI. The bot keeps **at least 5 posts** in the queue. The scheduler publishes at **Tue/Wed/Thu 9:15 Asia/Kolkata**.
+3. Generate or write a post, edit it, queue it. About 40% of auto-drafts get a landscape image; you can force image on/off in the Desk UI. The queue always stays at **5 posts**: after one publishes it moves to history and a new post is generated. The scheduler publishes at **Tue/Wed/Thu 9:15 Asia/Kolkata**.
 4. If the queue is empty and `AUTO_PUBLISH=true`, it generates a post and publishes it.
 
 Default is **queue-only**. Keep auto-publish off until the drafts sound like you. Deploy on Render so posting continues when your laptop is off.

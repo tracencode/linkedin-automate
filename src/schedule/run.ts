@@ -13,7 +13,7 @@ import {
 import { createPost } from "../linkedin/client.ts";
 import { getValidAccess } from "../linkedin/oauth.ts";
 import { log } from "../log.ts";
-import { fillQueue } from "../content/fillQueue.ts";
+import { maintainQueue } from "../content/fillQueue.ts";
 import { isScheduledDay, zonedParts } from "./shouldPost.ts";
 import type { HistoryEntry, PostDoc } from "../types.ts";
 
@@ -103,6 +103,9 @@ export async function publishNext(config: AppConfig, options: RunOptions = {}) {
   }
 
   log(`Published ${result.id}`);
+  await maintainQueue(config).catch((error) => {
+    log(`Queue refill failed: ${error instanceof Error ? error.message : error}`);
+  });
   return { id: result.id, text: doc.text, source };
 }
 
@@ -113,7 +116,7 @@ export async function runScheduled(config: AppConfig, options: { dryRun?: boolea
 
   if (!options.force && postedOnLocalDate(history, dateLocal)) {
     log(`Already posted today (${dateLocal}). Skipping.`);
-    await fillQueue(config).catch((error) => {
+    await maintainQueue(config).catch((error) => {
       log(`Queue refill failed: ${error instanceof Error ? error.message : error}`);
     });
     return { skipped: true as const, reason: "already-posted" };
@@ -121,7 +124,7 @@ export async function runScheduled(config: AppConfig, options: { dryRun?: boolea
 
   if (!options.force && !isScheduledDay(config.schedule.cadence, now.weekday, config.schedule.weekday)) {
     log(`Not a posting day for cadence "${config.schedule.cadence}". Skipping.`);
-    await fillQueue(config).catch((error) => {
+    await maintainQueue(config).catch((error) => {
       log(`Queue refill failed: ${error instanceof Error ? error.message : error}`);
     });
     return { skipped: true as const, reason: "not-scheduled-day" };
@@ -133,15 +136,15 @@ export async function runScheduled(config: AppConfig, options: { dryRun?: boolea
     log(
       `No queued posts. ${drafts.length} draft(s) waiting for review. Approve one or set AUTO_PUBLISH=true.`,
     );
-    await fillQueue(config).catch((error) => {
+    await maintainQueue(config).catch((error) => {
       log(`Queue refill failed: ${error instanceof Error ? error.message : error}`);
     });
     return { skipped: true as const, reason: "empty-queue" };
   }
 
   const published = await publishNext(config, { dryRun: options.dryRun });
-  if (!options.dryRun) {
-    await fillQueue(config).catch((error) => {
+  if (options.dryRun) {
+    await maintainQueue(config).catch((error) => {
       log(`Queue refill failed: ${error instanceof Error ? error.message : error}`);
     });
   }

@@ -17,7 +17,7 @@ import {
 import { getDashboard } from "../dashboard.ts";
 import { log } from "../log.ts";
 import { MEDIA_DIR, PROFILE_PATH, ROOT, TOPICS_PATH } from "../paths.ts";
-import { fillQueue, seedRuntimeStore } from "../content/fillQueue.ts";
+import { maintainQueue, seedRuntimeStore } from "../content/fillQueue.ts";
 import { generateLinkedInImage, parseImageMode } from "../content/image.ts";
 import { publishNext, runScheduled } from "../schedule/run.ts";
 import { shouldRunNow, zonedParts } from "../schedule/shouldPost.ts";
@@ -194,6 +194,11 @@ async function handleApi(
     if (update && method === "DELETE") {
       const kind = update[1] === "drafts" ? "draft" : "queue";
       await deletePost(kind, decodeURIComponent(update[2] ?? ""));
+      if (kind === "queue") {
+        await maintainQueue(config).catch((error) => {
+          log(`Queue refill failed: ${error instanceof Error ? error.message : error}`);
+        });
+      }
       send(res, 200, { ok: true });
       return;
     }
@@ -236,7 +241,12 @@ function startScheduler() {
       weekday: config.schedule.weekday,
       lastPostedLocalDate: last,
     });
-    if (!decision.run) return;
+    if (!decision.run) {
+      await maintainQueue(config).catch((error) => {
+        log(`Queue refill failed: ${error instanceof Error ? error.message : error}`);
+      });
+      return;
+    }
     log(decision.reason);
     await runScheduled(config);
   };
@@ -278,7 +288,7 @@ server.listen(PORT, HOST, () => {
   log(`Desk UI: http://${HOST}:${PORT}`);
   seedRuntimeStore()
     .then(() => startScheduler())
-    .then(() => fillQueue(loadConfig()))
+    .then(() => maintainQueue(loadConfig()))
     .catch((error) => {
       console.error(error instanceof Error ? error.message : error);
     });

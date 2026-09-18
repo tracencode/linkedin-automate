@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { loadConfig } from "./config.ts";
 import { approveDraft, listDrafts, listQueue, loadHistory, saveDraft } from "./content/queue.ts";
-import { fillQueue } from "./content/fillQueue.ts";
+import { fillQueue, maintainQueue } from "./content/fillQueue.ts";
 import { generatePost } from "./content/generate.ts";
 import { getValidAccess, loadTokens, loginWithBrowser } from "./linkedin/oauth.ts";
 import { fail, log } from "./log.ts";
@@ -216,7 +216,12 @@ async function runDaemon(config: ReturnType<typeof loadConfig>, dryRun: boolean)
       weekday: config.schedule.weekday,
       lastPostedLocalDate: last,
     });
-    if (!decision.run) return;
+    if (!decision.run) {
+      await maintainQueue(config).catch((error) => {
+        log(`Queue refill failed: ${error instanceof Error ? error.message : error}`);
+      });
+      return;
+    }
     log(decision.reason);
     await runScheduled(config, { dryRun });
   };
