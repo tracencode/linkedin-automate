@@ -1,0 +1,31 @@
+{
+  "name": "linkedin-automate",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Schedule and publish LinkedIn posts from a local queue or AI drafts",
+  "scripts": {
+    "auth": "tsx src/cli.ts auth",
+    "status": "tsx src/cli.ts status",
+    "draft": "tsx src/cli.ts draft",
+    "approve": "tsx src/cli.ts approve",
+    "queue": "tsx src/cli.ts queue",
+    "post": "tsx src/cli.ts post",
+    "run": "tsx src/cli.ts run",
+    "start": "tsx src/cli.ts start",
+    "ui": "tsx src/ui/server.ts",
+    "fill-queue": "tsx src/cli.ts fill-queue",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "dotenv": "^16.6.1",
+    "tsx": "^4.20.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.18.1",
+    "typescript": "^5.9.2"
+  }
+}

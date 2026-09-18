@@ -1,0 +1,11 @@
+node_modules
+dist
+.env
+.data
+*.log
+.DS_Store
+.cursor
+content/drafts/*
+!content/drafts/.gitkeep
+content/media/*
+!content/media/.gitkeep

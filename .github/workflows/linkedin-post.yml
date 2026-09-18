@@ -1,0 +1,62 @@
+name: LinkedIn post
+
+on:
+  schedule:
+    # 09:15 Asia/Kolkata, Tuesday–Thursday (LinkedIn peak window).
+    - cron: "15 3 * * 2-4"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Generate/select a post but do not publish"
+        type: boolean
+        default: false
+      force:
+        description: "Ignore already-posted-today and cadence checks"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Publish
+        env:
+          LINKEDIN_CLIENT_ID: ${{ secrets.LINKEDIN_CLIENT_ID }}
+          LINKEDIN_CLIENT_SECRET: ${{ secrets.LINKEDIN_CLIENT_SECRET }}
+          LINKEDIN_REFRESH_TOKEN: ${{ secrets.LINKEDIN_REFRESH_TOKEN }}
+          LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: gpt-4o-mini
+          LINKEDIN_POST_API: ugc
+          SCHEDULE: 3x
+          POST_HOUR: 9
+          POST_MINUTE: 15
+          TIMEZONE: Asia/Kolkata
+          AUTO_PUBLISH: "false"
+        run: |
+          FLAGS=""
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            FLAGS="$FLAGS --dry-run"
+          fi
+          if [ "${{ github.event.inputs.force }}" = "true" ]; then
+            FLAGS="$FLAGS --force"
+          fi
+          npm run run -- $FLAGS
+
+      - name: Save queue and history
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Record LinkedIn post run
+          file_pattern: content/queue content/history content/history.json content/drafts

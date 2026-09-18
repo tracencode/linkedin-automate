@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Personal Poster</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,640&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside>
+        <p class="eyebrow">Shikhar Sharma</p>
+        <h1>Personal Poster</h1>
+        <p class="lede">Odoo, applied AI, and technology — queued, reviewed, then published at peak hours.</p>
+        <nav>
+          <button data-tab="desk" class="active">Desk</button>
+          <button data-tab="drafts">Drafts <span id="count-drafts">0</span></button>
+          <button data-tab="queue">Queue <span id="count-queue">0</span></button>
+          <button data-tab="posted">Posted <span id="count-posted">0</span></button>
+          <button data-tab="niche">Niche</button>
+        </nav>
+        <p class="aside-note">Keeps at least 5 posts queued. On Render it keeps posting when this laptop is off. Reply to comments in the first hour after a post goes live.</p>
+      </aside>
+      <main>
+        <p id="banner" class="banner hidden"></p>
+
+        <section id="tab-desk" class="tab">
+          <header class="page-head">
+            <h2>Desk</h2>
+            <p id="auth-line">Checking LinkedIn…</p>
+          </header>
+          <div class="stats">
+            <article>
+              <span>Next window</span>
+              <strong id="next-window">—</strong>
+            </article>
+            <article>
+              <span>Cadence</span>
+              <strong id="cadence">—</strong>
+            </article>
+            <article>
+              <span>Queue ready</span>
+              <strong id="queue-ready">—</strong>
+            </article>
+          </div>
+          <p class="why" id="why"></p>
+          <div class="compose">
+            <div class="compose-row">
+            <label>
+              Angle
+              <select id="topic">
+                <option value="">Rotate the topic bank</option>
+                <option>Odoo in production</option>
+                <option>Applied AI inside ERP</option>
+                <option>Integrations and data quality</option>
+                <option>When not to automate</option>
+              </select>
+            </label>
+            <label>
+              Image
+              <select id="image-mode">
+                <option value="auto">Sometimes (~40%)</option>
+                <option value="yes">Include an image</option>
+                <option value="no">Text only</option>
+              </select>
+            </label>
+            </div>
+            <div class="actions">
+              <button class="primary" id="btn-generate">Generate draft</button>
+              <button id="btn-publish-next">Publish next queued</button>
+            </div>
+          </div>
+        </section>
+
+        <section id="tab-drafts" class="tab hidden">
+          <header class="page-head">
+            <h2>Drafts</h2>
+            <p>Edit until it sounds like you, then queue it.</p>
+          </header>
+          <div id="drafts-list" class="list"></div>
+        </section>
+
+        <section id="tab-queue" class="tab hidden">
+          <header class="page-head">
+            <h2>Queue</h2>
+            <p>Oldest post publishes first. The bot keeps at least <span id="queue-min">5</span> posts ready.</p>
+          </header>
+          <div class="compose stacked">
+            <label>
+              Write a post
+              <textarea id="manual-text" rows="8" placeholder="Hook on line one. Then one Odoo, AI, or tech idea."></textarea>
+            </label>
+            <button class="primary" id="btn-queue">Add to queue</button>
+          </div>
+          <div id="queue-list" class="list"></div>
+        </section>
+
+        <section id="tab-posted" class="tab hidden">
+          <header class="page-head">
+            <h2>Posted</h2>
+            <p>What already went out.</p>
+          </header>
+          <div id="posted-list" class="list"></div>
+        </section>
+
+        <section id="tab-niche" class="tab hidden">
+          <header class="page-head">
+            <h2>Niche</h2>
+            <p>The generator reads this. Keep it on Odoo, AI, and technology.</p>
+          </header>
+          <label>
+            Profile
+            <textarea id="profile-text" rows="16"></textarea>
+          </label>
+          <label>
+            Topic bank
+            <textarea id="topics-text" rows="12"></textarea>
+          </label>
+          <button class="primary" id="btn-save-niche">Save niche</button>
+        </section>
+      </main>
+    </div>
+    <script src="/app.js"></script>
+  </body>
+</html>

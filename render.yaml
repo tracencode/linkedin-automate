@@ -1,0 +1,49 @@
+services:
+  - type: web
+    name: linkedin-automate
+    runtime: node
+    plan: starter
+    region: singapore
+    repo: https://github.com/tracencode/linkedin-automate
+    branch: main
+    buildCommand: npm ci
+    startCommand: npm run ui
+    healthCheckPath: /health
+    autoDeploy: true
+    disk:
+      name: linkedin-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: STORE_DIR
+        value: /var/data
+      - key: QUEUE_MIN
+        value: "5"
+      - key: SCHEDULE
+        value: 3x
+      - key: POST_HOUR
+        value: "9"
+      - key: POST_MINUTE
+        value: "15"
+      - key: TIMEZONE
+        value: Asia/Kolkata
+      - key: LINKEDIN_POST_API
+        value: ugc
+      - key: AUTO_PUBLISH
+        value: "false"
+      - key: IMAGE_CHANCE
+        value: "0.4"
+      - key: LINKEDIN_CLIENT_ID
+        sync: false
+      - key: LINKEDIN_CLIENT_SECRET
+        sync: false
+      - key: LINKEDIN_ACCESS_TOKEN
+        sync: false
+      - key: LINKEDIN_PERSON_URN
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: UI_PASSWORD
+        sync: false
