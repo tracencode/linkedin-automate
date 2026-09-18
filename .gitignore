@@ -7,5 +7,3 @@ dist
 .cursor
 content/drafts/*
 !content/drafts/.gitkeep
-content/media/*
-!content/media/.gitkeep
