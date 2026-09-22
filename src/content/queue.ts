@@ -3,7 +3,9 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 import { DRAFTS_DIR, HISTORY_DIR, HISTORY_PATH, MEDIA_DIR, QUEUE_DIR } from "../paths.ts";
 import type { HistoryEntry, HistoryFile, PostDoc } from "../types.ts";
+import { fingerprintPost, historyFiles, publishedFingerprints } from "./fingerprint.ts";
 import { ensureHashtags } from "./hashtags.ts";
+import { log } from "../log.ts";
 
 function parseFrontMatter(raw: string): { meta: Record<string, string>; body: string } {
   if (!raw.startsWith("---\n")) {
@@ -127,8 +129,27 @@ export async function approveDraft(fileName?: string): Promise<PostDoc> {
 }
 
 export async function takeNextQueued(): Promise<PostDoc | undefined> {
+  await purgePublishedFromQueue();
   const queue = await listQueue();
   return queue[0];
+}
+
+/** Drop queued files that were already published (by filename or body fingerprint). */
+export async function purgePublishedFromQueue(): Promise<number> {
+  await ensureContentDirs();
+  const history = await loadHistory();
+  const files = historyFiles(history);
+  const fingerprints = publishedFingerprints(history);
+  let removed = 0;
+  for (const post of await listQueue()) {
+    const dupFile = files.has(post.fileName);
+    const dupText = fingerprints.has(fingerprintPost(post.text));
+    if (!dupFile && !dupText) continue;
+    await unlink(post.filePath);
+    removed += 1;
+    log(`Removed already-published queue item ${post.fileName}`);
+  }
+  return removed;
 }
 
 export async function archivePosted(doc: PostDoc, entry: HistoryEntry) {

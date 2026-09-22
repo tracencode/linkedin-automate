@@ -3,7 +3,8 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 import type { AppConfig } from "../config.ts";
 import { generatePost } from "./generate.ts";
-import { listQueue, loadHistory, saveQueued } from "./queue.ts";
+import { listQueue, loadHistory, purgePublishedFromQueue, saveQueued } from "./queue.ts";
+import { fingerprintPost, historyFiles, publishedFingerprints } from "./fingerprint.ts";
 import { log } from "../log.ts";
 import { HISTORY_PATH, MEDIA_DIR, QUEUE_DIR, REPO_CONTENT_DIR, ROOT, STORE } from "../paths.ts";
 
@@ -17,9 +18,8 @@ export async function seedRuntimeStore() {
     await cp(repoHistory, HISTORY_PATH);
   }
   const history = await loadHistory();
-  const alreadyPosted = new Set(
-    history.posts.filter((post) => !post.dryRun && post.file).map((post) => post.file as string),
-  );
+  const alreadyPosted = historyFiles(history);
+  const fingerprints = publishedFingerprints(history);
   const seeded = await listQueue();
   if (seeded.length === 0) {
     const repoQueue = path.join(REPO_CONTENT_DIR, "queue");
@@ -27,12 +27,14 @@ export async function seedRuntimeStore() {
       await cp(repoQueue, QUEUE_DIR, { recursive: true });
       const copied = await listQueue();
       for (const post of copied) {
-        if (alreadyPosted.has(post.fileName)) {
+        if (alreadyPosted.has(post.fileName) || fingerprints.has(fingerprintPost(post.text))) {
           await unlink(post.filePath);
         }
       }
       log("Seeded queue from the git repository (skipped already-published files)");
     }
+  } else {
+    await purgePublishedFromQueue();
   }
   const repoMedia = path.join(REPO_CONTENT_DIR, "media");
   if (existsSync(repoMedia)) {
@@ -41,11 +43,13 @@ export async function seedRuntimeStore() {
 }
 
 export async function fillQueue(config: AppConfig): Promise<number> {
+  await purgePublishedFromQueue();
   const min = config.queueMin;
   const history = await loadHistory();
+  const fingerprints = publishedFingerprints(history);
   let added = 0;
   let guard = 0;
-  while ((await listQueue()).length < min && guard < min + 3) {
+  while ((await listQueue()).length < min && guard < min + 5) {
     guard += 1;
     const queued = await listQueue();
     const recent = [
@@ -59,7 +63,12 @@ export async function fillQueue(config: AppConfig): Promise<number> {
       })),
     ];
     const generated = await generatePost(config, recent, { image: "auto" });
+    if (fingerprints.has(fingerprintPost(generated.text))) {
+      log(`Skipped refill draft that matched an already-published post: ${generated.topic}`);
+      continue;
+    }
     await saveQueued(generated);
+    fingerprints.add(fingerprintPost(generated.text));
     added += 1;
     log(`Queue now has ${(await listQueue()).length}/${min}: ${generated.topic}${generated.image ? " (image)" : ""}`);
   }

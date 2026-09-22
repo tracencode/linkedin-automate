@@ -7,15 +7,19 @@ import {
   listQueue,
   loadHistory,
   postedOnLocalDate,
+  purgePublishedFromQueue,
   saveDraft,
   takeNextQueued,
 } from "../content/queue.ts";
+import { alreadyPublished } from "../content/fingerprint.ts";
 import { createPost } from "../linkedin/client.ts";
 import { getValidAccess } from "../linkedin/oauth.ts";
 import { log } from "../log.ts";
 import { maintainQueue } from "../content/fillQueue.ts";
 import { isScheduledDay, zonedParts } from "./shouldPost.ts";
 import type { HistoryEntry, PostDoc } from "../types.ts";
+import { existsSync } from "node:fs";
+import { unlink } from "node:fs/promises";
 
 export type RunOptions = {
   dryRun?: boolean;
@@ -35,6 +39,7 @@ export type RunOptions = {
 export async function publishNext(config: AppConfig, options: RunOptions = {}) {
   const history = await loadHistory();
   const dateLocal = zonedParts(new Date(), config.schedule.timezone).dateLocal;
+  await purgePublishedFromQueue();
 
   let doc: PostDoc | undefined;
   let source: HistoryEntry["source"] = "queue";
@@ -57,7 +62,17 @@ export async function publishNext(config: AppConfig, options: RunOptions = {}) {
       throw new Error(`Queued post not found: ${options.fileName}`);
     }
   } else {
-    doc = await takeNextQueued();
+    // Skip any leftover duplicates that slipped past purge (text match).
+    for (;;) {
+      doc = await takeNextQueued();
+      if (!doc) break;
+      if (!alreadyPublished(history, doc.text)) break;
+      log(`Skipping already-published queue item ${doc.fileName}`);
+      if (doc.filePath && existsSync(doc.filePath)) {
+        await unlink(doc.filePath);
+      }
+      doc = undefined;
+    }
     if (!doc) {
       if (!config.autoPublish && !options.allowGenerate) {
         throw new Error(
@@ -65,9 +80,16 @@ export async function publishNext(config: AppConfig, options: RunOptions = {}) {
         );
       }
       const generated = await generatePost(config, history.posts);
+      if (alreadyPublished(history, generated.text)) {
+        throw new Error("Generated post matched something already published. Try again.");
+      }
       doc = await saveDraft(generated);
       source = "generated";
     }
+  }
+
+  if (doc && alreadyPublished(history, doc.text) && !options.fileText) {
+    throw new Error("That post was already published. Removed duplicates from the queue — pick another.");
   }
 
   if (options.dryRun) {

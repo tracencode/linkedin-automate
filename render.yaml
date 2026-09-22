@@ -35,6 +35,8 @@ services:
         value: "false"
       - key: IMAGE_CHANCE
         value: "0.4"
+      - key: SCHEDULER_ENABLED
+        value: "false"
       - key: LINKEDIN_CLIENT_ID
         sync: false
       - key: LINKEDIN_CLIENT_SECRET

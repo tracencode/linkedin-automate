@@ -92,9 +92,9 @@ In `.env`:
 
 Live Desk UI: [linkedin-automate-z4g7.onrender.com](https://linkedin-automate-z4g7.onrender.com) (HTTP basic auth; set `UI_PASSWORD`).
 
-The **GitHub Action** `.github/workflows/linkedin-post.yml` is what publishes Tue–Thu at 09:15 IST while your laptop is off. The Render web service hosts the white/blue Desk UI.
+The **GitHub Action** `.github/workflows/linkedin-post.yml` is what publishes Tue–Thu at 09:15 IST while your laptop is off. The Render web service hosts the Desk UI only (`SCHEDULER_ENABLED=false`) so the free plan cannot re-seed and re-post the same queue after a restart.
 
-Render’s **Starter** plan (always-on + a disk at `/var/data`) needs a card on [Billing](https://dashboard.render.com/billing). Until that is added, the service runs on the free plan and sleeps when idle — use the GitHub Action for the schedule, and open the Render URL when you want the UI.
+Render’s **Starter** plan (always-on + a disk at `/var/data`) needs a card on [Billing](https://dashboard.render.com/billing). Until that is added, keep publishing on GitHub Actions.
 
 1. Repo: [github.com/tracencode/linkedin-automate](https://github.com/tracencode/linkedin-automate).
 2. GitHub Actions secrets: `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`, `LINKEDIN_ACCESS_TOKEN`, `LINKEDIN_PERSON_URN`, `OPENAI_API_KEY`.

@@ -88,6 +88,12 @@ export function loadConfig() {
     autoPublish: boolEnv("AUTO_PUBLISH", false),
     imageChance: floatEnv("IMAGE_CHANCE", 0.4),
     queueMin: numberEnv("QUEUE_MIN", 5),
+    // On Render the free disk is ephemeral; GitHub Actions is the durable publisher.
+    // Default the hosted scheduler off unless explicitly enabled.
+    schedulerEnabled: boolEnv(
+      "SCHEDULER_ENABLED",
+      !(process.env.RENDER === "true" || process.env.RENDER === "1"),
+    ),
   };
 }
 

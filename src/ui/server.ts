@@ -286,9 +286,16 @@ const server = createServer((req, res) => {
 
 server.listen(PORT, HOST, () => {
   log(`Desk UI: http://${HOST}:${PORT}`);
+  const config = loadConfig();
   seedRuntimeStore()
-    .then(() => startScheduler())
-    .then(() => maintainQueue(loadConfig()))
+    .then(async () => {
+      if (config.schedulerEnabled) {
+        startScheduler();
+      } else {
+        log("Scheduler off (SCHEDULER_ENABLED=false). GitHub Actions publishes on the schedule.");
+      }
+      await maintainQueue(config);
+    })
     .catch((error) => {
       console.error(error instanceof Error ? error.message : error);
     });
