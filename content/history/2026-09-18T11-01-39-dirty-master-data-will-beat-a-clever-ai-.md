@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: lesson_learned
 topic: Dirty master data will beat a clever AI workflow
 createdAt: 2026-09-18T11:01:39.338Z

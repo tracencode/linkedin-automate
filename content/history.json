@@ -15,6 +15,14 @@
       "text": "Every other request we get is \"just write a small custom module.\"\n\nIt is rarely small. We are the ones who have to upgrade it, explain it to the next consultant, and own it when Odoo moves a field in 19.0.\n\nLast month a customer wanted a unique inventory workflow. The instinct on their side was development. Ours was: sit on our hands for a day and try the stock of settings first. A few configuration tweaks covered it. No extra module. No extra bill of materials for our maintenance calendar.\n\nI would rather lose a customisation invoice than inherit a fork we cannot stand behind after the next upgrade.\n\nWe still write modules. We ship them when configuration actually cannot carry the process. The filter is simple: will we still be proud of this code after two version jumps?\n\nWhen do you push back on a customisation that looks easy on paper?\n\n#Configuration #Customization #Odoo #Inventory",
       "source": "queue",
       "file": "2026-09-18T11-01-36-when-to-configure-odoo-vs-writing-a-cust.md"
+    },
+    {
+      "id": "urn:li:share:7508442668641988608",
+      "postedAt": "2026-09-23T08:30:32.749Z",
+      "dateLocal": "2026-09-23",
+      "text": "I will not put an AI feature on one of our Odoo apps until I have seen the master data.\n\nWe tried anyway once. Invoice approvals, discrepancy flags, the whole demo-friendly stack. On paper it looked like we had a product. In production the vendor names disagreed with themselves, amounts had typos, and the model spent its intelligence shouting about duplicates that were just dirty records.\n\nOur team spent more hours cleaning data than the assistant ever saved. That is on me. I shipped clever before I shipped boring.\n\nNow the rule inside the company is blunt: clean the partners, products, and taxes first. Then we talk about models. A workflow that looks smart on top of a mess just scales the mess.\n\nWhat is the first table you would refuse to automate until it is clean?\n\n#AI #DataQuality #MasterData #Invoices",
+      "source": "queue",
+      "file": "2026-09-18T11-01-39-dirty-master-data-will-beat-a-clever-ai-.md"
     }
   ]
 }
