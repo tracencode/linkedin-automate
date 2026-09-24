@@ -23,6 +23,14 @@
       "text": "I will not put an AI feature on one of our Odoo apps until I have seen the master data.\n\nWe tried anyway once. Invoice approvals, discrepancy flags, the whole demo-friendly stack. On paper it looked like we had a product. In production the vendor names disagreed with themselves, amounts had typos, and the model spent its intelligence shouting about duplicates that were just dirty records.\n\nOur team spent more hours cleaning data than the assistant ever saved. That is on me. I shipped clever before I shipped boring.\n\nNow the rule inside the company is blunt: clean the partners, products, and taxes first. Then we talk about models. A workflow that looks smart on top of a mess just scales the mess.\n\nWhat is the first table you would refuse to automate until it is clean?\n\n#AI #DataQuality #MasterData #Invoices",
       "source": "queue",
       "file": "2026-09-18T11-01-39-dirty-master-data-will-beat-a-clever-ai-.md"
+    },
+    {
+      "id": "urn:li:share:7508803198355226624",
+      "postedAt": "2026-09-24T08:23:09.887Z",
+      "dateLocal": "2026-09-24",
+      "text": "The AI invoice demo always looks finished. Vendor PDF in, Odoo bill out.\n\nWe built that path. Scan, extract, write the vendor bill. Then the real inbox showed up: twenty vendor layouts, half of them scans, a few with the tax in a footnote. The model filled fields. Our accountants spent the afternoon unscrewing them.\n\nI stopped treating extraction as the product. The product is what we allow to hit posted data.\n\nNow we only let AI draft. A person still owns the confirm. And we spend the money on vendor templates and master data before we spend it on another model.\n\nI would rather ship a slower, trusted bill than a fast one we have to reverse on month-end.\n\nWhere do you still require a human confirm before anything writes into Odoo?\n\n#AI #Invoices #DocumentAI #Automation",
+      "source": "queue",
+      "file": "2026-09-18T11-02-37-using-ai-on-invoices-emails-or-support-t.md"
     }
   ]
 }

@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: framework
 topic: Using AI on invoices, emails, or support tickets inside an ERP
 createdAt: 2026-09-18T11:02:37.159Z
