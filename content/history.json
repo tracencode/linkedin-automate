@@ -31,6 +31,14 @@
       "text": "The AI invoice demo always looks finished. Vendor PDF in, Odoo bill out.\n\nWe built that path. Scan, extract, write the vendor bill. Then the real inbox showed up: twenty vendor layouts, half of them scans, a few with the tax in a footnote. The model filled fields. Our accountants spent the afternoon unscrewing them.\n\nI stopped treating extraction as the product. The product is what we allow to hit posted data.\n\nNow we only let AI draft. A person still owns the confirm. And we spend the money on vendor templates and master data before we spend it on another model.\n\nI would rather ship a slower, trusted bill than a fast one we have to reverse on month-end.\n\nWhere do you still require a human confirm before anything writes into Odoo?\n\n#AI #Invoices #DocumentAI #Automation",
       "source": "queue",
       "file": "2026-09-18T11-02-37-using-ai-on-invoices-emails-or-support-t.md"
+    },
+    {
+      "id": "urn:li:share:7510635713831497731",
+      "postedAt": "2026-09-29T09:44:55.728Z",
+      "dateLocal": "2026-09-29",
+      "text": "We treated a payment-gateway integration as a weekend job.\n\nCollect the payment. Write the accounting. Happy path in the sandbox. Then live traffic arrived: paid in the gateway, not paid in Odoo, or the reverse. We owned both sides of that lie in front of the customer.\n\nThe bug was not the API. It was that \"success\" did not mean the same thing in both systems. Statuses, retries, partial captures — none of that was in the sales conversation.\n\nWe stopped, mapped every state, and wrote the boring document nobody wanted. That mapping is now the first artefact I ask for before we take an integration onto our plate.\n\nI will not sell \"it just syncs\" again. If we cannot name the failure states, we are not ready to ship.\n\nWhat status mismatch have you had to explain to a customer after go-live?\n\n#Integrations #Payments #Odoo #Accounting",
+      "source": "queue",
+      "file": "2026-09-18T11-02-40-an-integration-that-taught-a-sharper-les.md"
     }
   ]
 }

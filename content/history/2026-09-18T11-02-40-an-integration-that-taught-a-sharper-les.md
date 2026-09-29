@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: question_post
 topic: An integration that taught a sharper lesson than the happy path
 createdAt: 2026-09-18T11:02:40.955Z
