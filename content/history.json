@@ -39,6 +39,14 @@
       "text": "We treated a payment-gateway integration as a weekend job.\n\nCollect the payment. Write the accounting. Happy path in the sandbox. Then live traffic arrived: paid in the gateway, not paid in Odoo, or the reverse. We owned both sides of that lie in front of the customer.\n\nThe bug was not the API. It was that \"success\" did not mean the same thing in both systems. Statuses, retries, partial captures — none of that was in the sales conversation.\n\nWe stopped, mapped every state, and wrote the boring document nobody wanted. That mapping is now the first artefact I ask for before we take an integration onto our plate.\n\nI will not sell \"it just syncs\" again. If we cannot name the failure states, we are not ready to ship.\n\nWhat status mismatch have you had to explain to a customer after go-live?\n\n#Integrations #Payments #Odoo #Accounting",
       "source": "queue",
       "file": "2026-09-18T11-02-40-an-integration-that-taught-a-sharper-les.md"
+    },
+    {
+      "id": "urn:li:share:7510996058337079297",
+      "postedAt": "2026-09-30T09:36:48.882Z",
+      "dateLocal": "2026-09-30",
+      "text": "Migrations are critical, but they’re not as straightforward as they seem. I always start with the data. I check for completeness, accuracy, and any discrepancies that could lead to havoc post-migration.\n\nRecently, we had a client who wanted to migrate from an outdated system to Odoo. The initial assessment looked promising — they showed us their database and it seemed tidy. We discovered later, during a deeper dive, that their SKU numbers were not standardized. Some were numeric, others alphanumeric, and it got worse with product categories.\n\nIf we had moved forward without addressing these issues, the migration would have failed. Products would be mismatched, inventory levels could be incorrect, and financial reporting would spiral into chaos. This taught us a lesson: don't just trust initial data presentations. Dig deeper to reveal hidden complexities.\n\nWhat’s your go-to check before a migration? Any surprises you've encountered that changed your approach?\n\n#Migration #Odoo #Inventory",
+      "source": "queue",
+      "file": "2026-09-22T08-28-33-what-i-check-before-i-trust-an-odoo-migr.md"
     }
   ]
 }

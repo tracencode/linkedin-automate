@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: personal_story
 topic: What I check before I trust an Odoo migration
 createdAt: 2026-09-22T08:28:33.507Z
