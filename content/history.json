@@ -47,6 +47,14 @@
       "text": "Migrations are critical, but they’re not as straightforward as they seem. I always start with the data. I check for completeness, accuracy, and any discrepancies that could lead to havoc post-migration.\n\nRecently, we had a client who wanted to migrate from an outdated system to Odoo. The initial assessment looked promising — they showed us their database and it seemed tidy. We discovered later, during a deeper dive, that their SKU numbers were not standardized. Some were numeric, others alphanumeric, and it got worse with product categories.\n\nIf we had moved forward without addressing these issues, the migration would have failed. Products would be mismatched, inventory levels could be incorrect, and financial reporting would spiral into chaos. This taught us a lesson: don't just trust initial data presentations. Dig deeper to reveal hidden complexities.\n\nWhat’s your go-to check before a migration? Any surprises you've encountered that changed your approach?\n\n#Migration #Odoo #Inventory",
       "source": "queue",
       "file": "2026-09-22T08-28-33-what-i-check-before-i-trust-an-odoo-migr.md"
+    },
+    {
+      "id": "urn:li:share:7511364999479640064",
+      "postedAt": "2026-10-01T10:02:51.011Z",
+      "dateLocal": "2026-10-01",
+      "text": "We've all seen AI that drafts content. It's great for generating ideas or creating templates, but there's a hard line when it comes to allowing it to write directly into production data. Recently, we faced a scenario where a customer wanted to automate responses to support tickets using AI. The drafting AI could produce coherent replies, but when we considered letting it post directly to the ticketing system, I pushed back.\n\nHere’s why: drafting doesn’t account for the nuances of each ticket. An AI can misinterpret context or misapply tone. It might suggest a resolution that doesn't fit due to missing background knowledge. I insisted we keep a manual review step before any AI-generated reply hit the system.\n\nIn this case, it was about risk management. The stakes are high when a customer is relying on us for accurate and consistent communication. Automating too freely can lead to errors that damage trust.\n\nAre you letting your AI write directly into production, or do you have a review process? What’s your experience?\n\n#AI #Automation #SupportOps #ERP",
+      "source": "queue",
+      "file": "2026-09-23T08-31-24-ai-that-drafts-vs-ai-that-is-allowed-to-.md"
     }
   ]
 }

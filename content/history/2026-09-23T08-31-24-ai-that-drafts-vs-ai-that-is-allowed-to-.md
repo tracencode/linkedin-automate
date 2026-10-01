@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: tactical_howto
 topic: AI that drafts vs AI that is allowed to write into production data
 createdAt: 2026-09-23T08:31:24.841Z
