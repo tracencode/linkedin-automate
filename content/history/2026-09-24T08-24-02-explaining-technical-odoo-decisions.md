@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: contrarian_take
 topic: Explaining technical Odoo decisions
 createdAt: 2026-09-24T08:24:02.474Z
