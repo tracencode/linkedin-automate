@@ -18,4 +18,7 @@ The unsexy work is the product.
 
 What is the messiest data problem you still trip over in Odoo?
 
-#DataQuality #MasterData #Odoo #AI
+#DataQuality #MasterData #OdooERP #AppliedAI #Odoo
+#OdooDevelopment #OdooImplementation #OpenSource #EnterpriseSoftware #SaaS
+#AI #DataCleansing #OdooPartner #DataGovernance #MachineLearning
+#Inventory #WarehouseManagement #AccountsPayable

@@ -6,6 +6,7 @@ createdAt: 2026-09-18T11:02:37.159Z
 image: 2026-09-18T11-01-41-Using-AI-on-invoices-emails-or.png
 ---
 
+
 The AI invoice demo always looks finished. Vendor PDF in, Odoo bill out.
 
 We built that path. Scan, extract, write the vendor bill. Then the real inbox showed up: twenty vendor layouts, half of them scans, a few with the tax in a footnote. The model filled fields. Our accountants spent the afternoon unscrewing them.
@@ -18,4 +19,7 @@ I would rather ship a slower, trusted bill than a fast one we have to reverse on
 
 Where do you still require a human confirm before anything writes into Odoo?
 
-#AI #Invoices #DocumentAI #Automation
+#AccountsPayable #InvoiceProcessing #AppliedAI #SupportOps #DocumentAI
+#Invoices #MachineLearning #AI #OdooERP #OCR
+#TraceNcode #CustomerSupport #EnterpriseSoftware #FinanceOps #Odoo
+#OdooDevelopment #OdooImplementation #OpenSource

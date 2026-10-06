@@ -5,6 +5,7 @@ topic: AI without clean Odoo data
 createdAt: 2026-09-18T00:00:00.000Z
 ---
 
+
 Most "AI for ERP" demos skip the part that actually decides whether we can ship it.
 
 The master data.
@@ -17,4 +18,7 @@ The unsexy work is the product. We do not get to skip it because a demo looked g
 
 What is the messiest data problem you still trip over in Odoo?
 
-#DataQuality #MasterData #Odoo #AI
+#DataQuality #MasterData #OdooERP #AppliedAI #Odoo
+#OdooDevelopment #OdooImplementation #OpenSource #EnterpriseSoftware #SaaS
+#AI #DataCleansing #OdooPartner #DataGovernance #MachineLearning
+#Inventory #WarehouseManagement #AccountsPayable

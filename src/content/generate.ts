@@ -60,17 +60,15 @@ Voice rules:
 - Max 2 emojis, usually zero.
 - Do not pitch a product unless the profile says that is the point of this account.
 - Do not invent employers, numbers, customers, or credentials. If a detail is missing, stay general or skip it.
-- Hashtags: do not put them in the post body. Return 3–4 in the hashtags array, chosen from THIS post's subjects.
-- Be specific and different per post. A master-data story should not reuse the same tags as a payment-integration story.
-- Prefer concrete tags (MasterData, Invoices, Customization, Payments) over generic ones. Include Odoo/ERP/AI only if that subject is actually in the post.
-- Never more than 4. No trending junk (#Motivation, #Success, #Tech).
+- Hashtags: do not put them in the post body. Return 15 specific tags in the hashtags array, chosen from THIS post's subjects (Odoo, ERP, invoices, migrations, AI, etc.).
+- Mix concrete tags (MasterData, Invoices, Customization, Payments) with nearby niche tags (OdooImplementation, DataQuality). No #Motivation, #Success, or junk.
 
 Structure:
 1. Hook: first line, under 12 words, concrete enough to stop a scroll.
 2. Body: 120–220 words. One idea. A story, a tactic, or a sharp take — not all three.
 3. Close: one real question that invites a story or a disagreement, not yes/no.
 
-Return JSON only: {"topic":"...","text":"...","hashtags":["Odoo","MasterData"],"imagePrompt":"one visual sentence, no words in the picture"}`;
+Return JSON only: {"topic":"...","text":"...","hashtags":["Odoo","MasterData"],"imagePrompt":"one colorful visual sentence, mixed bright colors, no words in the picture"}`;
 
   const user = `Author profile:
 ${profile}

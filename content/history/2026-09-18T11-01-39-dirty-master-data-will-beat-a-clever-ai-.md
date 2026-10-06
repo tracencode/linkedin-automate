@@ -5,6 +5,7 @@ topic: Dirty master data will beat a clever AI workflow
 createdAt: 2026-09-18T11:01:39.338Z
 ---
 
+
 I will not put an AI feature on one of our Odoo apps until I have seen the master data.
 
 We tried anyway once. Invoice approvals, discrepancy flags, the whole demo-friendly stack. On paper it looked like we had a product. In production the vendor names disagreed with themselves, amounts had typos, and the model spent its intelligence shouting about duplicates that were just dirty records.
@@ -15,4 +16,7 @@ Now the rule inside the company is blunt: clean the partners, products, and taxe
 
 What is the first table you would refuse to automate until it is clean?
 
-#AI #DataQuality #MasterData #Invoices
+#DataCleansing #AppliedAI #MasterData #WorkflowAutomation #AccountsPayable
+#DataGovernance #MachineLearning #AI #DataQuality #Invoices
+#TraceNcode #Accounting #Automation #DigitalOperations #InvoiceProcessing
+#ProcessImprovement #FinanceOps #Odoo

@@ -5,6 +5,7 @@ topic: An integration that taught a sharper lesson than the happy path
 createdAt: 2026-09-18T11:02:40.955Z
 ---
 
+
 We treated a payment-gateway integration as a weekend job.
 
 Collect the payment. Write the accounting. Happy path in the sandbox. Then live traffic arrived: paid in the gateway, not paid in Odoo, or the reverse. We owned both sides of that lie in front of the customer.
@@ -17,4 +18,7 @@ I will not sell "it just syncs" again. If we cannot name the failure states, we 
 
 What status mismatch have you had to explain to a customer after go-live?
 
-#Integrations #Payments #Odoo #Accounting
+#Integrations #APIs #Payments #FinanceOps #OdooDevelopment
+#TraceNcode #PaymentGateway #ProductionIssues #TechnicalDebt #Accounting
+#EnterpriseSoftware #SoftwareDevelopment #Odoo #OdooERP #OdooImplementation
+#OpenSource #OdooPartner #SaaS

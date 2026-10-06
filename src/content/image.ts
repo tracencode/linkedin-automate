@@ -39,7 +39,9 @@ export async function generateLinkedInImage(
 
   const prompt = [
     "Editorial still for a LinkedIn post about Odoo, ERP, applied AI, or practical software.",
-    "Photoreal or clean isometric. Restrained color. No readable text, letters, logos, watermarks, or fake software UI.",
+    "Photoreal or clean isometric. Vivid, colorful, high-saturation palette — mix complementary colors (teal, coral, amber, cobalt, magenta), not monochrome, beige, gray, or muted single-tone.",
+    "Warm mixed lighting, colorful materials, rich contrast. Avoid flat corporate blue-only or desaturated looks.",
+    "No readable text, letters, logos, watermarks, or fake software UI.",
     "No celebrity likeness. No extra limbs. Professional, not stock-photo grinning.",
     `Subject: ${input.prompt.trim()}`,
   ].join(" ");

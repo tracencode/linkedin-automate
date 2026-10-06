@@ -5,6 +5,7 @@ topic: What I check before I trust an Odoo migration
 createdAt: 2026-09-22T08:28:33.507Z
 ---
 
+
 Migrations are critical, but they’re not as straightforward as they seem. I always start with the data. I check for completeness, accuracy, and any discrepancies that could lead to havoc post-migration.
 
 Recently, we had a client who wanted to migrate from an outdated system to Odoo. The initial assessment looked promising — they showed us their database and it seemed tidy. We discovered later, during a deeper dive, that their SKU numbers were not standardized. Some were numeric, others alphanumeric, and it got worse with product categories.
@@ -13,4 +14,7 @@ If we had moved forward without addressing these issues, the migration would hav
 
 What’s your go-to check before a migration? Any surprises you've encountered that changed your approach?
 
-#Migration #Odoo #Inventory
+#Migration #DataMigration #EnterpriseSoftware #Odoo #OdooDevelopment
+#OdooERP #OdooImplementation #OpenSource #Inventory #OdooPartner
+#SaaS #WarehouseManagement #TraceNcode #Upgrades #ERPImplementation
+#ERP #SoftwareDevelopment #Community
