@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: lesson_learned
 topic: A module or app people install too fast
 createdAt: 2026-09-29T09:44:58.892Z

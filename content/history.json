@@ -63,6 +63,14 @@
       "text": "When I have to explain a technical decision to a non-technical operations owner, it’s a balancing act. I often find that my choice of words matters more than the logic behind the decision itself.\n\nLast week, I pushed back on implementing a seemingly simple customization. The request was straightforward: change how a report looks. But the implications were anything but simple. Modifying that report would affect data integrity across the system. It could lead to confusion in downstream processes, especially if the same data was referenced elsewhere.\n\nI had to explain that while the change would solve an immediate need, it could create a ripple effect in our data structure. That’s when I lean into analogies that relate to their daily operations. I likened it to changing a traffic signal at a busy intersection. It might ease one flow of traffic but could lead to chaos elsewhere.\n\nBy framing the decision in a context they understand, I was able to get their buy-in. It turned out to be a valuable lesson: clarity in communication is as crucial as the technical decision itself.\n\nHow do you approach explaining complex technical decisions to your operations team?\n\n#Customization #Odoo",
       "source": "queue",
       "file": "2026-09-24T08-24-02-explaining-technical-odoo-decisions.md"
+    },
+    {
+      "id": "urn:li:share:7513541336025812992",
+      "postedAt": "2026-10-07T10:10:49.823Z",
+      "dateLocal": "2026-10-07",
+      "text": "One of the most common missteps in Odoo implementations is rushing to install a module. There’s often a temptation to grab the shiny new tool without fully understanding the implications.\n\nI recently had a client who insisted on installing a popular inventory management module. It looked promising on the surface. But once it was live, we hit a wall. The module wasn’t compatible with their existing workflows. Features that were supposed to streamline operations ended up creating additional complexity.\n\nWe spent more time fixing the fallout than if we had taken a moment to assess their unique needs. The team ended up frustrated, and the initial excitement was replaced with confusion.\n\nBefore installing any module, I now recommend a rigorous evaluation against actual business processes. It’s critical to ensure that what looks good on paper will truly deliver value in practice.\n\nHow do you evaluate new modules before installation?\n\n#Inventory #Odoo",
+      "source": "queue",
+      "file": "2026-09-29T09-44-58-a-module-or-app-people-install-too-fast.md"
     }
   ]
 }
