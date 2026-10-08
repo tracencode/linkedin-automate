@@ -71,6 +71,14 @@
       "text": "One of the most common missteps in Odoo implementations is rushing to install a module. There’s often a temptation to grab the shiny new tool without fully understanding the implications.\n\nI recently had a client who insisted on installing a popular inventory management module. It looked promising on the surface. But once it was live, we hit a wall. The module wasn’t compatible with their existing workflows. Features that were supposed to streamline operations ended up creating additional complexity.\n\nWe spent more time fixing the fallout than if we had taken a moment to assess their unique needs. The team ended up frustrated, and the initial excitement was replaced with confusion.\n\nBefore installing any module, I now recommend a rigorous evaluation against actual business processes. It’s critical to ensure that what looks good on paper will truly deliver value in practice.\n\nHow do you evaluate new modules before installation?\n\n#Inventory #Odoo",
       "source": "queue",
       "file": "2026-09-29T09-44-58-a-module-or-app-people-install-too-fast.md"
+    },
+    {
+      "id": "urn:li:share:7513908195354923010",
+      "postedAt": "2026-10-08T10:28:36.351Z",
+      "dateLocal": "2026-10-08",
+      "text": "User adoption often gets overlooked in ERP implementations. We focus on the shiny features, the integrations, and the AI capabilities, but the real risk lurks in how users interact with the system.\n\nI’ve seen projects fail not because of technical issues, but because the team didn’t embrace the system. They didn’t understand why certain workflows mattered or how to leverage the new tools.\n\nTake a recent implementation of an Odoo CRM module. We spent weeks customizing it, integrating it with existing systems, and testing every feature. But during training, I realized many users were still attached to their old processes.\n\nThey needed to see the value in using the new system — not just in theory, but in real, tangible outcomes. That’s when I knew we had to pivot our strategy. We began focusing on hands-on training and involving users in the customization process.\n\nNow, when we roll out a new feature, it’s not just a demo. It’s about making sure every user feels like they are part of the journey. Without that buy-in, no amount of technology will succeed.\n\nHow do you ensure your users adopt the systems you implement?\n\n#Customization #Integrations #AI #ERP",
+      "source": "queue",
+      "file": "2026-09-30T09-36-53-user-adoption-as-the-real-implementation.md"
     }
   ]
 }

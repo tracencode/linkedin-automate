@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: framework
 topic: User adoption as the real implementation risk
 createdAt: 2026-09-30T09:36:53.004Z
