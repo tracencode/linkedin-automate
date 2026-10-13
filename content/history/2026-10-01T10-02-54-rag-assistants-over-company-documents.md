@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: question_post
 topic: RAG / assistants over company documents
 createdAt: 2026-10-01T10:02:54.890Z

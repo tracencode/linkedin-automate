@@ -79,6 +79,14 @@
       "text": "User adoption often gets overlooked in ERP implementations. We focus on the shiny features, the integrations, and the AI capabilities, but the real risk lurks in how users interact with the system.\n\nI’ve seen projects fail not because of technical issues, but because the team didn’t embrace the system. They didn’t understand why certain workflows mattered or how to leverage the new tools.\n\nTake a recent implementation of an Odoo CRM module. We spent weeks customizing it, integrating it with existing systems, and testing every feature. But during training, I realized many users were still attached to their old processes.\n\nThey needed to see the value in using the new system — not just in theory, but in real, tangible outcomes. That’s when I knew we had to pivot our strategy. We began focusing on hands-on training and involving users in the customization process.\n\nNow, when we roll out a new feature, it’s not just a demo. It’s about making sure every user feels like they are part of the journey. Without that buy-in, no amount of technology will succeed.\n\nHow do you ensure your users adopt the systems you implement?\n\n#Customization #Integrations #AI #ERP",
       "source": "queue",
       "file": "2026-09-30T09-36-53-user-adoption-as-the-real-implementation.md"
+    },
+    {
+      "id": "urn:li:share:7515720023664005121",
+      "postedAt": "2026-10-13T10:28:09.367Z",
+      "dateLocal": "2026-10-13",
+      "text": "RAG assistants can be helpful, but they can also hallucinate. When using them over company documents, the value often depends on the quality of the underlying data. Recently, we had a case where a client used an AI assistant to pull insights from their product documentation. The assistant generated some useful summaries but also presented incorrect details that led to confusion in a meeting.\n\nThe challenge was that the documents had inconsistencies, and the assistant filled in gaps with assumptions. This is where RAG can mislead teams that rely on it without validating the output.\n\nIn contrast, when the same assistant is trained on clean, structured data, it can lead to actionable insights. It’s about understanding the boundaries of AI assistance and knowing when to validate or question the output. We need to remind ourselves that AI is a tool, not a replacement for critical thinking and domain knowledge. How do you keep your data clean and ensure your AI outputs remain reliable?\n\n#AI #DataQuality",
+      "source": "queue",
+      "file": "2026-10-01T10-02-54-rag-assistants-over-company-documents.md"
     }
   ]
 }
