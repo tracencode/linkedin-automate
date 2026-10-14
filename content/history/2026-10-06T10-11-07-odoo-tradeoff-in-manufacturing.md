@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: personal_story
 topic: Odoo tradeoff in manufacturing
 createdAt: 2026-10-06T10:11:07.230Z

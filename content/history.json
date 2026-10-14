@@ -87,6 +87,14 @@
       "text": "RAG assistants can be helpful, but they can also hallucinate. When using them over company documents, the value often depends on the quality of the underlying data. Recently, we had a case where a client used an AI assistant to pull insights from their product documentation. The assistant generated some useful summaries but also presented incorrect details that led to confusion in a meeting.\n\nThe challenge was that the documents had inconsistencies, and the assistant filled in gaps with assumptions. This is where RAG can mislead teams that rely on it without validating the output.\n\nIn contrast, when the same assistant is trained on clean, structured data, it can lead to actionable insights. It’s about understanding the boundaries of AI assistance and knowing when to validate or question the output. We need to remind ourselves that AI is a tool, not a replacement for critical thinking and domain knowledge. How do you keep your data clean and ensure your AI outputs remain reliable?\n\n#AI #DataQuality",
       "source": "queue",
       "file": "2026-10-01T10-02-54-rag-assistants-over-company-documents.md"
+    },
+    {
+      "id": "urn:li:share:7516054626316578816",
+      "postedAt": "2026-10-14T08:37:45.305Z",
+      "dateLocal": "2026-10-14",
+      "text": "In manufacturing, the balance between customization and standardization can make or break an implementation. I remember a project where a client insisted on tailoring every aspect of their production module. They wanted unique workflows, custom reports, and specific alerts for each machine. It seemed reasonable at first. But as we dove deeper, it became clear that this level of customization would lead to complexity, especially with Odoo’s updates and maintenance.\n\nWe pushed back, advocating for a more standardized approach with minor tweaks that would still meet their operational needs. The argument was simple: a complex setup means higher risks during upgrades and a steeper learning curve for users. Their team needed to focus on production efficiency, not wrestling with a labyrinthine system.\n\nIn the end, we agreed on a middle ground—customizations that added value without losing sight of usability. Now, the system is robust and flexible enough to adapt as their operations evolve without losing stability.\n\nHave you faced a similar dilemma between customization and standardization in your implementations?\n\n#Customization #Manufacturing #Odoo",
+      "source": "queue",
+      "file": "2026-10-06T10-11-07-odoo-tradeoff-in-manufacturing.md"
     }
   ]
 }
