@@ -95,6 +95,14 @@
       "text": "In manufacturing, the balance between customization and standardization can make or break an implementation. I remember a project where a client insisted on tailoring every aspect of their production module. They wanted unique workflows, custom reports, and specific alerts for each machine. It seemed reasonable at first. But as we dove deeper, it became clear that this level of customization would lead to complexity, especially with Odoo’s updates and maintenance.\n\nWe pushed back, advocating for a more standardized approach with minor tweaks that would still meet their operational needs. The argument was simple: a complex setup means higher risks during upgrades and a steeper learning curve for users. Their team needed to focus on production efficiency, not wrestling with a labyrinthine system.\n\nIn the end, we agreed on a middle ground—customizations that added value without losing sight of usability. Now, the system is robust and flexible enough to adapt as their operations evolve without losing stability.\n\nHave you faced a similar dilemma between customization and standardization in your implementations?\n\n#Customization #Manufacturing #Odoo",
       "source": "queue",
       "file": "2026-10-06T10-11-07-odoo-tradeoff-in-manufacturing.md"
+    },
+    {
+      "id": "urn:li:share:7516410815491690496",
+      "postedAt": "2026-10-15T08:13:07.681Z",
+      "dateLocal": "2026-10-15",
+      "text": "I’ve seen automation projects that seemed like a smart move but ended up complicating simple tasks. A couple of months ago, a client wanted to automate their invoice approval process. The idea was to streamline operations and reduce manual handling.\n\nBut here’s the catch: automating approvals meant that the system would bypass a critical review step that had been working just fine as a checklist. The team was used to a human touch in validating invoices against delivery notes and past interactions.\n\nOnce the automation went live, we quickly faced issues. Invoices slipped through that shouldn’t have, leading to disputes and delays with vendors. What looked like efficiency turned into chaos.\n\nNow we’re rolling back parts of that automation to reintroduce manual checks. Sometimes, keeping it simple is the best approach. Not every process needs to be automated. Sometimes a checklist can do the job better than an AI.\n\nWhat tasks do you think should remain manual despite the push for automation?\n\n#Automation #WorkflowAutomation #AccountsPayable #Invoices #InvoiceProcessing\n#FinanceOps #Operations #ProductionIssues #Accounting #ProcessImprovement\n#AI #AppliedAI #ChangeManagement #DigitalOperations #EnterpriseSoftware\n#MachineLearning #TraceNcode #DocumentAI",
+      "source": "queue",
+      "file": "2026-10-07T10-11-43-automation-that-should-have-stayed-a-che.md"
     }
   ]
 }

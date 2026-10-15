@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: tactical_howto
 topic: Automation that should have stayed a checklist
 createdAt: 2026-10-07T10:11:43.047Z
