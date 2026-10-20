@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: contrarian_take
 topic: Debugging Odoo issues in production
 createdAt: 2026-10-08T10:28:41.058Z
