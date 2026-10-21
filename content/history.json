@@ -111,6 +111,14 @@
       "text": "Debugging an Odoo issue that only surfaces in production can be a real test of patience and skill. I recently faced this exact situation. The system was running smoothly in our staging environment, yet, come Monday morning, users reported a critical error with invoicing.\n\nWe had to investigate quickly. The first step was to replicate the issue. I gathered logs and attempted to reproduce the error under the same conditions as the production setup. No luck.\n\nNext, I turned to the environment specifics. Was there a difference in data? Was there a race condition that didn’t appear in staging? After digging into the user reports, I discovered that a specific combination of user roles and permissions was triggering the bug. It was an oversight during the initial configuration that slipped through the testing phase.\n\nThe lesson here is clear: production environments can behave differently than testing. Always consider real-world scenarios and edge cases when you’re validating your system. What steps do you take when an issue only arises in production?\n\n#ProductionIssues #Debugging #EnterpriseSoftware #Odoo #OdooDevelopment\n#OdooERP #OdooImplementation #OpenSource #UserAdoption #Configuration\n#OdooPartner #SaaS #ChangeManagement #TraceNcode #Production\n#SoftwareDevelopment #ERP #Community",
       "source": "queue",
       "file": "2026-10-08T10-28-41-debugging-odoo-issues-in-production.md"
+    },
+    {
+      "id": "urn:li:share:7518589257180082177",
+      "postedAt": "2026-10-21T08:29:28.549Z",
+      "dateLocal": "2026-10-21",
+      "text": "Many AI copilot demos look impressive but fall flat in real-world applications. For a warehouse or finance team, the difference is in practical usability.\n\nIn one project, we tested an AI copilot that claimed to assist with inventory management. The demo showcased its ability to analyze data and provide insight. However, in reality, it struggled with the specific terminology and workflows our team used. Instead of enhancing productivity, it added confusion.\n\nIn contrast, a tailored AI solution that understood our operations and integrated seamlessly into existing workflows proved invaluable. It allowed the team to pull reports with relevant metrics without needing extensive training. The key was ensuring the AI was designed for the users, not just the demo room.\n\nNext time you evaluate an AI copilot, ask: Will it genuinely fit into the workflow, or is it just a flashy feature?\n\n#AI #AppliedAI #Inventory #MachineLearning #WarehouseManagement\n#WorkflowAutomation #DigitalOperations #ProcessImprovement #ChangeManagement #TraceNcode\n#UserAdoption #Operations #Difference #DocumentAI #Automation\n#SupplyChain #StockManagement #ERP",
+      "source": "queue",
+      "file": "2026-10-13T10-28-14-the-difference-between-a-demo-ai-copilot.md"
     }
   ]
 }

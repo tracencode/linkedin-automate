@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: lesson_learned
 topic: The difference between a demo AI copilot and one a warehouse or finance team will actually use
 createdAt: 2026-10-13T10:28:14.767Z
