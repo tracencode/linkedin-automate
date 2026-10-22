@@ -119,6 +119,14 @@
       "text": "Many AI copilot demos look impressive but fall flat in real-world applications. For a warehouse or finance team, the difference is in practical usability.\n\nIn one project, we tested an AI copilot that claimed to assist with inventory management. The demo showcased its ability to analyze data and provide insight. However, in reality, it struggled with the specific terminology and workflows our team used. Instead of enhancing productivity, it added confusion.\n\nIn contrast, a tailored AI solution that understood our operations and integrated seamlessly into existing workflows proved invaluable. It allowed the team to pull reports with relevant metrics without needing extensive training. The key was ensuring the AI was designed for the users, not just the demo room.\n\nNext time you evaluate an AI copilot, ask: Will it genuinely fit into the workflow, or is it just a flashy feature?\n\n#AI #AppliedAI #Inventory #MachineLearning #WarehouseManagement\n#WorkflowAutomation #DigitalOperations #ProcessImprovement #ChangeManagement #TraceNcode\n#UserAdoption #Operations #Difference #DocumentAI #Automation\n#SupplyChain #StockManagement #ERP",
       "source": "queue",
       "file": "2026-10-13T10-28-14-the-difference-between-a-demo-ai-copilot.md"
+    },
+    {
+      "id": "urn:li:share:7518952261931393025",
+      "postedAt": "2026-10-22T08:31:55.249Z",
+      "dateLocal": "2026-10-22",
+      "text": "Dirty master data undermines even the best AI workflows. I encountered this in a recent project where a client was eager to implement an AI-driven invoice processing tool. They focused on the glitzy features, confident it would solve their problems with efficiency and accuracy. But when we dived into the data, we uncovered inconsistencies that would derail the entire operation. Vendor names were misspelled, invoice formats varied wildly, and duplicate entries were rampant. The AI assistant, while sophisticated, couldn't compensate for this chaos.\n\nAfter several frustrating attempts to integrate the AI tool, we pivoted back to the basics: cleaning the master data. It was a tedious process, but it became clear that without this foundational step, we would only be automating errors. This experience reinforced the importance of rigorous data quality checks before deploying any AI solution in an ERP context. It’s a reminder that clever tech is only as good as the data it’s fed.\n\nHow do you ensure data quality before launching an AI project?\n\n#AppliedAI #AI #MasterData #DataGovernance #DataQuality\n#MachineLearning #DataCleansing #WorkflowAutomation #Invoices #AccountsPayable\n#InvoiceProcessing #ProcessImprovement #DigitalOperations #ERPImplementation #FinanceOps\n#DocumentAI #Automation #Operations",
+      "source": "queue",
+      "file": "2026-10-14T08-37-49-dirty-master-data-will-beat-a-clever-ai-.md"
     }
   ]
 }
