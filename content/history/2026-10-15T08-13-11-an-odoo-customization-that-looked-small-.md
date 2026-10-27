@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: question_post
 topic: An Odoo customization that looked small and was not
 createdAt: 2026-10-15T08:13:11.629Z
