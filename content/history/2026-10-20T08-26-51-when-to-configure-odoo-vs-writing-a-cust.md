@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: personal_story
 topic: When to configure Odoo vs writing a custom module
 createdAt: 2026-10-20T08:26:51.738Z
