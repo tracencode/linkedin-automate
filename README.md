@@ -80,7 +80,7 @@ In `.env`:
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `SCHEDULE` | `daily` | `daily`, `weekdays`, `3x` (Tue/Wed/Thu), or `weekly` |
+| `SCHEDULE` | `daily` | `daily`, `weekdays`, or `weekly`. An old `3x` value also posts every day. |
 | `POST_TIMES` | `09:15,13:15,18:15` | Comma-separated local times (2–3 posts/day) |
 | `POSTS_PER_DAY` | `3` | Used only if `POST_TIMES` is unset |
 | `POST_HOUR` / `POST_MINUTE` | `9` / `15` | Fallback first slot when `POST_TIMES` unset |

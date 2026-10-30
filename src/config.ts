@@ -91,10 +91,13 @@ export function formatPostTimes(times: PostTime[]): string {
 }
 
 export function loadConfig() {
-  const cadence = (process.env.SCHEDULE ?? "daily").toLowerCase();
-  if (!["daily", "weekdays", "3x", "weekly"].includes(cadence)) {
+  const requested = (process.env.SCHEDULE ?? "daily").toLowerCase();
+  if (!["daily", "weekdays", "3x", "weekly"].includes(requested)) {
     throw new Error("SCHEDULE must be one of: daily, weekdays, 3x, weekly");
   }
+  // The hosted Render service still has SCHEDULE=3x from the old Tue/Wed/Thu setup.
+  // Posts go out every day; 3x is accepted only so that stale env does not skip Fri–Mon.
+  const cadence = requested === "3x" ? "daily" : requested;
 
   const postApi = (process.env.LINKEDIN_POST_API ?? "ugc").toLowerCase();
   if (postApi !== "ugc" && postApi !== "rest") {
