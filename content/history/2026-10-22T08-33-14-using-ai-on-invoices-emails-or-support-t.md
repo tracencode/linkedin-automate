@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: contrarian_take
 topic: Using AI on invoices, emails, or support tickets inside an ERP
 createdAt: 2026-10-22T08:33:14.333Z
