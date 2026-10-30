@@ -226,20 +226,22 @@ async function handleApi(
 
 function startScheduler() {
   const config = loadConfig();
-  log(
-    `Scheduler on (${config.schedule.cadence} at ${String(config.schedule.hour).padStart(2, "0")}:${String(config.schedule.minute).padStart(2, "0")} ${config.schedule.timezone})`,
-  );
+  const times = config.schedule.times
+    .map((t) => `${String(t.hour).padStart(2, "0")}:${String(t.minute).padStart(2, "0")}`)
+    .join(", ");
+  log(`Scheduler on (${config.schedule.cadence} ×${config.schedule.postsPerDay} at ${times} ${config.schedule.timezone})`);
   const tick = async () => {
     const history = await loadHistory();
     const now = zonedParts(new Date(), config.schedule.timezone);
-    const last = history.posts.find((post) => post.dateLocal === now.dateLocal && !post.dryRun)?.dateLocal;
+    const postedTodayCount = history.posts.filter(
+      (post) => post.dateLocal === now.dateLocal && !post.dryRun,
+    ).length;
     const decision = shouldRunNow({
       timeZone: config.schedule.timezone,
       cadence: config.schedule.cadence,
-      hour: config.schedule.hour,
-      minute: config.schedule.minute,
+      times: config.schedule.times,
       weekday: config.schedule.weekday,
-      lastPostedLocalDate: last,
+      postedTodayCount,
     });
     if (!decision.run) {
       await maintainQueue(config).catch((error) => {

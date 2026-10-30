@@ -8,7 +8,7 @@ This does **not** scrape LinkedIn, auto-comment, or mass-follow. Those tactics v
 
 1. Niche lives in `content/profile.md` (Odoo / AI / tech, written from a founder's stance without labelling it).
 2. Open the UI with `npm run ui` → [http://127.0.0.1:4567](http://127.0.0.1:4567).
-3. Generate or write a post, edit it, queue it. About 40% of auto-drafts get a landscape image; you can force image on/off in the Desk UI. The queue always stays at **5 posts**: after one publishes it moves to history and a new post is generated. The scheduler publishes at **Tue/Wed/Thu 9:15 Asia/Kolkata**.
+3. Generate or write a post, edit it, queue it. **Every post gets a colorful image.** Drafts lean **applied AI** and react to **trending AI/tech headlines**. The queue stays at about **9 posts** (3 days of 3× daily). GitHub Actions publishes **daily** at **09:15, 13:15, and 18:15 Asia/Kolkata**.
 4. If the queue is empty and `AUTO_PUBLISH=true`, it generates a post and publishes it.
 
 Default is **queue-only**. Keep auto-publish off until the drafts sound like you. Deploy on Render so posting continues when your laptop is off.
@@ -80,19 +80,21 @@ In `.env`:
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `SCHEDULE` | `3x` | `daily`, `weekdays`, `3x` (Tue/Wed/Thu peak), or `weekly` |
-| `POST_HOUR` / `POST_MINUTE` | `9` / `15` | Local time. 9:15am is when desk-workers open LinkedIn |
+| `SCHEDULE` | `daily` | `daily`, `weekdays`, `3x` (Tue/Wed/Thu), or `weekly` |
+| `POST_TIMES` | `09:15,13:15,18:15` | Comma-separated local times (2–3 posts/day) |
+| `POSTS_PER_DAY` | `3` | Used only if `POST_TIMES` is unset |
+| `POST_HOUR` / `POST_MINUTE` | `9` / `15` | Fallback first slot when `POST_TIMES` unset |
 | `POST_WEEKDAY` | `tuesday` | Used when `SCHEDULE=weekly` |
 | `TIMEZONE` | `Asia/Kolkata` | IANA timezone |
 | `AUTO_PUBLISH` | `false` | Generate + publish when the queue is empty |
-| `QUEUE_MIN` | `5` | Keep this many approved posts ready |
-| `IMAGE_CHANCE` | `0.4` | Share of auto-drafts that get an image |
+| `QUEUE_MIN` | `9` | Keep this many approved posts ready |
+| `IMAGE_CHANCE` | `1` | `1` = every post gets an image |
 
 ### Option A — Render + GitHub Actions (laptop can be off)
 
 Live Desk UI: [linkedin-automate-z4g7.onrender.com](https://linkedin-automate-z4g7.onrender.com) (HTTP basic auth; set `UI_PASSWORD`).
 
-The **GitHub Action** `.github/workflows/linkedin-post.yml` is what publishes Tue–Thu at 09:15 IST while your laptop is off. The Render web service hosts the Desk UI only (`SCHEDULER_ENABLED=false`) so the free plan cannot re-seed and re-post the same queue after a restart.
+The **GitHub Action** `.github/workflows/linkedin-post.yml` publishes **3× daily** (09:15 / 13:15 / 18:15 IST) while your laptop is off. The Render web service hosts the Desk UI only (`SCHEDULER_ENABLED=false`) so the free plan cannot re-seed and re-post the same queue after a restart.
 
 Render’s **Starter** plan (always-on + a disk at `/var/data`) needs a card on [Billing](https://dashboard.render.com/billing). Until that is added, keep publishing on GitHub Actions.
 
@@ -111,7 +113,7 @@ Render’s **Starter** plan (always-on + a disk at `/var/data`) needs a card on 
    - `LINKEDIN_REFRESH_TOKEN` (from `.data/tokens.json`)
    - `LINKEDIN_PERSON_URN` (from `.data/tokens.json`)
    - `OPENAI_API_KEY` (if you want auto-drafts)
-3. The workflow `.github/workflows/linkedin-post.yml` runs Tue–Thu at 09:15 IST.
+3. The workflow `.github/workflows/linkedin-post.yml` runs daily at 09:15, 13:15, and 18:15 IST.
 4. It commits queue/history changes after each run.
 
 If LinkedIn rotates the refresh token, `npm run status` locally and update the secret.
@@ -131,7 +133,7 @@ LinkedIn’s algorithm rewards dwell time and comments, not hashtag spam.
 - One idea per post. Specific story or tactic beats a thread of platitudes.
 - End with a question people can answer from their own work.
 - Reply to comments in the first hour. The bot cannot do that for you — that reply window is where followers come from.
-- Three good posts a week outperform daily mediocre ones. Start with `SCHEDULE=3x` if you are unsure.
+- Daily cadence works when each post has a sharp AI/ops take and a real image — quality still beats volume.
 - End with at least 15 hashtags chosen from that post (invoices, master data, Odoo, implementation). Skip generic walls.
 - Do not buy engagement, run comment pods, or scrape profiles.
 

@@ -1,7 +1,14 @@
 import { readFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
-import { loadConfig } from "./config.ts";
-import { approveDraft, listDrafts, listQueue, loadHistory, saveDraft } from "./content/queue.ts";
+import { formatPostTimes, loadConfig } from "./config.ts";
+import {
+  approveDraft,
+  countPostedOnLocalDate,
+  listDrafts,
+  listQueue,
+  loadHistory,
+  saveDraft,
+} from "./content/queue.ts";
 import { fillQueue, maintainQueue } from "./content/fillQueue.ts";
 import { generatePost } from "./content/generate.ts";
 import { getValidAccess, loadTokens, loginWithBrowser } from "./linkedin/oauth.ts";
@@ -97,10 +104,9 @@ async function main() {
         count: queue.length,
         timeZone: config.schedule.timezone,
         cadence: config.schedule.cadence,
-        hour: config.schedule.hour,
-        minute: config.schedule.minute,
+        times: config.schedule.times,
         weekday: config.schedule.weekday,
-        lastPostedLocalDate: history.posts.find((post) => post.dateLocal === now.dateLocal && !post.dryRun)?.dateLocal,
+        postedTodayCount: countPostedOnLocalDate(history, now.dateLocal),
       });
       for (const [index, item] of queue.entries()) {
         const preview = item.text.split("\n")[0] ?? "";
@@ -153,23 +159,21 @@ async function printStatus(config: ReturnType<typeof loadConfig>) {
   const drafts = await listDrafts();
   const history = await loadHistory();
   const now = zonedParts(new Date(), config.schedule.timezone);
-  const lastPosted = history.posts.find((p) => p.dateLocal === now.dateLocal && !p.dryRun)?.dateLocal;
+  const postedTodayCount = countPostedOnLocalDate(history, now.dateLocal);
   const decision = shouldRunNow({
     timeZone: config.schedule.timezone,
     cadence: config.schedule.cadence,
-    hour: config.schedule.hour,
-    minute: config.schedule.minute,
+    times: config.schedule.times,
     weekday: config.schedule.weekday,
-    lastPostedLocalDate: lastPosted,
+    postedTodayCount,
   });
   const next = listUpcomingSlots({
     count: 1,
     timeZone: config.schedule.timezone,
     cadence: config.schedule.cadence,
-    hour: config.schedule.hour,
-    minute: config.schedule.minute,
+    times: config.schedule.times,
     weekday: config.schedule.weekday,
-    lastPostedLocalDate: lastPosted,
+    postedTodayCount,
   })[0];
 
   let authLine = "not signed in";
@@ -189,10 +193,14 @@ async function printStatus(config: ReturnType<typeof loadConfig>) {
   console.log(`Auth:          ${authLine}`);
   console.log(`Profile:       ${profileReady ? "ready" : "fill in content/profile.md"}`);
   console.log(`API:           ${config.linkedin.postApi}`);
-  console.log(`Schedule:      ${config.schedule.cadence} at ${String(config.schedule.hour).padStart(2, "0")}:${String(config.schedule.minute).padStart(2, "0")} ${config.schedule.timezone}`);
+  console.log(
+    `Schedule:      ${config.schedule.cadence} ×${config.schedule.postsPerDay} at ${formatPostTimes(config.schedule.times)} ${config.schedule.timezone}`,
+  );
   console.log(`Next post:     ${next?.label ?? "none"}`);
   console.log(`Auto-publish:  ${config.autoPublish ? "on (generate if queue empty)" : "off (queue only)"}`);
+  console.log(`Images:        ${config.imageChance >= 1 ? "mandatory" : `${Math.round(config.imageChance * 100)}% chance`}`);
   console.log(`Local date:    ${now.dateLocal} ${String(now.hour).padStart(2, "0")}:${String(now.minute).padStart(2, "0")}`);
+  console.log(`Posted today:  ${postedTodayCount}/${config.schedule.postsPerDay}`);
   console.log(`Would run:     ${decision.run ? "yes" : "no"} — ${decision.reason}`);
   console.log(`Drafts:        ${drafts.length}`);
   console.log(`Queued:        ${queue.length}`);
@@ -201,20 +209,18 @@ async function printStatus(config: ReturnType<typeof loadConfig>) {
 
 async function runDaemon(config: ReturnType<typeof loadConfig>, dryRun: boolean) {
   log(
-    `Scheduler started (${config.schedule.cadence} at ${config.schedule.hour}:${String(config.schedule.minute).padStart(2, "0")} ${config.schedule.timezone}). Ctrl+C to stop.`,
+    `Scheduler started (${config.schedule.cadence} ×${config.schedule.postsPerDay} at ${formatPostTimes(config.schedule.times)} ${config.schedule.timezone}). Ctrl+C to stop.`,
   );
 
   const tick = async () => {
     const history = await loadHistory();
     const now = zonedParts(new Date(), config.schedule.timezone);
-    const last = history.posts.find((p) => p.dateLocal === now.dateLocal && !p.dryRun)?.dateLocal;
     const decision = shouldRunNow({
       timeZone: config.schedule.timezone,
       cadence: config.schedule.cadence,
-      hour: config.schedule.hour,
-      minute: config.schedule.minute,
+      times: config.schedule.times,
       weekday: config.schedule.weekday,
-      lastPostedLocalDate: last,
+      postedTodayCount: countPostedOnLocalDate(history, now.dateLocal),
     });
     if (!decision.run) {
       await maintainQueue(config).catch((error) => {

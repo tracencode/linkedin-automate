@@ -62,7 +62,12 @@ export async function fillQueue(config: AppConfig): Promise<number> {
         source: "queue" as const,
       })),
     ];
-    const generated = await generatePost(config, recent, { image: "auto" });
+    const generated = await generatePost(config, recent, {
+      image: config.imageChance >= 1 ? "yes" : "auto",
+    });
+    if (config.imageChance >= 1 && !generated.image) {
+      throw new Error("Image is mandatory but generation returned no file.");
+    }
     if (fingerprints.has(fingerprintPost(generated.text))) {
       log(`Skipped refill draft that matched an already-published post: ${generated.topic}`);
       continue;

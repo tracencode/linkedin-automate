@@ -6,6 +6,7 @@ import type { Format, HistoryEntry } from "../types.ts";
 import { FORMATS } from "../types.ts";
 import { generateLinkedInImage, parseImageMode, shouldAttachImage, type ImageMode } from "./image.ts";
 import { ensureHashtags } from "./hashtags.ts";
+import { fetchTrendingHeadlines, formatTrendsForPrompt } from "./trends.ts";
 import { log } from "../log.ts";
 
 export type GeneratedPost = {
@@ -36,6 +37,11 @@ export async function generatePost(
 
   const format = options.format ?? pickFormat(recent.length);
   const topicHint = options.topic?.trim() || pickTopic(topics, recent.length);
+  const headlines = await fetchTrendingHeadlines(8);
+  const trendsBlock = formatTrendsForPrompt(headlines);
+  if (headlines.length > 0) {
+    log(`Trends loaded (${headlines.length}): ${headlines[0]}`);
+  }
 
   const recentBlock =
     recent
@@ -46,35 +52,39 @@ export async function generatePost(
   const system = `You write LinkedIn posts for one person. The goal is follower growth from relevant, useful posts — not engagement bait.
 
 Niche lock (non-negotiable):
-- Every post must be about Odoo, applied AI, or practical technology (ERP, integrations, engineering judgment).
-- Tie AI to a real operations or software problem. No generic "AI will change everything".
-- If an angle drifts into hustle, personal-brand tips, or LinkedIn-about-LinkedIn, pull it back into Odoo/AI/tech.
+- Lead with applied AI. Roughly 7 of every 10 posts should be AI-primary (agents, LLMs, RAG, copilots, document AI, evals, automation) tied to real ops/ERP/software work.
+- Odoo / ERP / integrations are supporting context, not the default headline — use them when they sharpen an AI ops story.
+- Every post must react to something circulating now: pick ONE headline from the trending list (or a clearly related current AI news beat) and give a practitioner take. Do not paste the headline verbatim as the hook. Do not invent quotes or fake "sources said".
+- No generic "AI will change everything". No hustle, personal-brand tips, or LinkedIn-about-LinkedIn.
 
 Voice rules:
-- Founder's stance, never labelled. Write as the person who owns the company, the product bets, and the customer outcome. First person. You sit in implementations AND decide what gets shipped.
-- Never write "Founder's Perspective", "As a founder", "Wearing my founder hat", "From a founder's lens", or any role announcement. The stance comes from the writing: ownership, tradeoffs, what we will and will not ship.
-- Prefer: what a customer asked vs what they needed, the cost of a wrong bet, why we pushed back, what we refuse to automate. Avoid sounding like a hired consultant reporting on "a client last month".
+- Founder's stance, never labelled. Write as the person who owns the company, the product bets, and the customer outcome. First person.
+- Never write "Founder's Perspective", "As a founder", "Wearing my founder hat", "From a founder's lens", or any role announcement.
+- Prefer: what a customer asked vs what they needed, the cost of a wrong AI bet, why we pushed back, what we refuse to automate.
 - Specific, a little dry. Short sentences. Sound like someone still in the database at 1am who also has to stand behind the product on Monday.
 - No markdown (LinkedIn will show asterisks). No bullet-symbol walls. Short lines and white space are good.
 - No "I'm thrilled to announce", "In today's fast-paced world", "Let's dive in", "game-changer", "unlock", "here's the tea", or "comment YES".
 - Max 2 emojis, usually zero.
 - Do not pitch a product unless the profile says that is the point of this account.
-- Do not invent employers, numbers, customers, or credentials. If a detail is missing, stay general or skip it.
-- Hashtags: do not put them in the post body. Return 15 specific tags in the hashtags array, chosen from THIS post's subjects (Odoo, ERP, invoices, migrations, AI, etc.).
-- Mix concrete tags (MasterData, Invoices, Customization, Payments) with nearby niche tags (OdooImplementation, DataQuality). No #Motivation, #Success, or junk.
+- Do not invent employers, numbers, customers, or credentials.
+- Hashtags: do not put them in the post body. Return 15 specific tags in the hashtags array, biased toward AI / LLM / automation tags plus any Odoo/ERP tags that fit.
+- Mix concrete tags (DocumentAI, RAG, Agents, MasterData) with niche tags (AppliedAI, OdooImplementation). No #Motivation, #Success, or junk.
 
 Structure:
-1. Hook: first line, under 12 words, concrete enough to stop a scroll.
-2. Body: 120–220 words. One idea. A story, a tactic, or a sharp take — not all three.
+1. Hook: first line, under 12 words, concrete enough to stop a scroll — often a take on the news angle without sounding like a news wire.
+2. Body: 120–220 words. One idea. How this trend shows up (or fails) in real systems.
 3. Close: one real question that invites a story or a disagreement, not yes/no.
 
-Return JSON only: {"topic":"...","text":"...","hashtags":["Odoo","MasterData"],"imagePrompt":"one colorful visual sentence, mixed bright colors, no words in the picture"}`;
+Return JSON only: {"topic":"...","text":"...","hashtags":["AppliedAI","RAG"],"imagePrompt":"one vivid multi-color visual sentence, mixed bright hues, no words in the picture","newsAngle":"which headline or beat you used"}`;
 
   const user = `Author profile:
 ${profile}
 
-Topic bank:
+Topic bank (prefer AI-heavy lines):
 ${topics || "(use the profile pillars)"}
+
+Trending AI / tech headlines right now (react to one):
+${trendsBlock}
 
 Today's format: ${format}
 Suggested angle: ${topicHint}
@@ -90,7 +100,7 @@ ${recentBlock}`;
     },
     body: JSON.stringify({
       model: config.openai.model,
-      temperature: 0.8,
+      temperature: 0.85,
       response_format: { type: "json_object" },
       messages: [
         { role: "system", content: system },
@@ -129,18 +139,15 @@ ${recentBlock}`;
   }
 
   const result: GeneratedPost = { text, format, topic };
-  const imageMode = parseImageMode(options.image);
-  if (shouldAttachImage(format, imageMode, config.imageChance)) {
-    try {
-      const stem = `${new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19)}-${topic.slice(0, 32)}`;
-      result.image = await generateLinkedInImage(config, {
-        prompt: parsed.imagePrompt || topic,
-        fileStem: stem.replace(/[^a-zA-Z0-9-]+/g, "-"),
-      });
-      log(`Generated image ${result.image}`);
-    } catch (error) {
-      log(`Image skipped: ${error instanceof Error ? error.message : error}`);
-    }
+  const imageMode = parseImageMode(options.image ?? (config.imageChance >= 1 ? "yes" : "auto"));
+  const wantImage = shouldAttachImage(format, imageMode, config.imageChance);
+  if (wantImage) {
+    const stem = `${new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19)}-${topic.slice(0, 32)}`;
+    result.image = await generateLinkedInImage(config, {
+      prompt: parsed.imagePrompt || topic,
+      fileStem: stem.replace(/[^a-zA-Z0-9-]+/g, "-"),
+    });
+    log(`Generated image ${result.image}`);
   }
 
   return result;
@@ -151,13 +158,18 @@ function pickFormat(count: number): Format {
 }
 
 function pickTopic(topicsFile: string | undefined, count: number): string {
-  if (!topicsFile) return "Use the strongest content pillar in the profile";
+  if (!topicsFile) return "Applied AI in real operations this week";
   const topics = topicsFile
     .split("\n")
     .map((line) => line.replace(/^[-*]\s+/, "").trim())
     .filter((line) => line && !line.startsWith("#"));
-  if (topics.length === 0) return "Use the strongest content pillar in the profile";
-  return topics[count % topics.length] ?? topics[0] ?? "core niche";
+  if (topics.length === 0) return "Applied AI in real operations this week";
+
+  const aiTopics = topics.filter((line) => /\b(ai|llm|rag|agent|gpt|model|ml|copilot|automat)/i.test(line));
+  // ~70% of picks come from the AI-labelled lines when available.
+  const preferAi = aiTopics.length > 0 && count % 10 < 7;
+  const pool = preferAi ? aiTopics : topics;
+  return pool[count % pool.length] ?? topics[0] ?? "Applied AI in real operations";
 }
 
 function cleanPost(text: string): string {

@@ -20,9 +20,13 @@ services:
       - key: STORE_DIR
         value: /var/data
       - key: QUEUE_MIN
-        value: "5"
+        value: "9"
       - key: SCHEDULE
-        value: 3x
+        value: daily
+      - key: POST_TIMES
+        value: "09:15,13:15,18:15"
+      - key: POSTS_PER_DAY
+        value: "3"
       - key: POST_HOUR
         value: "9"
       - key: POST_MINUTE
@@ -34,7 +38,9 @@ services:
       - key: AUTO_PUBLISH
         value: "false"
       - key: IMAGE_CHANCE
-        value: "0.4"
+        value: "1"
+      - key: OPENAI_IMAGE_MODEL
+        value: gpt-image-1.5
       - key: SCHEDULER_ENABLED
         value: "false"
       - key: LINKEDIN_CLIENT_ID

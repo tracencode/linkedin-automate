@@ -1,7 +1,8 @@
 import { readFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import type { AppConfig } from "./config.ts";
-import { listDrafts, listQueue, loadHistory } from "./content/queue.ts";
+import { formatPostTimes } from "./config.ts";
+import { countPostedOnLocalDate, listDrafts, listQueue, loadHistory } from "./content/queue.ts";
 import { getValidAccess, loadTokens } from "./linkedin/oauth.ts";
 import { PROFILE_PATH, TOPICS_PATH } from "./paths.ts";
 import { describeNextPost, listUpcomingSlots, shouldRunNow, zonedParts } from "./schedule/shouldPost.ts";
@@ -12,23 +13,23 @@ export async function getDashboard(config: AppConfig) {
   const drafts = await listDrafts();
   const history = await loadHistory();
   const now = zonedParts(new Date(), config.schedule.timezone);
-  const lastPosted = history.posts.find((post) => post.dateLocal === now.dateLocal && !post.dryRun)?.dateLocal;
+  const postedTodayCount = countPostedOnLocalDate(history, now.dateLocal);
   const slotOpts = {
     timeZone: config.schedule.timezone,
     cadence: config.schedule.cadence,
+    times: config.schedule.times,
     hour: config.schedule.hour,
     minute: config.schedule.minute,
     weekday: config.schedule.weekday,
-    lastPostedLocalDate: lastPosted,
+    postedTodayCount,
   };
   const upcoming = listUpcomingSlots({ ...slotOpts, count: Math.max(queue.length, 1) });
   const decision = shouldRunNow({
     timeZone: config.schedule.timezone,
     cadence: config.schedule.cadence,
-    hour: config.schedule.hour,
-    minute: config.schedule.minute,
+    times: config.schedule.times,
     weekday: config.schedule.weekday,
-    lastPostedLocalDate: lastPosted,
+    postedTodayCount,
   });
 
   let auth = { signedIn: false, name: "not signed in", ok: false, error: "" };
@@ -56,24 +57,27 @@ export async function getDashboard(config: AppConfig) {
     autoPublish: config.autoPublish,
     imageChance: config.imageChance,
     queueMin: config.queueMin,
-    niche: "Odoo · AI · technology",
+    niche: "Applied AI · Odoo · technology",
     schedule: {
       cadence: config.schedule.cadence,
       hour: config.schedule.hour,
       minute: config.schedule.minute,
+      times: formatPostTimes(config.schedule.times),
+      postsPerDay: config.schedule.postsPerDay,
       timezone: config.schedule.timezone,
       weekday: config.schedule.weekday,
-      label: cadenceLabel(config.schedule.cadence),
+      label: cadenceLabel(config.schedule.cadence, config.schedule.postsPerDay),
       next: upcoming[0]?.label ?? describeNextPost(slotOpts),
       upcoming: upcoming.map((slot) => slot.label),
       wouldRun: decision.run,
       reason: decision.reason,
-      why: "Tue–Thu 9:15 AM is when professionals are at a desk. Comments in the first hour are what actually grows a following.",
+      why: `${config.schedule.postsPerDay}× daily at ${formatPostTimes(config.schedule.times)} ${config.schedule.timezone}. AI-first posts that react to trending news, each with a colorful image.`,
     },
     counts: {
       drafts: drafts.length,
       queued: queue.length,
       posted: history.posts.filter((post) => !post.dryRun).length,
+      postedToday: postedTodayCount,
     },
     now: {
       dateLocal: now.dateLocal,
@@ -149,9 +153,10 @@ function formatPostedAt(iso: string, timeZone: string): string {
   }
 }
 
-function cadenceLabel(cadence: string): string {
-  if (cadence === "3x") return "Tue / Wed / Thu (peak)";
-  if (cadence === "weekdays") return "Monday–Friday";
-  if (cadence === "weekly") return "Once a week";
-  return "Every day";
+function cadenceLabel(cadence: string, postsPerDay: number): string {
+  const times = `${postsPerDay}× / day`;
+  if (cadence === "3x") return `Tue / Wed / Thu · ${times}`;
+  if (cadence === "weekdays") return `Mon–Fri · ${times}`;
+  if (cadence === "weekly") return `Once a week · ${times}`;
+  return `Every day · ${times}`;
 }

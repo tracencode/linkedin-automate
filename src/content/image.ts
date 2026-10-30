@@ -6,19 +6,30 @@ import type { Format } from "../types.ts";
 
 export type ImageMode = "auto" | "yes" | "no";
 
+const COLOR_STYLES = [
+  "Bold isometric scene with neon teal, coral, and amber on deep indigo — high saturation, no beige",
+  "Cinematic still with electric magenta rim light, cobalt shadows, and warm gold highlights",
+  "Playful paper-craft diorama in lime, tangerine, hot pink, and ultramarine",
+  "Abstract data-flow sculpture in emerald, sapphire, ruby, and metallic gold",
+  "Watercolor-meets-tech wash in vivid aqua, violet, marigold, and crimson",
+  "Glass and light refraction study with prismatic rainbow caustics over a tech subject",
+  "Retro-futurist poster vibe: cherry red, chrome cyan, sunflower yellow, matte black accents",
+  "Soft 3D clay render with candy colors — mint, peach, periwinkle, and butter yellow",
+  "Night-city neon: hot pink, acid green, deep purple, and ice-blue reflections",
+  "Sunlit workshop table with saturated props — turquoise tools, orange cables, indigo screens",
+];
+
 export function parseImageMode(value: unknown): ImageMode {
   if (value === "yes" || value === "no" || value === "auto") return value;
   return "auto";
 }
 
-export function shouldAttachImage(format: Format, mode: ImageMode, chance: number): boolean {
+export function shouldAttachImage(_format: Format, mode: ImageMode, chance: number): boolean {
   if (mode === "yes") return true;
   if (mode === "no") return false;
-  let probability = chance;
-  if (format === "framework" || format === "tactical_howto") probability += 0.15;
-  if (format === "question_post" || format === "personal_story") probability -= 0.2;
-  probability = Math.min(0.7, Math.max(0.08, probability));
-  return Math.random() < probability;
+  if (chance >= 1) return true;
+  if (chance <= 0) return false;
+  return Math.random() < chance;
 }
 
 export function mediaFilePath(fileName: string): string {
@@ -29,6 +40,13 @@ export function mediaFilePath(fileName: string): string {
   return path.join(MEDIA_DIR, safe);
 }
 
+function pickStyle(seed: string): string {
+  let hash = 0;
+  for (let i = 0; i < seed.length; i += 1) hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
+  const jitter = Math.floor(Math.random() * COLOR_STYLES.length);
+  return COLOR_STYLES[(hash + jitter) % COLOR_STYLES.length] ?? COLOR_STYLES[0]!;
+}
+
 export async function generateLinkedInImage(
   config: AppConfig,
   input: { prompt: string; fileStem: string },
@@ -37,11 +55,13 @@ export async function generateLinkedInImage(
     throw new Error("OPENAI_API_KEY is required to generate images.");
   }
 
+  const style = pickStyle(input.fileStem + input.prompt);
   const prompt = [
-    "Editorial still for a LinkedIn post about Odoo, ERP, applied AI, or practical software.",
-    "Photoreal or clean isometric. Vivid, colorful, high-saturation palette — mix complementary colors (teal, coral, amber, cobalt, magenta), not monochrome, beige, gray, or muted single-tone.",
-    "Warm mixed lighting, colorful materials, rich contrast. Avoid flat corporate blue-only or desaturated looks.",
-    "No readable text, letters, logos, watermarks, or fake software UI.",
+    "Editorial visual for a LinkedIn post about applied AI, ERP, or practical software.",
+    `Look and color direction (mandatory): ${style}.`,
+    "Use at least four distinct bright hues in the frame. Never monochrome, never gray-only, never flat corporate blue wash, never muted beige.",
+    "Photoreal, clean 3D, or rich illustration — pick one look and commit. Strong contrast and mixed lighting.",
+    "No readable text, letters, logos, watermarks, charts with labels, or fake software UI screens.",
     "No celebrity likeness. No extra limbs. Professional, not stock-photo grinning.",
     `Subject: ${input.prompt.trim()}`,
   ].join(" ");
@@ -106,5 +126,14 @@ export async function generateLinkedInImage(
 }
 
 function uniqueModels(preferred: string): string[] {
-  return [...new Set([preferred, "gpt-image-1", "dall-e-3", "dall-e-2"])];
+  return [
+    ...new Set([
+      preferred,
+      "gpt-image-1.5",
+      "gpt-image-2",
+      "gpt-image-1-mini",
+      "chatgpt-image-latest",
+      "gpt-image-1",
+    ]),
+  ];
 }

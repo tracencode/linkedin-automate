@@ -187,7 +187,11 @@ export async function appendHistory(entry: HistoryEntry) {
 }
 
 export function postedOnLocalDate(history: HistoryFile, dateLocal: string): boolean {
-  return history.posts.some((post) => post.dateLocal === dateLocal && !post.dryRun);
+  return countPostedOnLocalDate(history, dateLocal) > 0;
+}
+
+export function countPostedOnLocalDate(history: HistoryFile, dateLocal: string): number {
+  return history.posts.filter((post) => post.dateLocal === dateLocal && !post.dryRun).length;
 }
 
 export async function saveQueued(input: {

@@ -2,6 +2,7 @@ import "dotenv/config";
 
 export type Cadence = "daily" | "weekdays" | "3x" | "weekly";
 export type PostApi = "ugc" | "rest";
+export type PostTime = { hour: number; minute: number };
 
 const WEEKDAYS = [
   "sunday",
@@ -45,8 +46,52 @@ function boolEnv(name: string, fallback: boolean): boolean {
   return raw === "true" || raw === "1" || raw === "yes";
 }
 
+function parsePostTimes(): PostTime[] {
+  const raw = process.env.POST_TIMES?.trim();
+  if (raw) {
+    const times = raw
+      .split(",")
+      .map((part) => part.trim())
+      .filter(Boolean)
+      .map((part) => {
+        const match = /^(\d{1,2}):(\d{2})$/.exec(part);
+        if (!match) {
+          throw new Error(`POST_TIMES entry "${part}" must look like HH:MM`);
+        }
+        const hour = Number(match[1]);
+        const minute = Number(match[2]);
+        if (hour < 0 || hour > 23 || minute < 0 || minute > 59) {
+          throw new Error(`POST_TIMES entry "${part}" is out of range`);
+        }
+        return { hour, minute };
+      });
+    if (times.length === 0) {
+      throw new Error("POST_TIMES must list at least one HH:MM time");
+    }
+    return times.sort((a, b) => a.hour * 60 + a.minute - (b.hour * 60 + b.minute));
+  }
+
+  const count = Math.min(3, Math.max(1, numberEnv("POSTS_PER_DAY", 3)));
+  const first = { hour: numberEnv("POST_HOUR", 9), minute: numberEnv("POST_MINUTE", 15) };
+  if (count === 1) return [first];
+  if (count === 2) {
+    return [first, { hour: 13, minute: 15 }].sort(
+      (a, b) => a.hour * 60 + a.minute - (b.hour * 60 + b.minute),
+    );
+  }
+  return [
+    first,
+    { hour: 13, minute: 15 },
+    { hour: 18, minute: 15 },
+  ].sort((a, b) => a.hour * 60 + a.minute - (b.hour * 60 + b.minute));
+}
+
+export function formatPostTimes(times: PostTime[]): string {
+  return times.map((t) => `${String(t.hour).padStart(2, "0")}:${String(t.minute).padStart(2, "0")}`).join(", ");
+}
+
 export function loadConfig() {
-  const cadence = (process.env.SCHEDULE ?? "3x").toLowerCase();
+  const cadence = (process.env.SCHEDULE ?? "daily").toLowerCase();
   if (!["daily", "weekdays", "3x", "weekly"].includes(cadence)) {
     throw new Error("SCHEDULE must be one of: daily, weekdays, 3x, weekly");
   }
@@ -60,6 +105,9 @@ export function loadConfig() {
   if (!WEEKDAYS.includes(weekday as Weekday)) {
     throw new Error(`POST_WEEKDAY must be one of: ${WEEKDAYS.join(", ")}`);
   }
+
+  const times = parsePostTimes();
+  const first = times[0] ?? { hour: 9, minute: 15 };
 
   return {
     linkedin: {
@@ -75,19 +123,22 @@ export function loadConfig() {
     openai: {
       apiKey: optional("OPENAI_API_KEY"),
       model: process.env.OPENAI_MODEL ?? "gpt-4o-mini",
-      imageModel: process.env.OPENAI_IMAGE_MODEL ?? "gpt-image-1",
+      imageModel: process.env.OPENAI_IMAGE_MODEL ?? "gpt-image-1.5",
       baseUrl: (process.env.OPENAI_BASE_URL ?? "https://api.openai.com/v1").replace(/\/$/, ""),
     },
     schedule: {
       cadence: cadence as Cadence,
-      hour: numberEnv("POST_HOUR", 9),
-      minute: numberEnv("POST_MINUTE", 15),
+      hour: first.hour,
+      minute: first.minute,
+      times,
+      postsPerDay: times.length,
       weekday: weekday as Weekday,
       timezone: process.env.TIMEZONE ?? "Asia/Kolkata",
     },
     autoPublish: boolEnv("AUTO_PUBLISH", false),
-    imageChance: floatEnv("IMAGE_CHANCE", 0.4),
-    queueMin: numberEnv("QUEUE_MIN", 5),
+    // Every post gets an image by default.
+    imageChance: floatEnv("IMAGE_CHANCE", 1),
+    queueMin: numberEnv("QUEUE_MIN", 9),
     // On Render the free disk is ephemeral; GitHub Actions is the durable publisher.
     // Default the hosted scheduler off unless explicitly enabled.
     schedulerEnabled: boolEnv(

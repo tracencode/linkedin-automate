@@ -6,7 +6,7 @@ import {
   listDrafts,
   listQueue,
   loadHistory,
-  postedOnLocalDate,
+  countPostedOnLocalDate,
   purgePublishedFromQueue,
   saveDraft,
   takeNextQueued,
@@ -136,13 +136,8 @@ export async function runScheduled(config: AppConfig, options: { dryRun?: boolea
   const now = zonedParts(new Date(), config.schedule.timezone);
   const dateLocal = now.dateLocal;
 
-  if (!options.force && postedOnLocalDate(history, dateLocal)) {
-    log(`Already posted today (${dateLocal}). Skipping.`);
-    await maintainQueue(config).catch((error) => {
-      log(`Queue refill failed: ${error instanceof Error ? error.message : error}`);
-    });
-    return { skipped: true as const, reason: "already-posted" };
-  }
+  const postedToday = countPostedOnLocalDate(history, dateLocal);
+  const quota = config.schedule.postsPerDay;
 
   if (!options.force && !isScheduledDay(config.schedule.cadence, now.weekday, config.schedule.weekday)) {
     log(`Not a posting day for cadence "${config.schedule.cadence}". Skipping.`);
@@ -150,6 +145,32 @@ export async function runScheduled(config: AppConfig, options: { dryRun?: boolea
       log(`Queue refill failed: ${error instanceof Error ? error.message : error}`);
     });
     return { skipped: true as const, reason: "not-scheduled-day" };
+  }
+
+  if (!options.force && postedToday >= quota) {
+    log(`Daily quota filled (${postedToday}/${quota} on ${dateLocal}). Skipping.`);
+    await maintainQueue(config).catch((error) => {
+      log(`Queue refill failed: ${error instanceof Error ? error.message : error}`);
+    });
+    return { skipped: true as const, reason: "already-posted" };
+  }
+
+  if (!options.force) {
+    const open = config.schedule.times.filter(
+      (time) => now.hour * 60 + now.minute >= time.hour * 60 + time.minute,
+    ).length;
+    if (postedToday >= open) {
+      const next = config.schedule.times[postedToday];
+      log(
+        next
+          ? `Waiting for slot ${postedToday + 1}/${quota} at ${String(next.hour).padStart(2, "0")}:${String(next.minute).padStart(2, "0")} ${config.schedule.timezone}.`
+          : `No open slot yet (${postedToday}/${quota}).`,
+      );
+      await maintainQueue(config).catch((error) => {
+        log(`Queue refill failed: ${error instanceof Error ? error.message : error}`);
+      });
+      return { skipped: true as const, reason: "waiting-for-slot" };
+    }
   }
 
   const queue = await listQueue();

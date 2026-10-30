@@ -17,7 +17,7 @@
       <aside>
         <p class="eyebrow">Shikhar Sharma</p>
         <h1>Personal Poster</h1>
-        <p class="lede">Odoo, applied AI, and technology — queued, reviewed, then published at peak hours.</p>
+        <p class="lede">Applied AI first, with Odoo and tech — trending takes, every post imaged, 2–3× daily.</p>
         <nav>
           <button data-tab="desk" class="active">Desk</button>
           <button data-tab="drafts">Drafts <span id="count-drafts">0</span></button>
@@ -25,7 +25,7 @@
           <button data-tab="posted">Posted <span id="count-posted">0</span></button>
           <button data-tab="niche">Niche</button>
         </nav>
-        <p class="aside-note">Always keeps 5 posts in the queue. After a post goes live it leaves the queue and a new one is generated. On Render it keeps posting when this laptop is off. Reply to comments in the first hour after a post goes live.</p>
+        <p class="aside-note">Keeps ~9 posts in the queue (3 days at 3× daily). Every draft gets a colorful image. Posts lean AI and react to trending headlines. Reply to comments in the first hour after a post goes live.</p>
       </aside>
       <main>
         <p id="banner" class="banner hidden"></p>
@@ -55,18 +55,19 @@
             <label>
               Angle
               <select id="topic">
-                <option value="">Rotate the topic bank</option>
-                <option>Odoo in production</option>
-                <option>Applied AI inside ERP</option>
-                <option>Integrations and data quality</option>
+                <option value="">Rotate the topic bank (AI-first)</option>
+                <option>This week's AI headline for ERP teams</option>
+                <option>Agents vs Monday-morning data</option>
+                <option>RAG / copilots in real ops</option>
+                <option>Document AI on invoices and support</option>
                 <option>When not to automate</option>
               </select>
             </label>
             <label>
               Image
               <select id="image-mode">
-                <option value="auto">Sometimes (~40%)</option>
-                <option value="yes">Include an image</option>
+                <option value="yes" selected>Always (required)</option>
+                <option value="auto">Follow IMAGE_CHANCE</option>
                 <option value="no">Text only</option>
               </select>
             </label>
@@ -89,7 +90,7 @@
         <section id="tab-queue" class="tab hidden">
           <header class="page-head">
             <h2>Queue</h2>
-            <p>Oldest post publishes first. Each card shows the date and time it will go out (Tue–Thu 09:15 Asia/Kolkata). After a post is published it moves to Posted. The bot then generates a replacement so this list stays at <span id="queue-min">5</span>.</p>
+            <p>Oldest post publishes first. Each card shows its slot (daily 09:15 / 13:15 / 18:15 Asia/Kolkata). After a post is published it moves to Posted. The bot then generates a replacement so this list stays at <span id="queue-min">9</span>.</p>
           </header>
           <div class="compose stacked">
             <label>
