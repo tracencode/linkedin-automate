@@ -75,7 +75,7 @@ Structure:
 2. Body: 120–220 words. One idea. How this trend shows up (or fails) in real systems.
 3. Close: one real question that invites a story or a disagreement, not yes/no.
 
-Return JSON only: {"topic":"...","text":"...","hashtags":["AppliedAI","RAG"],"imagePrompt":"one vivid multi-color visual sentence, mixed bright hues, no words in the picture","newsAngle":"which headline or beat you used"}`;
+Return JSON only: {"topic":"...","text":"...","hashtags":["AppliedAI","RAG"],"imagePrompt":"one concrete visual metaphor a business reader would recognize, realistic objects or architecture, no words in the picture","newsAngle":"which headline or beat you used"}`;
 
   const user = `Author profile:
 ${profile}

@@ -71,7 +71,7 @@ export async function getDashboard(config: AppConfig) {
       upcoming: upcoming.map((slot) => slot.label),
       wouldRun: decision.run,
       reason: decision.reason,
-      why: `${config.schedule.postsPerDay}× daily at ${formatPostTimes(config.schedule.times)} ${config.schedule.timezone}. AI-first posts that react to trending news, each with a colorful image.`,
+      why: `${config.schedule.postsPerDay}× daily at ${formatPostTimes(config.schedule.times)} ${config.schedule.timezone}. AI-first posts that react to trending news, each with a premium editorial image.`,
     },
     counts: {
       drafts: drafts.length,

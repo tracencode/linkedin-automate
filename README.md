@@ -8,7 +8,7 @@ This does **not** scrape LinkedIn, auto-comment, or mass-follow. Those tactics v
 
 1. Niche lives in `content/profile.md` (Odoo / AI / tech, written from a founder's stance without labelling it).
 2. Open the UI with `npm run ui` → [http://127.0.0.1:4567](http://127.0.0.1:4567).
-3. Generate or write a post, edit it, queue it. **Every post gets a colorful image.** Drafts lean **applied AI** and react to **trending AI/tech headlines**. The queue stays at about **9 posts** (3 days of 3× daily). GitHub Actions publishes **daily** at **09:15, 13:15, and 18:15 Asia/Kolkata**.
+3. Generate or write a post, edit it, queue it. **Every post gets a premium editorial image.** Drafts lean **applied AI** and react to **trending AI/tech headlines**. The queue stays at about **9 posts** (3 days of 3× daily). GitHub Actions publishes **daily** at **09:15, 13:15, and 18:15 Asia/Kolkata**.
 4. If the queue is empty and `AUTO_PUBLISH=true`, it generates a post and publishes it.
 
 Default is **queue-only**. Keep auto-publish off until the drafts sound like you. Deploy on Render so posting continues when your laptop is off.
