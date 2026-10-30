@@ -67,15 +67,10 @@ export async function generateLinkedInImage(
   ].join(" ");
 
   const models = uniqueModels(config.openai.imageModel);
-  let lastError = "No image model succeeded.";
+  const errors: string[] = [];
   let imageBytes: Buffer | undefined;
 
   for (const model of models) {
-    const size = model.includes("gpt-image")
-      ? "1536x1024"
-      : model.includes("dall-e-2")
-        ? "1024x1024"
-        : "1792x1024";
     const response = await fetch(`${config.openai.baseUrl}/images/generations`, {
       method: "POST",
       headers: {
@@ -85,7 +80,8 @@ export async function generateLinkedInImage(
       body: JSON.stringify({
         model,
         prompt,
-        size,
+        size: "1536x1024",
+        quality: "medium",
       }),
     });
     const payload = (await response.json()) as {
@@ -93,7 +89,9 @@ export async function generateLinkedInImage(
       error?: { message?: string };
     };
     if (!response.ok) {
-      lastError = `Image generation failed (${response.status}): ${payload.error?.message ?? JSON.stringify(payload)}`;
+      errors.push(
+        `${model} (${response.status}): ${payload.error?.message ?? JSON.stringify(payload)}`,
+      );
       continue;
     }
     const b64 = payload.data?.[0]?.b64_json;
@@ -105,17 +103,21 @@ export async function generateLinkedInImage(
     if (imageUrl) {
       const image = await fetch(imageUrl);
       if (!image.ok) {
-        lastError = `Could not download generated image (${image.status})`;
+        errors.push(`${model}: could not download generated image (${image.status})`);
         continue;
       }
       imageBytes = Buffer.from(await image.arrayBuffer());
       break;
     }
-    lastError = "Image API returned neither base64 nor a URL.";
+    errors.push(`${model}: Image API returned neither base64 nor a URL.`);
   }
 
   if (!imageBytes) {
-    throw new Error(lastError);
+    throw new Error(
+      errors.length > 0
+        ? `Image generation failed. ${errors.join(" | ")}`
+        : "No image model succeeded.",
+    );
   }
 
   await mkdir(MEDIA_DIR, { recursive: true });
@@ -125,15 +127,21 @@ export async function generateLinkedInImage(
   return fileName;
 }
 
+const RETIRED_IMAGE_MODELS = new Set(["dall-e-2", "dall-e-3", "gpt-image-1"]);
+
+const IMAGE_MODEL_FALLBACKS = [
+  "gpt-image-2.5-flare",
+  "gpt-image-2.5-sunburst",
+  "gpt-image-2",
+  "gpt-image-1.5",
+];
+
 function uniqueModels(preferred: string): string[] {
   return [
-    ...new Set([
-      preferred,
-      "gpt-image-1.5",
-      "gpt-image-2",
-      "gpt-image-1-mini",
-      "chatgpt-image-latest",
-      "gpt-image-1",
-    ]),
+    ...new Set(
+      [preferred, ...IMAGE_MODEL_FALLBACKS].filter(
+        (model) => model && !RETIRED_IMAGE_MODELS.has(model),
+      ),
+    ),
   ];
 }
