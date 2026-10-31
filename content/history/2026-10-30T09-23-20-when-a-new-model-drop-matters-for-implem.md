@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: lesson_learned
 topic: When a new model drop matters for implementers (and when it is noise)
 createdAt: 2026-10-30T09:23:20.548Z
