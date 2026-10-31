@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: contrarian_take
 topic: Copilots for finance / warehouse / support — what I refuse to automate
 createdAt: 2026-10-30T09:22:32.847Z
