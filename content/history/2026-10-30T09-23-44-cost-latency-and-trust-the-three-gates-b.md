@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: framework
 topic: Cost, latency, and trust: the three gates before we ship an AI feature
 createdAt: 2026-10-30T09:23:44.528Z
