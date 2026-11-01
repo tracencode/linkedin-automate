@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: tactical_howto
 topic: The difference between a demo AI copilot and one a warehouse team will use
 createdAt: 2026-10-30T09:26:10.941Z
