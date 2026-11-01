@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: personal_story
 topic: Document AI that survives messy scans, stamps, and multilingual invoices
 createdAt: 2026-10-30T09:25:23.149Z
