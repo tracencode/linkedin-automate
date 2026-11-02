@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: lesson_learned
 topic: What I check before I trust an Odoo migration that also moves AI features
 createdAt: 2026-10-30T09:27:46.023Z
