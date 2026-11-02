@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: contrarian_take
 topic: When to configure Odoo vs writing a custom module
 createdAt: 2026-10-30T09:26:59.465Z
