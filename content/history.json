@@ -223,6 +223,14 @@
       "text": "With the recent buzz around open-source AI agents, I’m reminded of the complexities behind migrations that integrate these new tools into existing systems. Teams often get caught up in the allure of quick deployment without fully assessing the impact on operational stability.\n\nBefore approving any Odoo migration that also shifts AI features, I focus on three critical checks. First, I ensure data integrity. Clean data is non-negotiable; if the master data is dirty, AI features will struggle or fail outright. Second, I review the workflow design. How will the new AI features interact with existing processes? A well-mapped workflow is essential for success. Finally, I assess user training and adoption strategies. New technologies won’t deliver value if the users aren’t equipped to leverage them effectively.\n\nThese steps might seem tedious, but they’re crucial for ensuring smooth transitions and maintaining trust in the system. Have you encountered challenges with AI migrations that disrupted operations?\n\n#Migration #AI #AppliedAI #DataMigration #MachineLearning\n#EnterpriseSoftware #WorkflowAutomation #ChangeManagement #DataCleansing #DigitalOperations\n#Odoo #OdooDevelopment #OdooERP #OdooImplementation #OpenSource\n#ProcessImprovement #UserAdoption #MasterData",
       "source": "queue",
       "file": "2026-10-30T09-27-46-what-i-check-before-i-trust-an-odoo-migr.md"
+    },
+    {
+      "id": "urn:li:share:7523343807912919040",
+      "postedAt": "2026-11-03T11:22:21.354Z",
+      "dateLocal": "2026-11-03",
+      "text": "There’s a growing trend of AI tools promising seamless automation. A recent spike in open-source agents like Allos and EZClaw highlights this. They look great on paper, but here's where caution is needed.\n\nI've seen teams rush to automate processes without evaluating their operational impact. Automation should simplify workflows, not complicate them with new errors. In my experience, many tasks are better off on a checklist than fully automated.\n\nFor instance, I worked with a customer who wanted to automate inventory checks using a new AI tool. We found that their existing manual processes, while slow, were actually more reliable in navigating discrepancies. The AI tool would have added unnecessary complexity and risk.\n\nAs practitioners, we need to remember that not every workflow should be automated. Sometimes, keeping a human in the loop is essential for success.\n\nHave you faced challenges with automating processes that seemed promising?\n\n#WorkflowAutomation #Automation #ProcessImprovement #AI #AppliedAI\n#MachineLearning #Operations #Inventory #DigitalOperations #WarehouseManagement\n#OdooDevelopment #TechnicalDebt #TraceNcode #SoftwareDevelopment #DocumentAI\n#SupplyChain #StockManagement #ERP",
+      "source": "queue",
+      "file": "2026-10-30T09-28-36-automation-that-should-have-stayed-a-che.md"
     }
   ]
 }

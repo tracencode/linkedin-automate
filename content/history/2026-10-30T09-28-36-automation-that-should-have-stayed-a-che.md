@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: framework
 topic: Automation that should have stayed a checklist
 createdAt: 2026-10-30T09:28:36.075Z
