@@ -231,6 +231,14 @@
       "text": "There’s a growing trend of AI tools promising seamless automation. A recent spike in open-source agents like Allos and EZClaw highlights this. They look great on paper, but here's where caution is needed.\n\nI've seen teams rush to automate processes without evaluating their operational impact. Automation should simplify workflows, not complicate them with new errors. In my experience, many tasks are better off on a checklist than fully automated.\n\nFor instance, I worked with a customer who wanted to automate inventory checks using a new AI tool. We found that their existing manual processes, while slow, were actually more reliable in navigating discrepancies. The AI tool would have added unnecessary complexity and risk.\n\nAs practitioners, we need to remember that not every workflow should be automated. Sometimes, keeping a human in the loop is essential for success.\n\nHave you faced challenges with automating processes that seemed promising?\n\n#WorkflowAutomation #Automation #ProcessImprovement #AI #AppliedAI\n#MachineLearning #Operations #Inventory #DigitalOperations #WarehouseManagement\n#OdooDevelopment #TechnicalDebt #TraceNcode #SoftwareDevelopment #DocumentAI\n#SupplyChain #StockManagement #ERP",
       "source": "queue",
       "file": "2026-10-30T09-28-36-automation-that-should-have-stayed-a-che.md"
+    },
+    {
+      "id": "urn:li:share:7523405816314540032",
+      "postedAt": "2026-11-03T15:28:45.212Z",
+      "dateLocal": "2026-11-03",
+      "text": "The allure of AI copilots can be deceptive.\n\nMany organizations are excited about deploying AI tools in finance, warehouse, and support roles. These tools promise efficiency and smart decision-making. But in practice, not everything should be automated. I refuse to automate tasks that rely on nuanced human judgment. For instance, financial decision-making often requires context that's hard for AI to grasp. Copilots can assist, but they shouldn’t replace critical thinking. The same goes for warehouse management. An AI could forecast demand, but it can’t account for last-minute changes, like supply chain disruptions or customer preferences. When deploying AI in these areas, I focus on augmenting human capabilities instead of substituting them. We need to ensure that AI acts as a tool, not a crutch, especially in high-stakes environments. How have you navigated the balance between automation and human oversight?\n\n#AI #AppliedAI #Automation #WorkflowAutomation #Inventory\n#MachineLearning #WarehouseManagement #CustomerSupport #OdooDevelopment #TechnicalDebt\n#SoftwareDevelopment #TraceNcode #DocumentAI #ProcessImprovement #SupplyChain\n#StockManagement #ERP #Odoo",
+      "source": "queue",
+      "file": "2026-10-31T09-58-53-copilots-for-finance-warehouse-support-w.md"
     }
   ]
 }

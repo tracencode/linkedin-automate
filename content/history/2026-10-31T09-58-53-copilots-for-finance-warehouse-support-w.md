@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: question_post
 topic: Copilots for finance / warehouse / support — what I refuse to automate
 createdAt: 2026-10-31T09:58:53.602Z
