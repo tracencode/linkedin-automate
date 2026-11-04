@@ -239,6 +239,14 @@
       "text": "The allure of AI copilots can be deceptive.\n\nMany organizations are excited about deploying AI tools in finance, warehouse, and support roles. These tools promise efficiency and smart decision-making. But in practice, not everything should be automated. I refuse to automate tasks that rely on nuanced human judgment. For instance, financial decision-making often requires context that's hard for AI to grasp. Copilots can assist, but they shouldn’t replace critical thinking. The same goes for warehouse management. An AI could forecast demand, but it can’t account for last-minute changes, like supply chain disruptions or customer preferences. When deploying AI in these areas, I focus on augmenting human capabilities instead of substituting them. We need to ensure that AI acts as a tool, not a crutch, especially in high-stakes environments. How have you navigated the balance between automation and human oversight?\n\n#AI #AppliedAI #Automation #WorkflowAutomation #Inventory\n#MachineLearning #WarehouseManagement #CustomerSupport #OdooDevelopment #TechnicalDebt\n#SoftwareDevelopment #TraceNcode #DocumentAI #ProcessImprovement #SupplyChain\n#StockManagement #ERP #Odoo",
       "source": "queue",
       "file": "2026-10-31T09-58-53-copilots-for-finance-warehouse-support-w.md"
+    },
+    {
+      "id": "urn:li:share:7523709736761024513",
+      "postedAt": "2026-11-04T11:36:25.455Z",
+      "dateLocal": "2026-11-04",
+      "text": "Deploying AI agents without operational checks is a risky move.\n\nThe recent buzz around tools like Allos and EZClaw promises quick deployments of AI agents over Odoo and ERP systems. While the appeal of fast integration is tempting, I’ve seen teams rush into it, only to face significant setbacks.\nIn real-world operations, these tools can create failure points that lead to data discrepancies and operational chaos. The integration with ERP APIs isn't as straightforward as it seems. I've had to recalibrate expectations after teams realized that production data doesn’t mirror demo environments.\nCaution is crucial. I prioritize thorough testing and validation before committing to these new tools. It's about making sure they align with actual workflows and do not just look good on paper. Quick wins can sometimes mask deeper flaws that reveal themselves only after deployment.\nHave you experienced the gap between demo promises and production reality?\n\n#OdooERP #EnterpriseSoftware #DigitalOperations #Integrations #SaaS\n#ERP #ERPImplementation #AI #APIs #AppliedAI\n#Odoo #OdooDevelopment #OdooImplementation #OpenSource #ProductionIssues\n#MachineLearning #OdooPartner #WorkflowAutomation",
+      "source": "queue",
+      "file": "2026-10-31T13-53-44-tool-calling-agents-over-odoo-erp-apis-t.md"
     }
   ]
 }

@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: personal_story
 topic: Tool-calling agents over Odoo / ERP APIs — the failure modes that matter
 createdAt: 2026-10-31T13:53:44.538Z
