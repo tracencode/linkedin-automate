@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: tactical_howto
 topic: Document AI that survives messy scans, stamps, and multilingual invoices
 createdAt: 2026-10-31T17:22:10.046Z

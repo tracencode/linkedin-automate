@@ -247,6 +247,14 @@
       "text": "Deploying AI agents without operational checks is a risky move.\n\nThe recent buzz around tools like Allos and EZClaw promises quick deployments of AI agents over Odoo and ERP systems. While the appeal of fast integration is tempting, I’ve seen teams rush into it, only to face significant setbacks.\nIn real-world operations, these tools can create failure points that lead to data discrepancies and operational chaos. The integration with ERP APIs isn't as straightforward as it seems. I've had to recalibrate expectations after teams realized that production data doesn’t mirror demo environments.\nCaution is crucial. I prioritize thorough testing and validation before committing to these new tools. It's about making sure they align with actual workflows and do not just look good on paper. Quick wins can sometimes mask deeper flaws that reveal themselves only after deployment.\nHave you experienced the gap between demo promises and production reality?\n\n#OdooERP #EnterpriseSoftware #DigitalOperations #Integrations #SaaS\n#ERP #ERPImplementation #AI #APIs #AppliedAI\n#Odoo #OdooDevelopment #OdooImplementation #OpenSource #ProductionIssues\n#MachineLearning #OdooPartner #WorkflowAutomation",
       "source": "queue",
       "file": "2026-10-31T13-53-44-tool-calling-agents-over-odoo-erp-apis-t.md"
+    },
+    {
+      "id": "urn:li:share:7523772519343054848",
+      "postedAt": "2026-11-04T15:45:54.707Z",
+      "dateLocal": "2026-11-04",
+      "text": "Document AI needs to handle real-world chaos, not just neat examples.\n\nMany organizations are excited about deploying AI tools in finance, warehouse, and support roles. These tools promise efficiency and smart decision-making. However, I've found that messy documents can derail even the most sophisticated systems. Last week, a client faced a barrage of invoices, some scanned with stamps and others in different languages. Their expectation was that any document AI could simply read and extract data seamlessly.\nThe reality is far more complex. If the underlying data is inconsistent—think poor scans, varying formats, or unclear text—no amount of AI sophistication can rectify that. I’ve seen workflows break down when systems are fed garbage in the name of automation.\nDesigning a robust document AI means preparing not just for clean inputs but for the chaos of real operations. If we don’t account for these variables, we risk undermining our deployments. How do you ensure your document AI can handle the messiness of everyday operations?\n\n#AI #AppliedAI #InvoiceProcessing #DocumentAI #MachineLearning\n#OCR #Invoices #WorkflowAutomation #AccountsPayable #DigitalOperations\n#FinanceOps #DataQuality #Inventory #Automation #ChangeManagement\n#EnterpriseSoftware #Operations #WarehouseManagement",
+      "source": "queue",
+      "file": "2026-10-31T17-22-10-document-ai-that-survives-messy-scans-st.md"
     }
   ]
 }
