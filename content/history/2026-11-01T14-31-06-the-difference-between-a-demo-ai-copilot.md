@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: contrarian_take
 topic: The difference between a demo AI copilot and one a warehouse team will use
 createdAt: 2026-11-01T14:31:06.091Z
