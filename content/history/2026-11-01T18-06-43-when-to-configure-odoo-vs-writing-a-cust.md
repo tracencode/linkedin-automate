@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: lesson_learned
 topic: When to configure Odoo vs writing a custom module — with an AI angle if it fits
 createdAt: 2026-11-01T18:06:43.708Z
