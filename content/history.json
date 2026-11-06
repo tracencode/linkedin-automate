@@ -271,6 +271,14 @@
       "text": "The latest AI tools make quick deployment seem easy.\n\nBut I’ve learned the hard way that speed can mislead. Many teams rush to configure Odoo or build a custom module without fully understanding their needs.\nTake AI agents like those emerging from Allos or EZClaw. They can look like an instant solution. However, if the underlying processes are unclear, you might end up with a patchwork that breaks in production. I’ve seen this firsthand. A hasty integration can lead to messy data and unclear workflows, setting the stage for failure on Monday morning.\nA thoughtful approach requires evaluating whether to customize or configure based on real operational demands. Sometimes, sticking with standard configurations can yield a more stable foundation.  In the rush to automate, don’t forget to assess if the AI deployment will enhance existing workflows or complicate them.\nHave you encountered situations where the choice between customizing and configuring made all the difference?\n\n#Configuration #OdooDevelopment #CustomModule #Customization #AI\n#AppliedAI #SoftwareDevelopment #TechnicalDebt #WorkflowAutomation #MachineLearning\n#Odoo #OdooERP #OdooImplementation #OpenSource #ProcessImprovement\n#Integrations #Automation #DigitalOperations",
       "source": "queue",
       "file": "2026-11-01T18-06-43-when-to-configure-odoo-vs-writing-a-cust.md"
+    },
+    {
+      "id": "urn:li:share:7524433321762635776",
+      "postedAt": "2026-11-06T11:31:41.689Z",
+      "dateLocal": "2026-11-06",
+      "text": "The promise of seamless AI integration often masks hidden risks.\n\nRecent tools like Allos and EZClaw make deploying AI agents sound effortless, but I've seen teams overlook critical operational checks in their rush to implement. When migrating Odoo systems to include these new AI features, my team and I focus on three key areas: data integrity, user impact, and process alignment.\nFirst, I evaluate the quality of the master data being migrated. If the data is dirty, any AI feature will struggle, leading to inaccurate results. Second, I consider how these features will affect end users—are they prepared for changes? Lastly, the integration workflow must remain aligned with existing operational processes to avoid chaos.\nSkipping these checks can lead to costly mistakes. Have you faced challenges when integrating AI into existing systems?\n\n#AI #AppliedAI #MachineLearning #Integrations #OdooImplementation\n#EnterpriseSoftware #APIs #Odoo #OdooDevelopment #OdooERP\n#OpenSource #ProcessImprovement #MasterData #Migration #DataMigration\n#OdooPartner #Operations #SaaS",
+      "source": "queue",
+      "file": "2026-11-01T18-07-05-what-i-check-before-i-trust-an-odoo-migr.md"
     }
   ]
 }
