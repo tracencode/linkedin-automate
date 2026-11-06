@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: question_post
 topic: Automation that should have stayed a checklist
 createdAt: 2026-11-02T11:42:39.906Z
