@@ -287,6 +287,14 @@
       "text": "The latest open-source AI agents promise rapid deployment.\n\nTools like Allos and EZClaw might seem appealing, but they often lead teams to automate processes that should remain manual. I've witnessed this firsthand. A client rushed to implement an automated ticketing system using a shiny new agent. Within days, they faced chaos. Their unique workflows, riddled with exceptions, broke under the weight of automation. Instead of improving efficiency, the system introduced delays and errors.\nAt TraceNcode, we’ve learned that not every task needs automation. Sometimes, a checklist suffices. While these new tools are designed for ease, they can’t grasp the nuances of every operation. Understanding when to automate is crucial. Blindly integrating new AI agents without a solid grasp of existing processes can derail operations.\nHave you seen situations where automation caused more problems than it solved?\n\n#WorkflowAutomation #Automation #AI #AppliedAI #Operations\n#ProcessImprovement #DigitalOperations #EnterpriseSoftware #MachineLearning #CustomerSupport\n#ERPImplementation #OdooImplementation #ChangeManagement #SoftwareDevelopment #TraceNcode\n#DocumentAI #Odoo #ERP",
       "source": "queue",
       "file": "2026-11-02T11-42-39-automation-that-should-have-stayed-a-che.md"
+    },
+    {
+      "id": "urn:li:share:7524783248519041024",
+      "postedAt": "2026-11-07T10:42:11.237Z",
+      "dateLocal": "2026-11-07",
+      "text": "Explaining AI decisions to non-technical stakeholders often reveals gaps.\n\nRecently, a client approached me about automating their invoice processing with an AI agent. They envisioned a seamless, hands-free solution that would cut down on manual entry. While I appreciate the enthusiasm, I had to pause. The underlying data wasn’t ready. We were facing dirty master data and inconsistent formats, which would compromise the AI's effectiveness. I explained that deploying a sophisticated AI tool won’t resolve foundational data issues. It would only amplify them.\nOur conversation shifted from the excitement of automation to the gritty reality of data hygiene. We outlined a phased approach: cleansing their data first, then evaluating the right AI approach. This decision wasn't easy, but it was necessary. The goal is always to ensure that what we deploy works, even on Monday morning.\nHave you faced pushback when explaining AI decisions to operations teams?\n\n#AI #AppliedAI #MachineLearning #Automation #WorkflowAutomation\n#DataCleansing #Operations #DataQuality #Invoices #MasterData\n#ChangeManagement #DigitalOperations #InvoiceProcessing #TraceNcode #AccountsPayable\n#DataGovernance #FinanceOps #Odoo",
+      "source": "queue",
+      "file": "2026-11-02T17-26-52-explaining-a-technical-ai-odoo-decision-.md"
     }
   ]
 }

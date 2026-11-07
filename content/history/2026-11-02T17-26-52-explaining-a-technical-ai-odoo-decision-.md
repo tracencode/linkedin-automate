@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: personal_story
 topic: Explaining a technical AI/Odoo decision to a non-technical operations owner
 createdAt: 2026-11-02T17:26:52.255Z
