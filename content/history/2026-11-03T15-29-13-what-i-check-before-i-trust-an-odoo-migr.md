@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: contrarian_take
 topic: What I check before I trust an Odoo migration that also moves AI features
 createdAt: 2026-11-03T15:29:13.137Z
