@@ -295,6 +295,14 @@
       "text": "Explaining AI decisions to non-technical stakeholders often reveals gaps.\n\nRecently, a client approached me about automating their invoice processing with an AI agent. They envisioned a seamless, hands-free solution that would cut down on manual entry. While I appreciate the enthusiasm, I had to pause. The underlying data wasn’t ready. We were facing dirty master data and inconsistent formats, which would compromise the AI's effectiveness. I explained that deploying a sophisticated AI tool won’t resolve foundational data issues. It would only amplify them.\nOur conversation shifted from the excitement of automation to the gritty reality of data hygiene. We outlined a phased approach: cleansing their data first, then evaluating the right AI approach. This decision wasn't easy, but it was necessary. The goal is always to ensure that what we deploy works, even on Monday morning.\nHave you faced pushback when explaining AI decisions to operations teams?\n\n#AI #AppliedAI #MachineLearning #Automation #WorkflowAutomation\n#DataCleansing #Operations #DataQuality #Invoices #MasterData\n#ChangeManagement #DigitalOperations #InvoiceProcessing #TraceNcode #AccountsPayable\n#DataGovernance #FinanceOps #Odoo",
       "source": "queue",
       "file": "2026-11-02T17-26-52-explaining-a-technical-ai-odoo-decision-.md"
+    },
+    {
+      "id": "urn:li:share:7524838260762951680",
+      "postedAt": "2026-11-07T14:20:47.024Z",
+      "dateLocal": "2026-11-07",
+      "text": "Many organizations rush to configure Odoo without fully understanding their needs.\n\nThe recent excitement around tools like Allos and EZClaw can create a false sense of readiness. Quick AI deployments sound compelling, but the risks often outweigh the benefits. I’ve seen teams dive headfirst into these integrations without accounting for the specificities of their operations.\nThe decision between configuring Odoo and building a custom module often hinges on the complexity of the workflow. If your needs are straightforward, a configuration might suffice. But when your requirements demand nuanced adaptations, a custom module becomes imperative. By focusing solely on speed, teams overlook critical details like data integrity and user adoption. The aftermath can reveal glaring gaps, especially in production environments where AI integrations must perform flawlessly.\nWhat challenges have you faced when deciding between configuration and custom development?\n\n#OdooDevelopment #Configuration #CustomModule #SoftwareDevelopment #Customization\n#TechnicalDebt #Integrations #Odoo #OdooERP #OdooImplementation\n#OpenSource #AI #APIs #AppliedAI #EnterpriseSoftware\n#OdooPartner #SaaS #Accounting",
+      "source": "queue",
+      "file": "2026-11-03T11-23-13-when-to-configure-odoo-vs-writing-a-cust.md"
     }
   ]
 }

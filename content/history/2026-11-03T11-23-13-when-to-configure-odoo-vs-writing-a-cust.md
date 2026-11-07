@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: tactical_howto
 topic: When to configure Odoo vs writing a custom module
 createdAt: 2026-11-03T11:23:13.307Z
