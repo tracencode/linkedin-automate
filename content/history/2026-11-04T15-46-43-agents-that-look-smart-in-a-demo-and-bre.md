@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: framework
 topic: Agents that look smart in a demo and break on Monday morning data
 createdAt: 2026-11-04T15:46:43.591Z
