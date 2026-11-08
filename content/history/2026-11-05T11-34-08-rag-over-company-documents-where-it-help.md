@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: question_post
 topic: RAG over company documents — where it helps and where it hallucinates
 createdAt: 2026-11-05T11:34:08.069Z

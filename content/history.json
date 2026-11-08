@@ -327,6 +327,14 @@
       "text": "A shiny new AI agent can shatter under real conditions.\n\nTools like EZClaw and Allos make deployment sound tantalizingly simple. However, I've seen too many teams overlook the core operational checks needed for stability.\nJust last month, a client rushed to integrate an AI agent into their support system. The demo was flawless. But come Monday, the system faltered, unable to handle the data inputs from their ERP. The agent's performance dropped, revealing gaps in understanding the complexity of the underlying workflows.\nWe can't let convenience outweigh the necessity for solid architecture. An effective AI agent relies on rigorous testing against real-world data and scenarios, not just a polished presentation.\nWhat’s your biggest challenge when deploying AI agents in production?\n\n#AI #AppliedAI #MachineLearning #EnterpriseSoftware #UserAdoption\n#DigitalOperations #WorkflowAutomation #CustomerSupport #ERP #ERPImplementation\n#OdooERP #ProductionIssues #ProcessImprovement #SaaS #TraceNcode\n#DocumentAI #Automation #Odoo",
       "source": "queue",
       "file": "2026-11-04T15-46-43-agents-that-look-smart-in-a-demo-and-bre.md"
+    },
+    {
+      "id": "urn:li:share:7525256992181862400",
+      "postedAt": "2026-11-08T18:04:40.571Z",
+      "dateLocal": "2026-11-08",
+      "text": "Many teams underestimate the hallucination risk in RAG models.\n\nWith the recent emergence of tools like Allos and EZClaw, there's a surge in excitement around RAG (retrieval-augmented generation) applications. These can be a boon for processing company documents, especially when they leverage vast datasets. However, I’ve seen firsthand how quickly things can go sideways.\nJust last week, I worked with a client eager to implement RAG to pull insights from their financial documents. While the model provided impressive responses during testing, it produced inaccuracies when faced with real-world data inconsistencies. Hallucinations crept in, leading to confusion and loss of trust among users.\nThe lesson here is clear: RAG can enhance workflows, but it demands rigorous validation against live documents. Rushing to deploy without a solid understanding of your data's quality will expose your operations to unnecessary risk.\nWhat strategies do you use to ensure data accuracy before deploying AI models?\n\n#AppliedAI #MachineLearning #DataQuality #ChangeManagement #DigitalOperations\n#Operations #ProcessImprovement #WorkflowAutomation #AI #ERPImplementation\n#OdooImplementation #ProductionIssues #UserAdoption #Hallucinates #MasterData\n#DataCleansing #DataGovernance #DocumentAI",
+      "source": "queue",
+      "file": "2026-11-05T11-34-08-rag-over-company-documents-where-it-help.md"
     }
   ]
 }
