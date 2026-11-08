@@ -311,6 +311,14 @@
       "text": "The rush to deploy AI agents can obscure vital operational checks.\n\nTools like Allos and EZClaw promise rapid integration with Odoo and ERP systems, making them sound appealing for teams looking for efficiency. But I've seen too many organizations dive in without due diligence. When migrating Odoo systems to include AI features, I always check the integrity of existing data and workflows. If there's dirty master data, even the smartest AI won't save you from chaos. I prefer to pause and ensure that the migration plan addresses potential pitfalls, such as data quality issues, process changes, and user adoption. Rushing ahead can lead to broken workflows that drag teams back into manual processes. The cost of a mismanaged migration is often higher than taking the time to lay a solid foundation. What checks do you insist on before moving to AI-enhanced migrations?\n\n#Migration #DataMigration #AI #AppliedAI #EnterpriseSoftware\n#OdooERP #MachineLearning #Odoo #OdooDevelopment #OdooImplementation\n#OpenSource #ProcessImprovement #SaaS #WorkflowAutomation #DataGovernance\n#DigitalOperations #OdooPartner #DataQuality",
       "source": "queue",
       "file": "2026-11-03T15-29-13-what-i-check-before-i-trust-an-odoo-migr.md"
+    },
+    {
+      "id": "urn:li:share:7525146914359685120",
+      "postedAt": "2026-11-08T10:47:16.020Z",
+      "dateLocal": "2026-11-08",
+      "text": "In the race to adopt new AI tools, a checklist approach often gets overlooked.\n\nTools like EZClaw might promise a quick integration of agents into workflows, but not all tasks are suitable for automation.\nI remember a project where a team jumped at the chance to automate their support ticket handling with an AI-driven agent. They envisioned cutting down response times without fully considering the nuances of their processes. What ensued was a chaotic blend of misrouted tickets and frustrated users.\nThis experience highlighted that not every aspect of operations is ready for AI intervention. Tasks still require human judgment and oversight. When we prioritize speed over scrutiny, it can lead to failures that disrupt workflows rather than enhance them.\nAs we explore the potential of AI agents, let’s remember: some processes should remain manual and systematic. Have you experienced automation fails that would have been better managed with a checklist?\n\n#WorkflowAutomation #Automation #AI #AppliedAI #CustomerSupport\n#MachineLearning #ProcessImprovement #DigitalOperations #Operations #Integrations\n#ChangeManagement #SupportOps #APIs #UserAdoption #EnterpriseSoftware\n#TraceNcode #DocumentAI #SystemIntegration",
+      "source": "queue",
+      "file": "2026-11-04T15-46-15-automation-that-should-have-stayed-a-che.md"
     }
   ]
 }

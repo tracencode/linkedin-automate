@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: lesson_learned
 topic: Automation that should have stayed a checklist
 createdAt: 2026-11-04T15:46:15.128Z
