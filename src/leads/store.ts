@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { createHash } from "node:crypto";
+import { scoreLead } from "./queries.ts";
 import { CONTENT_DIR, LEADS_PATH } from "../paths.ts";
 
 export type LeadStatus = "new" | "saved" | "contacted" | "skipped";
@@ -60,9 +61,15 @@ export async function saveLeads(file: LeadFile) {
   await writeFile(LEADS_PATH, JSON.stringify({ ...file, leads }, null, 2) + "\n", "utf8");
 }
 
+export function isRelevantLead(lead: Pick<Lead, "title" | "snippet" | "url" | "query" | "status">): boolean {
+  if (lead.status === "skipped") return false;
+  if (lead.query === "manual" || lead.status === "saved" || lead.status === "contacted") return true;
+  return scoreLead(`${lead.title} ${lead.snippet}`, lead.url) >= 3;
+}
+
 export async function listOpenLeads(): Promise<Lead[]> {
   const file = await loadLeads();
-  return file.leads.filter((lead) => lead.status !== "skipped");
+  return file.leads.filter((lead) => isRelevantLead(lead));
 }
 
 function normalizeStatus(status: string | undefined): LeadStatus {

@@ -1,6 +1,6 @@
 import { log } from "../log.ts";
 import { searchLeadPosts } from "./search.ts";
-import { leadId, loadLeads, saveLeads, type Lead } from "./store.ts";
+import { isRelevantLead, leadId, loadLeads, saveLeads, type Lead } from "./store.ts";
 
 const SCAN_GAP_MS = 3 * 60 * 60 * 1000;
 
@@ -27,6 +27,7 @@ export async function addLeadUrl(url: string): Promise<Lead> {
 
 export async function scanLeads(options: { force?: boolean } = {}) {
   const file = await loadLeads();
+  file.leads = file.leads.filter((lead) => isRelevantLead(lead) || lead.status === "skipped");
   const last = file.lastScanAt ? Date.parse(file.lastScanAt) : 0;
   if (!options.force && Date.now() - last < SCAN_GAP_MS) {
     return { added: 0, skipped: "recent-scan" as const };
