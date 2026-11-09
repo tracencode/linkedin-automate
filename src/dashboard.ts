@@ -86,7 +86,9 @@ export async function getDashboard(config: AppConfig) {
       posted: history.posts.filter((post) => !post.dryRun).length,
       postedToday: postedTodayCount,
       leads: (await listOpenLeads()).filter((lead) => lead.status === "new" || lead.status === "saved").length,
+      leadsCommented: (await listOpenLeads()).filter((lead) => lead.status === "commented").length,
       comments: (await listOpenComments()).filter((item) => item.status !== "commented").length,
+      commentsSent: (await listOpenComments()).filter((item) => item.status === "commented").length,
     },
     leads: (await listOpenLeads()).slice(0, 40).map((lead) => ({
       id: lead.id,
@@ -98,6 +100,7 @@ export async function getDashboard(config: AppConfig) {
       comment: lead.comment ?? "",
       error: lead.error ?? "",
       foundAt: lead.foundAt,
+      commentedAt: lead.commentedAt ?? "",
     })),
     comments: (await listOpenComments()).slice(0, 40).map((item) => ({
       id: item.id,

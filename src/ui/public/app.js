@@ -107,8 +107,8 @@ async function refresh(options = {}) {
   $("count-drafts").textContent = String(state.counts.drafts);
   $("count-queue").textContent = String(state.counts.queued);
   $("count-posted").textContent = String(state.counts.posted);
-  $("count-leads").textContent = String(state.counts.leads ?? 0);
-  $("count-comments").textContent = String(state.counts.comments ?? 0);
+  $("count-leads").textContent = String(state.counts.leadsCommented ?? 0);
+  $("count-comments").textContent = String(state.counts.commentsSent ?? 0);
   $("comments-note").textContent = state.autoComment
     ? `Runs on its own every hour, all day. ${state.commentDailyMin}–${state.commentDailyMax} comments go out each day. You do not need to open this tab.`
     : `Relevant Odoo, AI, and technology posts. Review the draft, then post it.`;
@@ -231,23 +231,57 @@ function postLink(url, title) {
   return link;
 }
 
+function sentWhen(iso) {
+  if (!iso) return "";
+  return new Intl.DateTimeFormat("en-IN", {
+    timeZone: "Asia/Kolkata",
+    day: "numeric",
+    month: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(new Date(iso));
+}
+
+function listHeading(text) {
+  const heading = document.createElement("p");
+  heading.className = "meta";
+  heading.textContent = text;
+  return heading;
+}
+
 function renderComments(comments) {
   const root = $("comments-list");
   root.replaceChildren();
-  if (!comments.length) {
+  const sent = comments
+    .filter((item) => item.status === "commented")
+    .sort((a, b) => (b.commentedAt || "").localeCompare(a.commentedAt || ""));
+  const waiting = comments.filter((item) => item.status !== "commented");
+  if (!sent.length && !waiting.length) {
     const empty = document.createElement("p");
     empty.className = "why";
-    empty.textContent = "No comments yet. Find posts about Odoo, ERP, or applied AI.";
+    empty.textContent = "No comments sent yet. They show up here after the hourly run.";
     root.append(empty);
     return;
   }
-  for (const item of comments) {
+  if (sent.length) {
+    root.append(listHeading(`Sent · ${sent.length}`));
+    for (const item of sent) root.append(commentCard(item, true));
+  }
+  if (waiting.length) {
+    root.append(listHeading(`Waiting · ${waiting.length}`));
+    for (const item of waiting) root.append(commentCard(item, false));
+  }
+}
+
+function commentCard(item, sent) {
     const article = document.createElement("article");
     const meta = document.createElement("p");
     meta.className = "meta";
-    meta.textContent = [item.status, item.postUrn ? "can comment via API" : "copy onto the thread", item.foundAt?.slice(0, 10)]
-      .filter(Boolean)
-      .join(" · ");
+    meta.textContent = sent
+      ? ["Sent", sentWhen(item.commentedAt)].filter(Boolean).join(" · ")
+      : [item.status, item.postUrn ? "can comment via API" : "copy onto the thread", item.foundAt?.slice(0, 10)]
+          .filter(Boolean)
+          .join(" · ");
     const title = document.createElement("p");
     title.className = "when";
     title.append(postLink(item.url, item.title));
@@ -256,10 +290,10 @@ function renderComments(comments) {
     snippet.textContent = item.snippet || "";
     const body = document.createElement("pre");
     body.textContent = item.comment || "";
-    body.contentEditable = "true";
+    body.contentEditable = sent ? "false" : "true";
     const actions = document.createElement("div");
     actions.className = "card-actions";
-    if (item.status !== "commented") {
+    if (!sent) {
       actions.append(
         action("Post comment", () => postTargetComment(item.id, body), true),
         action("Save", () => saveTargetComment(item.id, body)),
@@ -273,25 +307,41 @@ function renderComments(comments) {
       err.textContent = item.error;
       article.append(err);
     }
-    root.append(article);
-  }
+    return article;
 }
 
 function renderLeads(leads) {
   const root = $("leads-list");
   root.replaceChildren();
-  if (!leads.length) {
+  const sent = leads
+    .filter((lead) => lead.status === "commented")
+    .sort((a, b) => (b.commentedAt || "").localeCompare(a.commentedAt || ""));
+  const open = leads.filter((lead) => lead.status !== "commented");
+  if (!sent.length && !open.length) {
     const empty = document.createElement("p");
     empty.className = "why";
-    empty.textContent = "No leads yet. Find posts from people looking for a development team.";
+    empty.textContent = "No lead comments sent yet. They show up here after the hourly run.";
     root.append(empty);
     return;
   }
-  for (const lead of leads) {
+  if (sent.length) {
+    root.append(listHeading(`Comments sent · ${sent.length}`));
+    for (const lead of sent) root.append(leadCard(lead));
+  }
+  if (open.length) {
+    root.append(listHeading(`Open · ${open.length}`));
+    for (const lead of open) root.append(leadCard(lead));
+  }
+}
+
+function leadCard(lead) {
     const article = document.createElement("article");
     const meta = document.createElement("p");
     meta.className = "meta";
-    meta.textContent = [lead.status, lead.foundAt?.slice(0, 10)].filter(Boolean).join(" · ");
+    meta.textContent =
+      lead.status === "commented"
+        ? ["Sent", sentWhen(lead.commentedAt)].filter(Boolean).join(" · ")
+        : [lead.status, lead.foundAt?.slice(0, 10)].filter(Boolean).join(" · ");
     const title = document.createElement("p");
     title.className = "when";
     title.append(postLink(lead.url, lead.title));
@@ -320,8 +370,7 @@ function renderLeads(leads) {
       article.append(err);
     }
     article.append(actions);
-    root.append(article);
-  }
+    return article;
 }
 
 async function postTargetComment(id, body) {
