@@ -1,7 +1,7 @@
 import type { AppConfig } from "../config.ts";
 import { log } from "../log.ts";
-import { zonedParts } from "../schedule/shouldPost.ts";
 import { getValidAccess } from "../linkedin/oauth.ts";
+import { roomForThisRun } from "./quota.ts";
 import { createComment } from "../linkedin/comments.ts";
 import { draftComment } from "./draft.ts";
 import { searchCommentPosts } from "./search.ts";
@@ -117,9 +117,7 @@ export async function postComment(config: AppConfig, id: string): Promise<Commen
 
 async function commentReady(config: AppConfig): Promise<number> {
   const file = await loadComments();
-  const today = new Intl.DateTimeFormat("en-CA", { timeZone: config.schedule.timezone }).format(new Date());
-  const used = file.comments.filter((item) => item.commentedAt && localDay(item.commentedAt, config.schedule.timezone) === today).length;
-  let room = postsThisRun(config, used);
+  let room = await roomForThisRun(config);
   let posted = 0;
   for (const target of file.comments) {
     if (room <= 0) break;
@@ -143,20 +141,3 @@ async function commentReady(config: AppConfig): Promise<number> {
   return posted;
 }
 
-function postsThisRun(config: AppConfig, used: number): number {
-  const room = config.commentDailyMax - used;
-  if (room <= 0) return 0;
-  const slots = Math.max(1, config.schedule.times.length);
-  const steady = Math.ceil(config.commentDailyMax / slots);
-  const now = zonedParts(new Date(), config.schedule.timezone);
-  const lastHour = Math.max(...config.schedule.times.map((slot) => slot.hour));
-  if (now.hour >= lastHour) return room;
-  const runsLeft = config.schedule.times.filter((slot) => slot.hour >= now.hour).length || 1;
-  const stillNeeded = Math.max(0, config.commentDailyMin - used);
-  const mustNow = Math.max(0, stillNeeded - steady * (runsLeft - 1));
-  return Math.min(room, Math.max(steady, mustNow));
-}
-
-function localDay(iso: string, timeZone: string): string {
-  return new Intl.DateTimeFormat("en-CA", { timeZone }).format(new Date(iso));
-}

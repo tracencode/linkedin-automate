@@ -147,8 +147,8 @@ async function main() {
       break;
     }
     case "leads": {
-      const result = await scanLeads({ force: true });
-      console.log(`Leads: ${result.added} new.`);
+      const result = await scanLeads(config, { force: true });
+      console.log(`Leads: ${result.added} new, ${result.drafted} offer comments drafted, ${result.commented} posted.`);
       break;
     }
     case "fill-queue": {

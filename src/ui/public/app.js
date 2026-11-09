@@ -300,14 +300,26 @@ function renderLeads(leads) {
     snippet.textContent = lead.snippet || "";
     const actions = document.createElement("div");
     actions.className = "card-actions";
-    if (lead.status !== "contacted" && lead.status !== "skipped") {
+    if (lead.status !== "contacted" && lead.status !== "skipped" && lead.status !== "commented") {
       actions.append(
         action("Save", () => setLeadStatus(lead.id, "saved"), true),
         action("Contacted", () => setLeadStatus(lead.id, "contacted")),
         action("Skip", () => setLeadStatus(lead.id, "skipped"), false, true),
       );
     }
-    article.append(meta, title, snippet, actions);
+    article.append(meta, title, snippet);
+    if (lead.comment) {
+      const body = document.createElement("pre");
+      body.textContent = lead.comment;
+      article.append(body);
+    }
+    if (lead.error) {
+      const err = document.createElement("p");
+      err.className = "why";
+      err.textContent = lead.error;
+      article.append(err);
+    }
+    article.append(actions);
     root.append(article);
   }
 }

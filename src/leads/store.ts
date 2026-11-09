@@ -4,7 +4,7 @@ import { createHash } from "node:crypto";
 import { scoreLead } from "./queries.ts";
 import { CONTENT_DIR, LEADS_PATH } from "../paths.ts";
 
-export type LeadStatus = "new" | "saved" | "contacted" | "skipped";
+export type LeadStatus = "new" | "saved" | "contacted" | "commented" | "skipped" | "failed";
 
 export type Lead = {
   id: string;
@@ -15,6 +15,10 @@ export type Lead = {
   score: number;
   status: LeadStatus;
   foundAt: string;
+  postUrn?: string;
+  comment?: string;
+  error?: string;
+  commentedAt?: string;
 };
 
 type LeadFile = {
@@ -46,6 +50,10 @@ export async function loadLeads(): Promise<LeadFile> {
           score: lead.score ?? 0,
           status: normalizeStatus(lead.status),
           foundAt: lead.foundAt || new Date().toISOString(),
+          postUrn: lead.postUrn,
+          comment: lead.comment || "",
+          error: lead.error,
+          commentedAt: lead.commentedAt,
         },
       ];
     }),
@@ -63,7 +71,9 @@ export async function saveLeads(file: LeadFile) {
 
 export function isRelevantLead(lead: Pick<Lead, "title" | "snippet" | "url" | "query" | "status">): boolean {
   if (lead.status === "skipped") return false;
-  if (lead.query === "manual" || lead.status === "saved" || lead.status === "contacted") return true;
+  if (lead.query === "manual" || lead.status === "saved" || lead.status === "contacted" || lead.status === "commented") {
+    return true;
+  }
   return scoreLead(`${lead.title} ${lead.snippet}`, lead.url) >= 3;
 }
 
@@ -73,7 +83,8 @@ export async function listOpenLeads(): Promise<Lead[]> {
 }
 
 function normalizeStatus(status: string | undefined): LeadStatus {
-  if (status === "saved" || status === "contacted" || status === "skipped") return status;
-  if (status === "commented") return "contacted";
+  if (status === "saved" || status === "contacted" || status === "commented" || status === "skipped" || status === "failed") {
+    return status;
+  }
   return "new";
 }

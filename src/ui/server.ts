@@ -233,7 +233,7 @@ async function handleApi(
     }
 
     if (route === "/api/leads/scan" && method === "POST") {
-      const result = await scanLeads({ force: true });
+      const result = await scanLeads(config, { force: true, post: !hosted && config.autoComment });
       send(res, 200, result);
       return;
     }
@@ -395,7 +395,9 @@ server.listen(PORT, HOST, () => {
           }, 3 * 60 * 60 * 1000);
         });
       };
-      if (config.leadScan) await everyThreeHours("Lead scan", () => scanLeads());
+      if (config.leadScan) {
+        await everyThreeHours("Lead scan", () => scanLeads(config, { post: !hosted && config.autoComment }));
+      }
       if (config.commentScan) {
         await everyThreeHours("Comment scan", () =>
           scanComments(config, { post: !hosted && config.autoComment }),

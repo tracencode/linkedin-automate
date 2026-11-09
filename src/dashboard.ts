@@ -95,6 +95,8 @@ export async function getDashboard(config: AppConfig) {
       snippet: lead.snippet,
       score: lead.score,
       status: lead.status,
+      comment: lead.comment ?? "",
+      error: lead.error ?? "",
       foundAt: lead.foundAt,
     })),
     comments: (await listOpenComments()).slice(0, 40).map((item) => ({
