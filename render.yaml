@@ -37,6 +37,16 @@ services:
         value: ugc
       - key: AUTO_PUBLISH
         value: "false"
+      - key: COMMENT_SCAN
+        value: "true"
+      - key: AUTO_COMMENT
+        value: "true"
+      - key: COMMENT_DAILY_MIN
+        value: "10"
+      - key: COMMENT_DAILY_MAX
+        value: "12"
+      - key: LEAD_SCAN
+        value: "true"
       - key: IMAGE_CHANCE
         value: "1"
       - key: OPENAI_IMAGE_MODEL
