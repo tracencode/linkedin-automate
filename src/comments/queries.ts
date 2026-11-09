@@ -1,14 +1,15 @@
 import { scoreLead } from "../leads/queries.ts";
+import { isLinkedInPostUrl } from "./store.ts";
 
 /**
- * Discussion posts in the niche: Odoo, ERP operations, applied AI.
- * Buying-intent posts stay on the Leads list and score 0 here.
+ * LinkedIn discussion posts in the niche. Product pages, docs, and GitHub
+ * repos are not threads we can comment on.
  */
 export const COMMENT_QUERIES = [
-  `Odoo (implementation OR customization OR migration) (lesson OR mistake OR "go-live" OR "master data")`,
-  `"applied AI" (ERP OR operations OR invoices OR warehouse) (workflow OR Odoo)`,
-  `site:linkedin.com/posts (Odoo OR "ERP implementation") (learned OR shipped OR "go-live" OR "master data")`,
-  `site:reddit.com/r/odoo (implementation OR customization OR migration OR "go-live")`,
+  `site:linkedin.com/posts Odoo (implementation OR "go-live" OR "master data" OR migration)`,
+  `site:linkedin.com/posts Odoo (customization OR warehouse OR invoice OR ERP)`,
+  `site:linkedin.com/posts "ERP implementation" (learned OR mistake OR "go-live")`,
+  `site:linkedin.com/feed/update Odoo (implementation OR migration OR customization)`,
 ];
 
 const TOPICS = [
@@ -29,6 +30,7 @@ const TOPICS = [
 const SKIP = ["tracencode.com", "linkedin.com/jobs", "indeed.com", "naukri.com", "glassdoor."];
 
 export function scoreComment(text: string, url: string): number {
+  if (!isLinkedInPostUrl(url)) return 0;
   const hay = `${text} ${url}`.toLowerCase();
   if (SKIP.some((part) => hay.includes(part))) return 0;
   if (scoreLead(text, url) >= 3) return 0;

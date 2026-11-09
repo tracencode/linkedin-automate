@@ -29,6 +29,20 @@ export function commentId(url: string): string {
   return createHash("sha1").update(`comment:${url}`).digest("hex").slice(0, 12);
 }
 
+export function isLinkedInPostUrl(url: string): boolean {
+  try {
+    const host = new URL(url).hostname.replace(/^www\./, "");
+    if (host !== "linkedin.com" && !host.endsWith(".linkedin.com")) return false;
+  } catch {
+    return false;
+  }
+  return (
+    /linkedin\.com\/(?:posts|feed\/update)\//i.test(url) ||
+    /urn:li:(?:activity|share|ugcPost):\d+/.test(url) ||
+    /activity[-:]\d{10,}/.test(url)
+  );
+}
+
 export function postUrnFromUrl(url: string): string | undefined {
   const named = url.match(/urn:li:(?:activity|share|ugcPost):\d+/);
   if (named) return named[0];
@@ -54,5 +68,5 @@ export async function saveComments(file: CommentFile) {
 
 export async function listOpenComments(): Promise<CommentTarget[]> {
   const file = await loadComments();
-  return file.comments.filter((item) => item.status !== "skipped");
+  return file.comments.filter((item) => item.status !== "skipped" && isLinkedInPostUrl(item.url));
 }

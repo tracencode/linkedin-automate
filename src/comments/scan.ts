@@ -8,6 +8,7 @@ import { searchCommentPosts } from "./search.ts";
 import {
   commentId,
   loadComments,
+  isLinkedInPostUrl,
   postUrnFromUrl,
   saveComments,
   type CommentTarget,
@@ -17,6 +18,9 @@ const SCAN_GAP_MS = 3 * 60 * 60 * 1000;
 
 export async function addCommentUrl(config: AppConfig, url: string): Promise<CommentTarget> {
   const key = url.trim();
+  if (!isLinkedInPostUrl(key)) {
+    throw new Error("Paste a LinkedIn post URL, like https://www.linkedin.com/posts/…");
+  }
   const file = await loadComments();
   const id = commentId(key);
   const existing = file.comments.find((item) => item.id === id);
@@ -47,6 +51,7 @@ export async function scanComments(config: AppConfig, options: { force?: boolean
     return { added: 0, drafted: 0, commented: 0, skipped: "recent-scan" as const };
   }
 
+  file.comments = file.comments.filter((item) => isLinkedInPostUrl(item.url));
   const hits = await searchCommentPosts();
   let added = 0;
   for (const hit of hits) {
