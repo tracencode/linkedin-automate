@@ -66,8 +66,6 @@ jobs:
             FLAGS="$FLAGS --force"
           fi
           npm run run -- $FLAGS
-          npm run comments || true
-          npm run leads || true
 
       - name: Save queue and history
         uses: stefanzweifel/git-auto-commit-action@v5

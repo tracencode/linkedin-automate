@@ -1,0 +1,52 @@
+name: LinkedIn comments and leads
+
+on:
+  schedule:
+    # Every hour from 09:00 to 19:00 Asia/Kolkata. No click required.
+    # The daily cap still stops at 12 comments.
+    - cron: "30 3-13 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  engage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Comment and collect leads
+        env:
+          LINKEDIN_CLIENT_ID: ${{ secrets.LINKEDIN_CLIENT_ID }}
+          LINKEDIN_CLIENT_SECRET: ${{ secrets.LINKEDIN_CLIENT_SECRET }}
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_REFRESH_TOKEN: ${{ secrets.LINKEDIN_REFRESH_TOKEN }}
+          LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: gpt-4o-mini
+          OPENAI_IMAGE_MODEL: gpt-image-2.5-flare
+          LINKEDIN_POST_API: ugc
+          TIMEZONE: Asia/Kolkata
+          POST_TIMES: "09:15,13:15,18:15"
+          COMMENT_SCAN: "true"
+          LEAD_SCAN: "true"
+          AUTO_COMMENT: "true"
+          COMMENT_DAILY_MIN: "10"
+          COMMENT_DAILY_MAX: "12"
+        run: |
+          npm run comments
+          npm run leads
+
+      - name: Save comments and leads
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Record comment and lead run
+          file_pattern: content/comments.json content/leads.json

@@ -110,7 +110,7 @@ async function refresh(options = {}) {
   $("count-leads").textContent = String(state.counts.leads ?? 0);
   $("count-comments").textContent = String(state.counts.comments ?? 0);
   $("comments-note").textContent = state.autoComment
-    ? `Relevant Odoo, AI, and technology posts. ${state.commentDailyMin}–${state.commentDailyMax} comments go out each day across the 09:15, 13:15, and 18:15 runs, when the thread has a LinkedIn id.`
+    ? `Runs on its own every hour from 09:00 to 19:00. ${state.commentDailyMin}–${state.commentDailyMax} comments go out each day. You do not need to open this tab.`
     : `Relevant Odoo, AI, and technology posts. Review the draft, then post it.`;
   $("queue-ready").textContent = `${state.counts.queued}/${state.queueMin || 5}`;
   $("queue-min").textContent = String(state.queueMin || 5);
