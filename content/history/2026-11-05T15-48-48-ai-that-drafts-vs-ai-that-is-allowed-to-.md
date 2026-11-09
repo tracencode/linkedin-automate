@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: personal_story
 topic: AI that drafts vs AI that is allowed to write into production data
 createdAt: 2026-11-05T15:48:48.382Z
