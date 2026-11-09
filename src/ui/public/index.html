@@ -23,6 +23,7 @@
           <button data-tab="drafts">Drafts <span id="count-drafts">0</span></button>
           <button data-tab="queue">Queue <span id="count-queue">0</span></button>
           <button data-tab="posted">Posted <span id="count-posted">0</span></button>
+          <button data-tab="comments">Comments <span id="count-comments">0</span></button>
           <button data-tab="leads">Leads <span id="count-leads">0</span></button>
           <button data-tab="niche">Niche</button>
         </nav>
@@ -111,19 +112,37 @@
           <div id="posted-list" class="list"></div>
         </section>
 
-        <section id="tab-leads" class="tab hidden">
+        <section id="tab-comments" class="tab hidden">
           <header class="page-head">
-            <h2>Leads</h2>
-            <p id="leads-note">Public posts from people looking for an Odoo developer, an implementation partner, or a development team. A comment is drafted for each. Post it through LinkedIn when the thread has an id.</p>
+            <h2>Comments</h2>
+            <p id="comments-note">Relevant posts about Odoo, ERP operations, and applied AI. A reply is drafted for each. This is separate from Leads.</p>
           </header>
           <div class="compose stacked">
             <label>
               A post you want to comment on
+              <input id="comment-url" type="url" placeholder="https://www.linkedin.com/posts/…" />
+            </label>
+            <div class="actions">
+              <button class="primary" id="btn-scan-comments">Find posts</button>
+              <button id="btn-add-comment">Draft comment for this URL</button>
+            </div>
+          </div>
+          <div id="comments-list" class="list"></div>
+        </section>
+
+        <section id="tab-leads" class="tab hidden">
+          <header class="page-head">
+            <h2>Leads</h2>
+            <p id="leads-note">People looking for an Odoo developer, an implementation partner, or a development team. Open the post and follow up. This list does not comment.</p>
+          </header>
+          <div class="compose stacked">
+            <label>
+              A post that looks like a project
               <input id="lead-url" type="url" placeholder="https://www.linkedin.com/posts/…" />
             </label>
             <div class="actions">
               <button class="primary" id="btn-scan-leads">Find leads</button>
-              <button id="btn-add-lead">Draft comment for this URL</button>
+              <button id="btn-add-lead">Add this URL</button>
             </div>
           </div>
           <div id="leads-list" class="list"></div>

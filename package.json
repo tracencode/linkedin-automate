@@ -15,6 +15,7 @@
     "start": "tsx src/cli.ts start",
     "ui": "tsx src/ui/server.ts",
     "fill-queue": "tsx src/cli.ts fill-queue",
+    "comments": "tsx src/cli.ts comments",
     "leads": "tsx src/cli.ts leads",
     "typecheck": "tsc --noEmit"
   },

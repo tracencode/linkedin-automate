@@ -21,8 +21,9 @@ import { maintainQueue, seedRuntimeStore } from "../content/fillQueue.ts";
 import { generateLinkedInImage, parseImageMode } from "../content/image.ts";
 import { publishNext, runScheduled } from "../schedule/run.ts";
 import { shouldRunNow, zonedParts } from "../schedule/shouldPost.ts";
-import { addLeadUrl, commentOnLead, scanLeads } from "../leads/scan.ts";
-import { loadLeads, saveLeads } from "../leads/store.ts";
+import { addCommentUrl, postComment, scanComments } from "../comments/scan.ts";
+import { loadComments, saveComments } from "../comments/store.ts";
+import { addLeadUrl, scanLeads, updateLead } from "../leads/scan.ts";
 import { FORMATS, type Format } from "../types.ts";
 
 const hosted = Boolean(process.env.RENDER);
@@ -226,33 +227,14 @@ async function handleApi(
         send(res, 400, { error: "Paste a full post URL, including https://" });
         return;
       }
-      const lead = await addLeadUrl(config, body.url.trim());
+      const lead = await addLeadUrl(body.url.trim());
       send(res, 201, { lead });
       return;
     }
 
     if (route === "/api/leads/scan" && method === "POST") {
-      const result = await scanLeads(config, { force: true });
+      const result = await scanLeads({ force: true });
       send(res, 200, result);
-      return;
-    }
-
-    const leadComment = route.match(/^\/api\/leads\/([^/]+)\/comment$/);
-    if (leadComment && method === "POST") {
-      const id = decodeURIComponent(leadComment[1] ?? "");
-      const body = await readJson(req);
-      if (typeof body.comment === "string") {
-        const file = await loadLeads();
-        const lead = file.leads.find((item) => item.id === id);
-        if (!lead) {
-          send(res, 404, { error: "Lead not found." });
-          return;
-        }
-        lead.comment = body.comment;
-        await saveLeads(file);
-      }
-      const lead = await commentOnLead(config, id);
-      send(res, 200, { lead });
       return;
     }
 
@@ -260,16 +242,66 @@ async function handleApi(
     if (leadUpdate && method === "PUT") {
       const id = decodeURIComponent(leadUpdate[1] ?? "");
       const body = await readJson(req);
-      const file = await loadLeads();
-      const lead = file.leads.find((item) => item.id === id);
-      if (!lead) {
-        send(res, 404, { error: "Lead not found." });
+      const status = body.status;
+      if (status !== "saved" && status !== "contacted" && status !== "skipped" && status !== "new") {
+        send(res, 400, { error: "Status must be new, saved, contacted, or skipped." });
         return;
       }
-      if (typeof body.comment === "string") lead.comment = body.comment;
-      if (body.status === "skipped") lead.status = "skipped";
-      await saveLeads(file);
+      const lead = await updateLead(id, status);
       send(res, 200, { lead });
+      return;
+    }
+
+    if (route === "/api/comments" && method === "POST") {
+      const body = await readJson(req);
+      if (typeof body.url !== "string" || !body.url.trim().startsWith("http")) {
+        send(res, 400, { error: "Paste a full post URL, including https://" });
+        return;
+      }
+      const comment = await addCommentUrl(config, body.url.trim());
+      send(res, 201, { comment });
+      return;
+    }
+
+    if (route === "/api/comments/scan" && method === "POST") {
+      const result = await scanComments(config, { force: true });
+      send(res, 200, result);
+      return;
+    }
+
+    const commentPost = route.match(/^\/api\/comments\/([^/]+)\/comment$/);
+    if (commentPost && method === "POST") {
+      const id = decodeURIComponent(commentPost[1] ?? "");
+      const body = await readJson(req);
+      if (typeof body.comment === "string") {
+        const file = await loadComments();
+        const target = file.comments.find((item) => item.id === id);
+        if (!target) {
+          send(res, 404, { error: "Comment not found." });
+          return;
+        }
+        target.comment = body.comment;
+        await saveComments(file);
+      }
+      const comment = await postComment(config, id);
+      send(res, 200, { comment });
+      return;
+    }
+
+    const commentUpdate = route.match(/^\/api\/comments\/([^/]+)$/);
+    if (commentUpdate && method === "PUT") {
+      const id = decodeURIComponent(commentUpdate[1] ?? "");
+      const body = await readJson(req);
+      const file = await loadComments();
+      const target = file.comments.find((item) => item.id === id);
+      if (!target) {
+        send(res, 404, { error: "Comment not found." });
+        return;
+      }
+      if (typeof body.comment === "string") target.comment = body.comment;
+      if (body.status === "skipped") target.status = "skipped";
+      await saveComments(file);
+      send(res, 200, { comment: target });
       return;
     }
 
@@ -352,16 +384,19 @@ server.listen(PORT, HOST, () => {
         log("Scheduler off (SCHEDULER_ENABLED=false). GitHub Actions publishes on the schedule.");
       }
       await maintainQueue(config);
-      if (config.leadScan) {
+      const everyThreeHours = (label: string, run: () => Promise<unknown>) => {
         const scan = () =>
-          scanLeads(config).catch((error) => {
-            log(`Lead scan failed: ${error instanceof Error ? error.message : error}`);
+          run().catch((error) => {
+            log(`${label} failed: ${error instanceof Error ? error.message : error}`);
           });
-        await scan();
-        setInterval(() => {
-          void scan();
-        }, 3 * 60 * 60 * 1000);
-      }
+        return scan().then(() => {
+          setInterval(() => {
+            void scan();
+          }, 3 * 60 * 60 * 1000);
+        });
+      };
+      if (config.leadScan) await everyThreeHours("Lead scan", () => scanLeads());
+      if (config.commentScan) await everyThreeHours("Comment scan", () => scanComments(config));
     })
     .catch((error) => {
       console.error(error instanceof Error ? error.message : error);

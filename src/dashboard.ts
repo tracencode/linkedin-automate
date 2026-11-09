@@ -3,6 +3,7 @@ import { existsSync } from "node:fs";
 import type { AppConfig } from "./config.ts";
 import { formatPostTimes } from "./config.ts";
 import { countPostedOnLocalDate, listDrafts, listQueue, loadHistory } from "./content/queue.ts";
+import { listOpenComments } from "./comments/store.ts";
 import { listOpenLeads } from "./leads/store.ts";
 import { getValidAccess, loadTokens } from "./linkedin/oauth.ts";
 import { PROFILE_PATH, TOPICS_PATH } from "./paths.ts";
@@ -57,6 +58,8 @@ export async function getDashboard(config: AppConfig) {
     hasOpenAi: Boolean(config.openai.apiKey),
     autoPublish: config.autoPublish,
     autoComment: config.autoComment,
+    commentScan: config.commentScan,
+    leadScan: config.leadScan,
     commentDailyMax: config.commentDailyMax,
     imageChance: config.imageChance,
     queueMin: config.queueMin,
@@ -81,7 +84,8 @@ export async function getDashboard(config: AppConfig) {
       queued: queue.length,
       posted: history.posts.filter((post) => !post.dryRun).length,
       postedToday: postedTodayCount,
-      leads: (await listOpenLeads()).filter((lead) => lead.status !== "commented").length,
+      leads: (await listOpenLeads()).filter((lead) => lead.status === "new" || lead.status === "saved").length,
+      comments: (await listOpenComments()).filter((item) => item.status !== "commented").length,
     },
     leads: (await listOpenLeads()).slice(0, 40).map((lead) => ({
       id: lead.id,
@@ -89,12 +93,21 @@ export async function getDashboard(config: AppConfig) {
       title: lead.title,
       snippet: lead.snippet,
       score: lead.score,
-      postUrn: lead.postUrn ?? "",
-      comment: lead.comment,
       status: lead.status,
-      error: lead.error ?? "",
       foundAt: lead.foundAt,
-      commentedAt: lead.commentedAt ?? "",
+    })),
+    comments: (await listOpenComments()).slice(0, 40).map((item) => ({
+      id: item.id,
+      url: item.url,
+      title: item.title,
+      snippet: item.snippet,
+      score: item.score,
+      postUrn: item.postUrn ?? "",
+      comment: item.comment,
+      status: item.status,
+      error: item.error ?? "",
+      foundAt: item.foundAt,
+      commentedAt: item.commentedAt ?? "",
     })),
     now: {
       dateLocal: now.dateLocal,

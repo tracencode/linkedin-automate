@@ -4,7 +4,13 @@ Posts to your LinkedIn profile on a schedule using LinkedIn’s official API. Th
 
 This does **not** scrape LinkedIn while logged in, or mass-follow. Those tactics violate LinkedIn’s terms and get accounts restricted.
 
-The **Leads** tab searches the public web for people asking for an Odoo developer, an implementation partner, or a development team (the work TraceNcode does). It drafts a short comment. You post it from the Desk through LinkedIn’s official API, or set `AUTO_COMMENT=true` to send up to `COMMENT_DAILY_MAX` a day when the thread has a LinkedIn id. Growth still comes from useful niche posts at peak hours, then you replying in the first hour.
+**Comments** and **Leads** are separate.
+
+The **Comments** tab finds public posts about Odoo, ERP operations, and applied AI, then drafts a short reply in your voice. You post it from the Desk, or set `AUTO_COMMENT=true` to send up to `COMMENT_DAILY_MAX` a day when the thread has a LinkedIn id.
+
+The **Leads** tab finds people asking for an Odoo developer, an implementation partner, or a development team (the work TraceNcode does). It is a list to follow up. It does not comment.
+
+Growth still comes from useful niche posts at peak hours, then you replying in the first hour.
 
 ## How it works
 
@@ -89,6 +95,9 @@ In `.env`:
 | `POST_WEEKDAY` | `tuesday` | Used when `SCHEDULE=weekly` |
 | `TIMEZONE` | `Asia/Kolkata` | IANA timezone |
 | `AUTO_PUBLISH` | `false` | Generate + publish when the queue is empty |
+| `COMMENT_SCAN` | `true` | Find relevant posts and draft replies |
+| `AUTO_COMMENT` | `false` | Send drafted comments, up to `COMMENT_DAILY_MAX` |
+| `LEAD_SCAN` | `true` | Find people looking for a dev team. Does not comment |
 | `QUEUE_MIN` | `9` | Keep this many approved posts ready |
 | `IMAGE_CHANCE` | `1` | `1` = every post gets an image |
 
@@ -154,6 +163,8 @@ content/queue/         approved posts, oldest first
 content/drafts/        unreviewed AI drafts
 content/history/       published copies
 content/history.json   ledger used to avoid double-posting
+content/comments.json  drafted replies on relevant posts
+content/leads.json      people looking for a development team
 src/ui/                Desk UI (white/blue), local or Render
 src/                   CLI, LinkedIn client, scheduler
 ```

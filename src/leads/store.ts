@@ -3,7 +3,7 @@ import { existsSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { CONTENT_DIR, LEADS_PATH } from "../paths.ts";
 
-export type LeadStatus = "new" | "drafted" | "commented" | "skipped" | "failed";
+export type LeadStatus = "new" | "saved" | "contacted" | "skipped";
 
 export type Lead = {
   id: string;
@@ -12,12 +12,8 @@ export type Lead = {
   snippet: string;
   query: string;
   score: number;
-  postUrn?: string;
-  comment: string;
   status: LeadStatus;
-  error?: string;
   foundAt: string;
-  commentedAt?: string;
 };
 
 type LeadFile = {
@@ -29,18 +25,30 @@ export function leadId(url: string): string {
   return createHash("sha1").update(url).digest("hex").slice(0, 12);
 }
 
-export function postUrnFromUrl(url: string): string | undefined {
-  const named = url.match(/urn:li:(?:activity|share|ugcPost):\d+/);
-  if (named) return named[0];
-  const activity = url.match(/activity[-:](\d{10,})/);
-  if (activity) return `urn:li:activity:${activity[1]}`;
-  return undefined;
-}
-
 export async function loadLeads(): Promise<LeadFile> {
   if (!existsSync(LEADS_PATH)) return { leads: [] };
-  const parsed = JSON.parse(await readFile(LEADS_PATH, "utf8")) as LeadFile;
-  return { lastScanAt: parsed.lastScanAt, leads: parsed.leads ?? [] };
+  const parsed = JSON.parse(await readFile(LEADS_PATH, "utf8")) as {
+    lastScanAt?: string;
+    leads?: Array<Partial<Lead> & { url?: string; status?: string }>;
+  };
+  return {
+    lastScanAt: parsed.lastScanAt,
+    leads: (parsed.leads ?? []).flatMap((lead) => {
+      if (!lead.url || !lead.id) return [];
+      return [
+        {
+          id: lead.id,
+          url: lead.url,
+          title: lead.title || lead.url,
+          snippet: lead.snippet || "",
+          query: lead.query || "",
+          score: lead.score ?? 0,
+          status: normalizeStatus(lead.status),
+          foundAt: lead.foundAt || new Date().toISOString(),
+        },
+      ];
+    }),
+  };
 }
 
 export async function saveLeads(file: LeadFile) {
@@ -55,4 +63,10 @@ export async function saveLeads(file: LeadFile) {
 export async function listOpenLeads(): Promise<Lead[]> {
   const file = await loadLeads();
   return file.leads.filter((lead) => lead.status !== "skipped");
+}
+
+function normalizeStatus(status: string | undefined): LeadStatus {
+  if (status === "saved" || status === "contacted" || status === "skipped") return status;
+  if (status === "commented") return "contacted";
+  return "new";
 }

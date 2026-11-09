@@ -14,6 +14,7 @@ import { generatePost } from "./content/generate.ts";
 import { getValidAccess, loadTokens, loginWithBrowser } from "./linkedin/oauth.ts";
 import { fail, log } from "./log.ts";
 import { PROFILE_PATH } from "./paths.ts";
+import { scanComments } from "./comments/scan.ts";
 import { scanLeads } from "./leads/scan.ts";
 import { publishNext, runScheduled } from "./schedule/run.ts";
 import { shouldRunNow, listUpcomingSlots, zonedParts } from "./schedule/shouldPost.ts";
@@ -33,7 +34,8 @@ Commands:
   start                Keep running and post on the configured schedule
   ui                   Open the local dashboard (also starts the scheduler)
   fill-queue           Generate posts until QUEUE_MIN are waiting (default 5)
-  leads                Find public posts from people looking for an Odoo or dev team
+  comments             Find relevant posts and draft a comment
+  leads                Find people looking for an Odoo or development team
 
 Open the UI with npm run ui — http://127.0.0.1:4567
 `;
@@ -137,11 +139,16 @@ async function main() {
       await runDaemon(config, flags.dryRun);
       return;
     }
-    case "leads": {
-      const result = await scanLeads(config, { force: true });
+    case "comments": {
+      const result = await scanComments(config, { force: true });
       console.log(
-        `Leads: ${result.added} new, ${result.drafted} comments drafted, ${result.commented} posted.`,
+        `Comments: ${result.added} new, ${result.drafted} drafted, ${result.commented} posted.`,
       );
+      break;
+    }
+    case "leads": {
+      const result = await scanLeads({ force: true });
+      console.log(`Leads: ${result.added} new.`);
       break;
     }
     case "fill-queue": {

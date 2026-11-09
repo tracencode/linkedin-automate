@@ -14,6 +14,7 @@ export const DATA_DIR = path.join(STORE, ".data");
 export const TOKENS_PATH = path.join(DATA_DIR, "tokens.json");
 export const HISTORY_PATH = path.join(CONTENT_DIR, "history.json");
 export const LEADS_PATH = path.join(CONTENT_DIR, "leads.json");
+export const COMMENTS_PATH = path.join(CONTENT_DIR, "comments.json");
 export const PROFILE_PATH = path.join(REPO_CONTENT_DIR, "profile.md");
 export const TOPICS_PATH = path.join(REPO_CONTENT_DIR, "topics.md");
 export const MEDIA_DIR = path.join(CONTENT_DIR, "media");
