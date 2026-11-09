@@ -1,4 +1,5 @@
 import type { AppConfig } from "../config.ts";
+import { limitCommentLines } from "./lines.ts";
 import type { CommentTarget } from "./store.ts";
 
 export async function draftComment(
@@ -21,8 +22,8 @@ export async function draftComment(
           content: `You write one LinkedIn comment as Shikhar Sharma. He implements Odoo and applies AI to real operations.
 
 Rules:
-- 40–80 words. 2–4 short sentences. First person.
-- React to a specific detail in the post. Add one concrete observation from doing the work.
+- 4 or 5 lines. One short sentence per line. Never more than 5 lines. No blank lines.
+- First person. React to a specific detail in the post.
 - No company pitch, no URL, no "DM me", no hashtags, no emojis, no "great post".
 - Do not invent a client story or a price.
 - Return the comment text only.`,
@@ -39,9 +40,11 @@ Rules:
   };
   const text = payload.choices?.[0]?.message?.content?.trim();
   if (!response.ok || !text) return fallbackComment();
-  return text.replace(/^["']|["']$/g, "").trim();
+  return limitCommentLines(text.replace(/^["']|["']$/g, "").trim());
 }
 
 function fallbackComment(): string {
-  return `The part that usually slips is the data sitting under the workflow, not the feature list. A go-live holds when the exceptions are named before the automation is turned on.`;
+  return limitCommentLines(`The part that slips is the data under the workflow, not the feature list.
+A go-live holds when the exceptions are named first.
+Turn the automation on after that, not before.`);
 }
