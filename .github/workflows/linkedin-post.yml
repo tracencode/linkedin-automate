@@ -54,8 +54,9 @@ jobs:
           IMAGE_CHANCE: "1"
           COMMENT_SCAN: "true"
           LEAD_SCAN: "true"
-          AUTO_COMMENT: "false"
-          COMMENT_DAILY_MAX: "5"
+          AUTO_COMMENT: "true"
+          COMMENT_DAILY_MIN: "10"
+          COMMENT_DAILY_MAX: "12"
         run: |
           FLAGS=""
           if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then

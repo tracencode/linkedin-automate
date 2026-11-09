@@ -111,6 +111,8 @@ export function loadConfig() {
 
   const times = parsePostTimes();
   const first = times[0] ?? { hour: 9, minute: 15 };
+  const commentDailyMax = Math.min(20, Math.max(1, numberEnv("COMMENT_DAILY_MAX", 12)));
+  const commentDailyMin = Math.min(commentDailyMax, Math.max(1, numberEnv("COMMENT_DAILY_MIN", 10)));
 
   return {
     linkedin: {
@@ -141,8 +143,9 @@ export function loadConfig() {
     autoPublish: boolEnv("AUTO_PUBLISH", false),
     leadScan: boolEnv("LEAD_SCAN", true),
     commentScan: boolEnv("COMMENT_SCAN", true),
-    autoComment: boolEnv("AUTO_COMMENT", false),
-    commentDailyMax: Math.min(20, Math.max(1, numberEnv("COMMENT_DAILY_MAX", 5))),
+    autoComment: boolEnv("AUTO_COMMENT", true),
+    commentDailyMax,
+    commentDailyMin,
     // Every post gets an image by default.
     imageChance: floatEnv("IMAGE_CHANCE", 1),
     queueMin: numberEnv("QUEUE_MIN", 9),

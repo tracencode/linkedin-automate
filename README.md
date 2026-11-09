@@ -6,7 +6,7 @@ This does **not** scrape LinkedIn while logged in, or mass-follow. Those tactics
 
 **Comments** and **Leads** are separate.
 
-The **Comments** tab finds public posts about Odoo, ERP operations, and applied AI, then drafts a short reply in your voice. You post it from the Desk, or set `AUTO_COMMENT=true` to send up to `COMMENT_DAILY_MAX` a day when the thread has a LinkedIn id.
+The **Comments** tab finds public posts about Odoo, ERP operations, and applied AI, then drafts a short reply in your voice. The daily runs send **10–12** of those comments (about 4 at 09:15, 13:15, and 18:15, catching up later in the day if an earlier run posted fewer). A comment is sent only when the thread has a LinkedIn id. Set `AUTO_COMMENT=false` to keep them as drafts.
 
 The **Leads** tab finds people asking for an Odoo developer, an implementation partner, or a development team (the work TraceNcode does). It is a list to follow up. It does not comment.
 
@@ -96,7 +96,8 @@ In `.env`:
 | `TIMEZONE` | `Asia/Kolkata` | IANA timezone |
 | `AUTO_PUBLISH` | `false` | Generate + publish when the queue is empty |
 | `COMMENT_SCAN` | `true` | Find relevant posts and draft replies |
-| `AUTO_COMMENT` | `false` | Send drafted comments, up to `COMMENT_DAILY_MAX` |
+| `AUTO_COMMENT` | `true` | Send drafted comments on the daily runs |
+| `COMMENT_DAILY_MIN` / `COMMENT_DAILY_MAX` | `10` / `12` | How many comments to send each day |
 | `LEAD_SCAN` | `true` | Find people looking for a dev team. Does not comment |
 | `QUEUE_MIN` | `9` | Keep this many approved posts ready |
 | `IMAGE_CHANCE` | `1` | `1` = every post gets an image |

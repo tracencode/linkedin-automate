@@ -60,6 +60,7 @@ export async function getDashboard(config: AppConfig) {
     autoComment: config.autoComment,
     commentScan: config.commentScan,
     leadScan: config.leadScan,
+    commentDailyMin: config.commentDailyMin,
     commentDailyMax: config.commentDailyMax,
     imageChance: config.imageChance,
     queueMin: config.queueMin,

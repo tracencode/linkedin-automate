@@ -1,5 +1,6 @@
 import type { AppConfig } from "../config.ts";
 import { log } from "../log.ts";
+import { zonedParts } from "../schedule/shouldPost.ts";
 import { getValidAccess } from "../linkedin/oauth.ts";
 import { createComment } from "../linkedin/comments.ts";
 import { draftComment } from "./draft.ts";
@@ -39,7 +40,7 @@ export async function addCommentUrl(config: AppConfig, url: string): Promise<Com
   return target;
 }
 
-export async function scanComments(config: AppConfig, options: { force?: boolean } = {}) {
+export async function scanComments(config: AppConfig, options: { force?: boolean; post?: boolean } = {}) {
   const file = await loadComments();
   const last = file.lastScanAt ? Date.parse(file.lastScanAt) : 0;
   if (!options.force && Date.now() - last < SCAN_GAP_MS) {
@@ -67,7 +68,7 @@ export async function scanComments(config: AppConfig, options: { force?: boolean
   }
 
   let drafted = 0;
-  const pending = file.comments.filter((item) => item.status === "new" && !item.comment).slice(0, 6);
+  const pending = file.comments.filter((item) => item.status === "new" && !item.comment).slice(0, config.commentDailyMax);
   for (const target of pending) {
     try {
       target.comment = await draftComment(config, target);
@@ -83,7 +84,7 @@ export async function scanComments(config: AppConfig, options: { force?: boolean
   await saveComments(file);
 
   let commented = 0;
-  if (config.autoComment) {
+  if (options.post ?? config.autoComment) {
     commented = await commentReady(config);
   }
   log(`Comments: ${added} new, ${drafted} drafted, ${commented} posted.`);
@@ -113,7 +114,7 @@ async function commentReady(config: AppConfig): Promise<number> {
   const file = await loadComments();
   const today = new Intl.DateTimeFormat("en-CA", { timeZone: config.schedule.timezone }).format(new Date());
   const used = file.comments.filter((item) => item.commentedAt && localDay(item.commentedAt, config.schedule.timezone) === today).length;
-  let room = config.commentDailyMax - used;
+  let room = postsThisRun(config, used);
   let posted = 0;
   for (const target of file.comments) {
     if (room <= 0) break;
@@ -135,6 +136,20 @@ async function commentReady(config: AppConfig): Promise<number> {
     }
   }
   return posted;
+}
+
+function postsThisRun(config: AppConfig, used: number): number {
+  const room = config.commentDailyMax - used;
+  if (room <= 0) return 0;
+  const slots = Math.max(1, config.schedule.times.length);
+  const steady = Math.ceil(config.commentDailyMax / slots);
+  const now = zonedParts(new Date(), config.schedule.timezone);
+  const lastHour = Math.max(...config.schedule.times.map((slot) => slot.hour));
+  if (now.hour >= lastHour) return room;
+  const runsLeft = config.schedule.times.filter((slot) => slot.hour >= now.hour).length || 1;
+  const stillNeeded = Math.max(0, config.commentDailyMin - used);
+  const mustNow = Math.max(0, stillNeeded - steady * (runsLeft - 1));
+  return Math.min(room, Math.max(steady, mustNow));
 }
 
 function localDay(iso: string, timeZone: string): string {

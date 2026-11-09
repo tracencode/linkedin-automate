@@ -110,8 +110,8 @@ async function refresh(options = {}) {
   $("count-leads").textContent = String(state.counts.leads ?? 0);
   $("count-comments").textContent = String(state.counts.comments ?? 0);
   $("comments-note").textContent = state.autoComment
-    ? `Relevant Odoo, AI, and technology posts. Up to ${state.commentDailyMax} comments post themselves each day when the thread has a LinkedIn id.`
-    : `Relevant Odoo, AI, and technology posts. Review the draft, then post it. Set AUTO_COMMENT=true to send up to ${state.commentDailyMax} a day.`;
+    ? `Relevant Odoo, AI, and technology posts. ${state.commentDailyMin}–${state.commentDailyMax} comments go out each day across the 09:15, 13:15, and 18:15 runs, when the thread has a LinkedIn id.`
+    : `Relevant Odoo, AI, and technology posts. Review the draft, then post it.`;
   $("queue-ready").textContent = `${state.counts.queued}/${state.queueMin || 5}`;
   $("queue-min").textContent = String(state.queueMin || 5);
   $("auth-line").textContent = state.auth.ok
