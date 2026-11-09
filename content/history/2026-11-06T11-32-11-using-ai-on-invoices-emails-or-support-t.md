@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: tactical_howto
 topic: Using AI on invoices, emails, or support tickets inside an ERP
 createdAt: 2026-11-06T11:32:11.398Z
