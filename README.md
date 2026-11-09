@@ -6,7 +6,7 @@ This does **not** scrape LinkedIn while logged in, or mass-follow. Those tactics
 
 **Comments** and **Leads** are separate.
 
-The **Comments** tab finds public posts about Odoo, ERP operations, and applied AI, then drafts a short reply in your voice. A separate hourly job, from 09:00 to 19:00 Asia/Kolkata, sends **10–12** comments a day with no need to open the Desk. A comment is sent only when the thread has a LinkedIn id. Set `AUTO_COMMENT=false` to keep them as drafts.
+The **Comments** tab finds public posts about Odoo, ERP operations, and applied AI, then drafts a short reply in your voice. A separate hourly job runs all day, Asia/Kolkata, and sends **10–12** comments a day with no need to open the Desk. A comment is sent only when the thread has a LinkedIn id. Set `AUTO_COMMENT=false` to keep them as drafts.
 
 The **Leads** tab finds people asking for an Odoo developer, an implementation partner, or a development team (the work TraceNcode does). On a LinkedIn post, that same hourly job leaves a short comment about TraceNcode’s Odoo implementation, customization, integrations, migrations, and applied AI, with one link to https://www.tracencode.com, and a close that asks for a DM or a WhatsApp on +91 97547 08777. You do not need to review it first.
 

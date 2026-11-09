@@ -2,9 +2,9 @@ name: LinkedIn comments and leads
 
 on:
   schedule:
-    # Every hour from 09:00 to 19:00 Asia/Kolkata. No click required.
+    # Every hour, all day, Asia/Kolkata. No click required.
     # The daily cap still stops at 12 comments.
-    - cron: "30 3-13 * * *"
+    - cron: "30 * * * *"
   workflow_dispatch:
 
 permissions:
