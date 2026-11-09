@@ -166,7 +166,8 @@ main {
 .compose,
 .list article,
 label textarea,
-label select {
+label select,
+label input {
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 14px;
@@ -202,7 +203,8 @@ label {
 }
 
 textarea,
-select {
+select,
+input {
   width: 100%;
   font: inherit;
   color: var(--ink);

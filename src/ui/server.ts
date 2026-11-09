@@ -21,6 +21,8 @@ import { maintainQueue, seedRuntimeStore } from "../content/fillQueue.ts";
 import { generateLinkedInImage, parseImageMode } from "../content/image.ts";
 import { publishNext, runScheduled } from "../schedule/run.ts";
 import { shouldRunNow, zonedParts } from "../schedule/shouldPost.ts";
+import { addLeadUrl, commentOnLead, scanLeads } from "../leads/scan.ts";
+import { loadLeads, saveLeads } from "../leads/store.ts";
 import { FORMATS, type Format } from "../types.ts";
 
 const hosted = Boolean(process.env.RENDER);
@@ -218,6 +220,59 @@ async function handleApi(
       return;
     }
 
+    if (route === "/api/leads" && method === "POST") {
+      const body = await readJson(req);
+      if (typeof body.url !== "string" || !body.url.trim().startsWith("http")) {
+        send(res, 400, { error: "Paste a full post URL, including https://" });
+        return;
+      }
+      const lead = await addLeadUrl(config, body.url.trim());
+      send(res, 201, { lead });
+      return;
+    }
+
+    if (route === "/api/leads/scan" && method === "POST") {
+      const result = await scanLeads(config, { force: true });
+      send(res, 200, result);
+      return;
+    }
+
+    const leadComment = route.match(/^\/api\/leads\/([^/]+)\/comment$/);
+    if (leadComment && method === "POST") {
+      const id = decodeURIComponent(leadComment[1] ?? "");
+      const body = await readJson(req);
+      if (typeof body.comment === "string") {
+        const file = await loadLeads();
+        const lead = file.leads.find((item) => item.id === id);
+        if (!lead) {
+          send(res, 404, { error: "Lead not found." });
+          return;
+        }
+        lead.comment = body.comment;
+        await saveLeads(file);
+      }
+      const lead = await commentOnLead(config, id);
+      send(res, 200, { lead });
+      return;
+    }
+
+    const leadUpdate = route.match(/^\/api\/leads\/([^/]+)$/);
+    if (leadUpdate && method === "PUT") {
+      const id = decodeURIComponent(leadUpdate[1] ?? "");
+      const body = await readJson(req);
+      const file = await loadLeads();
+      const lead = file.leads.find((item) => item.id === id);
+      if (!lead) {
+        send(res, 404, { error: "Lead not found." });
+        return;
+      }
+      if (typeof body.comment === "string") lead.comment = body.comment;
+      if (body.status === "skipped") lead.status = "skipped";
+      await saveLeads(file);
+      send(res, 200, { lead });
+      return;
+    }
+
     send(res, 404, { error: "Unknown API route" });
   } catch (error) {
     send(res, 400, { error: error instanceof Error ? error.message : String(error) });
@@ -297,6 +352,16 @@ server.listen(PORT, HOST, () => {
         log("Scheduler off (SCHEDULER_ENABLED=false). GitHub Actions publishes on the schedule.");
       }
       await maintainQueue(config);
+      if (config.leadScan) {
+        const scan = () =>
+          scanLeads(config).catch((error) => {
+            log(`Lead scan failed: ${error instanceof Error ? error.message : error}`);
+          });
+        await scan();
+        setInterval(() => {
+          void scan();
+        }, 3 * 60 * 60 * 1000);
+      }
     })
     .catch((error) => {
       console.error(error instanceof Error ? error.message : error);

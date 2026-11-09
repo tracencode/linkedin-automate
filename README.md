@@ -2,7 +2,9 @@
 
 Posts to your LinkedIn profile on a schedule using LinkedIn’s official API. The local **Desk** UI lets you generate, edit, queue, and publish. Content is locked to **Odoo, applied AI, and technology**.
 
-This does **not** scrape LinkedIn, auto-comment, or mass-follow. Those tactics violate LinkedIn’s terms and get accounts restricted. Growth here comes from useful niche posts at peak hours, then you replying in the first hour.
+This does **not** scrape LinkedIn while logged in, or mass-follow. Those tactics violate LinkedIn’s terms and get accounts restricted.
+
+The **Leads** tab searches the public web for people asking for an Odoo developer, an implementation partner, or a development team (the work TraceNcode does). It drafts a short comment. You post it from the Desk through LinkedIn’s official API, or set `AUTO_COMMENT=true` to send up to `COMMENT_DAILY_MAX` a day when the thread has a LinkedIn id. Growth still comes from useful niche posts at peak hours, then you replying in the first hour.
 
 ## How it works
 

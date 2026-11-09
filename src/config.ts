@@ -139,6 +139,9 @@ export function loadConfig() {
       timezone: process.env.TIMEZONE ?? "Asia/Kolkata",
     },
     autoPublish: boolEnv("AUTO_PUBLISH", false),
+    leadScan: boolEnv("LEAD_SCAN", true),
+    autoComment: boolEnv("AUTO_COMMENT", false),
+    commentDailyMax: Math.min(20, Math.max(1, numberEnv("COMMENT_DAILY_MAX", 5))),
     // Every post gets an image by default.
     imageChance: floatEnv("IMAGE_CHANCE", 1),
     queueMin: numberEnv("QUEUE_MIN", 9),

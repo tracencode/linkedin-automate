@@ -23,6 +23,7 @@
           <button data-tab="drafts">Drafts <span id="count-drafts">0</span></button>
           <button data-tab="queue">Queue <span id="count-queue">0</span></button>
           <button data-tab="posted">Posted <span id="count-posted">0</span></button>
+          <button data-tab="leads">Leads <span id="count-leads">0</span></button>
           <button data-tab="niche">Niche</button>
         </nav>
         <p class="aside-note">Keeps ~9 posts in the queue (3 days at 3× daily). Every draft gets a premium editorial image. Posts lean AI and react to trending headlines. Reply to comments in the first hour after a post goes live.</p>
@@ -108,6 +109,24 @@
             <p>What already went out, with the date and time it published.</p>
           </header>
           <div id="posted-list" class="list"></div>
+        </section>
+
+        <section id="tab-leads" class="tab hidden">
+          <header class="page-head">
+            <h2>Leads</h2>
+            <p id="leads-note">Public posts from people looking for an Odoo developer, an implementation partner, or a development team. A comment is drafted for each. Post it through LinkedIn when the thread has an id.</p>
+          </header>
+          <div class="compose stacked">
+            <label>
+              A post you want to comment on
+              <input id="lead-url" type="url" placeholder="https://www.linkedin.com/posts/…" />
+            </label>
+            <div class="actions">
+              <button class="primary" id="btn-scan-leads">Find leads</button>
+              <button id="btn-add-lead">Draft comment for this URL</button>
+            </div>
+          </div>
+          <div id="leads-list" class="list"></div>
         </section>
 
         <section id="tab-niche" class="tab hidden">

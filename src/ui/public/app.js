@@ -107,6 +107,10 @@ async function refresh(options = {}) {
   $("count-drafts").textContent = String(state.counts.drafts);
   $("count-queue").textContent = String(state.counts.queued);
   $("count-posted").textContent = String(state.counts.posted);
+  $("count-leads").textContent = String(state.counts.leads ?? 0);
+  $("leads-note").textContent = state.autoComment
+    ? `Scanning public posts for Odoo and development-team requests. Up to ${state.commentDailyMax} comments post themselves each day when the thread has a LinkedIn id.`
+    : "Public posts from people looking for an Odoo developer, an implementation partner, or a development team. Review the draft, then post it. Set AUTO_COMMENT=true to send up to a few each day.";
   $("queue-ready").textContent = `${state.counts.queued}/${state.queueMin || 5}`;
   $("queue-min").textContent = String(state.queueMin || 5);
   $("auth-line").textContent = state.auth.ok
@@ -128,6 +132,7 @@ async function refresh(options = {}) {
   renderList("drafts-list", state.drafts, "draft");
   renderList("queue-list", state.queue, "queue");
   renderList("posted-list", state.history, "posted");
+  renderLeads(state.leads || []);
   $("profile-text").value = state.profile;
   $("topics-text").value = state.topics;
 }
@@ -215,7 +220,102 @@ document.querySelectorAll("nav button").forEach((button) => {
   });
 });
 
+function renderLeads(leads) {
+  const root = $("leads-list");
+  root.replaceChildren();
+  if (!leads.length) {
+    const empty = document.createElement("p");
+    empty.className = "why";
+    empty.textContent = "No leads yet. Find leads to scan public posts.";
+    root.append(empty);
+    return;
+  }
+  for (const lead of leads) {
+    const article = document.createElement("article");
+    const meta = document.createElement("p");
+    meta.className = "meta";
+    meta.textContent = [lead.status, lead.postUrn ? "can comment via API" : "copy onto the thread", lead.foundAt?.slice(0, 10)]
+      .filter(Boolean)
+      .join(" · ");
+    const title = document.createElement("p");
+    title.className = "when";
+    const link = document.createElement("a");
+    link.href = lead.url;
+    link.target = "_blank";
+    link.rel = "noreferrer";
+    link.textContent = lead.title || lead.url;
+    title.append(link);
+    const snippet = document.createElement("p");
+    snippet.className = "why";
+    snippet.textContent = lead.snippet || "";
+    const body = document.createElement("pre");
+    body.textContent = lead.comment || "";
+    body.contentEditable = "true";
+    const actions = document.createElement("div");
+    actions.className = "card-actions";
+    if (lead.status !== "commented") {
+      actions.append(
+        action("Post comment", () => postLeadComment(lead.id, body), true),
+        action("Save", () => saveLead(lead.id, body)),
+        action("Skip", () => skipLead(lead.id), false, true),
+      );
+    }
+    if (lead.error) {
+      const err = document.createElement("p");
+      err.className = "why";
+      err.textContent = lead.error;
+      article.append(meta, title, snippet, body, err, actions);
+    } else {
+      article.append(meta, title, snippet, body, actions);
+    }
+    root.append(article);
+  }
+}
+
+async function postLeadComment(id, body) {
+  showBanner("Posting comment…");
+  await api(`/api/leads/${encodeURIComponent(id)}/comment`, {
+    method: "POST",
+    body: JSON.stringify({ comment: body.textContent }),
+  });
+  showBanner("Comment posted.");
+}
+
+async function saveLead(id, body) {
+  await api(`/api/leads/${encodeURIComponent(id)}`, {
+    method: "PUT",
+    body: JSON.stringify({ comment: body.textContent }),
+  });
+  showBanner("Comment saved.");
+}
+
+async function skipLead(id) {
+  await api(`/api/leads/${encodeURIComponent(id)}`, {
+    method: "PUT",
+    body: JSON.stringify({ status: "skipped" }),
+  });
+  showBanner("Lead skipped.");
+}
+
 $("btn-generate").addEventListener("click", () => run(generate));
+$("btn-add-lead").addEventListener("click", () =>
+  run(async () => {
+    showBanner("Drafting a comment…");
+    await api("/api/leads", {
+      method: "POST",
+      body: JSON.stringify({ url: $("lead-url").value.trim() }),
+    });
+    $("lead-url").value = "";
+    showBanner("Comment drafted. Review it, then post.");
+  }),
+);
+$("btn-scan-leads").addEventListener("click", () =>
+  run(async () => {
+    showBanner("Searching public posts…");
+    const result = await api("/api/leads/scan", { method: "POST" });
+    showBanner(`Found ${result.added} new leads. Drafted ${result.drafted} comments.`);
+  }),
+);
 $("btn-publish-next").addEventListener("click", () => run(() => publish({})));
 $("btn-queue").addEventListener("click", () =>
   run(async () => {

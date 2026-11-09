@@ -3,6 +3,7 @@ import { existsSync } from "node:fs";
 import type { AppConfig } from "./config.ts";
 import { formatPostTimes } from "./config.ts";
 import { countPostedOnLocalDate, listDrafts, listQueue, loadHistory } from "./content/queue.ts";
+import { listOpenLeads } from "./leads/store.ts";
 import { getValidAccess, loadTokens } from "./linkedin/oauth.ts";
 import { PROFILE_PATH, TOPICS_PATH } from "./paths.ts";
 import { describeNextPost, listUpcomingSlots, shouldRunNow, zonedParts } from "./schedule/shouldPost.ts";
@@ -55,6 +56,8 @@ export async function getDashboard(config: AppConfig) {
     profileReady: Boolean(profile) && !profile.includes("TODO:"),
     hasOpenAi: Boolean(config.openai.apiKey),
     autoPublish: config.autoPublish,
+    autoComment: config.autoComment,
+    commentDailyMax: config.commentDailyMax,
     imageChance: config.imageChance,
     queueMin: config.queueMin,
     niche: "Applied AI · Odoo · technology",
@@ -78,7 +81,21 @@ export async function getDashboard(config: AppConfig) {
       queued: queue.length,
       posted: history.posts.filter((post) => !post.dryRun).length,
       postedToday: postedTodayCount,
+      leads: (await listOpenLeads()).filter((lead) => lead.status !== "commented").length,
     },
+    leads: (await listOpenLeads()).slice(0, 40).map((lead) => ({
+      id: lead.id,
+      url: lead.url,
+      title: lead.title,
+      snippet: lead.snippet,
+      score: lead.score,
+      postUrn: lead.postUrn ?? "",
+      comment: lead.comment,
+      status: lead.status,
+      error: lead.error ?? "",
+      foundAt: lead.foundAt,
+      commentedAt: lead.commentedAt ?? "",
+    })),
     now: {
       dateLocal: now.dateLocal,
       time: `${String(now.hour).padStart(2, "0")}:${String(now.minute).padStart(2, "0")}`,

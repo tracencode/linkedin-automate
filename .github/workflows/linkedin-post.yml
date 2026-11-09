@@ -52,6 +52,9 @@ jobs:
           AUTO_PUBLISH: "false"
           QUEUE_MIN: "9"
           IMAGE_CHANCE: "1"
+          LEAD_SCAN: "true"
+          AUTO_COMMENT: "false"
+          COMMENT_DAILY_MAX: "5"
         run: |
           FLAGS=""
           if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
@@ -61,9 +64,10 @@ jobs:
             FLAGS="$FLAGS --force"
           fi
           npm run run -- $FLAGS
+          npm run leads || true
 
       - name: Save queue and history
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Record LinkedIn post run
-          file_pattern: content/queue content/history content/history.json content/drafts content/media
+          file_pattern: content/queue content/history content/history.json content/drafts content/media content/leads.json
