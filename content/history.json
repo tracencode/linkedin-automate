@@ -359,6 +359,14 @@
       "text": "Rushing to integrate AI tools often backfires in production.\n\nRecent offerings like EZClaw and Allos promise quick implementations of AI agents, making them seem like the perfect fix for teams looking to streamline processes. However, I’ve witnessed too many teams skip essential evaluation steps in their eagerness to deploy. Just because a tool can be set up in minutes doesn’t mean it will perform reliably under real operational conditions.\nI prioritize evaluation sets over immediate deployment. They allow for context-specific training and testing. An AI workflow must go through rigorous checks before entering production. I've seen firsthand how a tool that seemed ready can falter in the chaos of live data. Often, operational failure isn't about the technology itself but how well it’s integrated and evaluated in the context of existing workflows.\nWhat’s your experience with AI tools in production?\n\n#AI #AppliedAI #ProductionIssues #WorkflowAutomation #MachineLearning\n#ProcessImprovement #DigitalOperations #Operations #ERPImplementation #OdooImplementation\n#DocumentAI #Automation #Odoo #ERP #OdooERP\n#OdooDevelopment #OpenSource #SoftwareDevelopment",
       "source": "queue",
       "file": "2026-11-06T15-24-18-eval-sets-beat-vibes-how-i-know-an-ai-wo.md"
+    },
+    {
+      "id": "urn:li:share:7525946986064404480",
+      "postedAt": "2026-11-10T15:46:27.367Z",
+      "dateLocal": "2026-11-10",
+      "text": "Quick AI deployments often mask deeper issues in data quality.\n\nThe recent buzz around tools like Allos and EZClaw may trigger excitement for rapid integration, but I’ve seen enough projects go sideways due to neglected master data. An impressive AI agent means little if it’s fed garbage data.\nIn one case, we rushed to deploy an AI copilot for invoice processing. It handled the drafting beautifully, but when it encountered variations in our dirty data, it faltered. The missed steps in data cleaning led to errors that not only wasted time but also eroded trust in the system.\nUltimately, AI is only as effective as the quality of input it receives. Relying solely on the promise of quick integration without a solid foundation will lead to pitfalls. Examining and cleaning your master data should be a prerequisite, not an afterthought.\nHave you experienced a similar disconnect between AI performance and data quality?\n\n#AI #AppliedAI #DataCleansing #DataGovernance #DataQuality\n#MasterData #MachineLearning #Integrations #APIs #Invoices\n#InvoiceProcessing #ProcessImprovement #WorkflowAutomation #AccountsPayable #FinanceOps\n#DigitalOperations #EnterpriseSoftware #Operations",
+      "source": "queue",
+      "file": "2026-11-07T10-42-41-dirty-master-data-will-beat-a-clever-ai-.md"
     }
   ]
 }
