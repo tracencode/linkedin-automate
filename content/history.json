@@ -351,6 +351,14 @@
       "text": "There’s a fine line between automating and complicating workflows with AI.\n\nRecent tools like EZClaw make it easy to deploy AI agents for tasks like invoice processing. However, I’ve seen firsthand how rushing into these solutions can lead to chaos. A client once implemented an automated email response system, only to find that it mismanaged critical ticket escalations. Instead of streamlining operations, it created bottlenecks.\nThe promise of hands-free processing is tempting but often overlooks the nuances of real business processes. Not every task should be automated. Some require human oversight, especially in environments where response quality matters. It's vital to assess which operations genuinely benefit from AI integration and which would be better handled manually. The goal should always be to enhance productivity, not add layers of complexity.\nHave you faced challenges where automation didn’t quite deliver as promised?\n\n#WorkflowAutomation #Automation #AI #AppliedAI #SupportOps\n#Invoices #Operations #CustomerSupport #DigitalOperations #InvoiceProcessing\n#MachineLearning #ProcessImprovement #AccountsPayable #ERPImplementation #FinanceOps\n#Integrations #ChangeManagement #EnterpriseSoftware",
       "source": "queue",
       "file": "2026-11-06T11-32-11-using-ai-on-invoices-emails-or-support-t.md"
+    },
+    {
+      "id": "urn:li:share:7525887159640449024",
+      "postedAt": "2026-11-10T11:48:44.021Z",
+      "dateLocal": "2026-11-10",
+      "text": "Rushing to integrate AI tools often backfires in production.\n\nRecent offerings like EZClaw and Allos promise quick implementations of AI agents, making them seem like the perfect fix for teams looking to streamline processes. However, I’ve witnessed too many teams skip essential evaluation steps in their eagerness to deploy. Just because a tool can be set up in minutes doesn’t mean it will perform reliably under real operational conditions.\nI prioritize evaluation sets over immediate deployment. They allow for context-specific training and testing. An AI workflow must go through rigorous checks before entering production. I've seen firsthand how a tool that seemed ready can falter in the chaos of live data. Often, operational failure isn't about the technology itself but how well it’s integrated and evaluated in the context of existing workflows.\nWhat’s your experience with AI tools in production?\n\n#AI #AppliedAI #ProductionIssues #WorkflowAutomation #MachineLearning\n#ProcessImprovement #DigitalOperations #Operations #ERPImplementation #OdooImplementation\n#DocumentAI #Automation #Odoo #ERP #OdooERP\n#OdooDevelopment #OpenSource #SoftwareDevelopment",
+      "source": "queue",
+      "file": "2026-11-06T15-24-18-eval-sets-beat-vibes-how-i-know-an-ai-wo.md"
     }
   ]
 }
