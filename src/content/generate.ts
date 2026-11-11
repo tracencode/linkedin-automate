@@ -6,7 +6,8 @@ import type { Format, HistoryEntry } from "../types.ts";
 import { FORMATS } from "../types.ts";
 import { generateLinkedInImage, parseImageMode, shouldAttachImage, type ImageMode } from "./image.ts";
 import { ensureHashtags } from "./hashtags.ts";
-import { fetchTrendingHeadlines, formatTrendsForPrompt } from "./trends.ts";
+import { listDrafts, listQueue } from "./queue.ts";
+import { fetchLatestHeadlines, headlineAlreadyUsed } from "./trends.ts";
 import { log } from "../log.ts";
 
 export type GeneratedPost = {
@@ -14,6 +15,7 @@ export type GeneratedPost = {
   format: Format;
   topic: string;
   image?: string;
+  newsAngle?: string;
 };
 
 export async function generatePost(
@@ -37,11 +39,11 @@ export async function generatePost(
 
   const format = options.format ?? pickFormat(recent.length);
   const topicHint = options.topic?.trim() || pickTopic(topics, recent.length);
-  const headlines = await fetchTrendingHeadlines(8);
-  const trendsBlock = formatTrendsForPrompt(headlines);
-  if (headlines.length > 0) {
-    log(`Trends loaded (${headlines.length}): ${headlines[0]}`);
-  }
+  const headlines = await fetchLatestHeadlines(20);
+  const { corpus, usedAngles } = await usedNews(recent);
+  const headline = headlines.find((title) => !headlineAlreadyUsed(title, corpus, usedAngles));
+  if (headline) log(`News for this post: ${headline}`);
+  else log("No unused headline. This draft will not name a news item.");
 
   const recentBlock =
     recent
@@ -54,7 +56,7 @@ export async function generatePost(
 Niche lock (non-negotiable):
 - Lead with applied AI. Roughly 7 of every 10 posts should be AI-primary (agents, LLMs, RAG, copilots, document AI, evals, automation) tied to real ops/ERP/software work.
 - Odoo / ERP / integrations are supporting context, not the default headline — use them when they sharpen an AI ops story.
-- Every post must react to something circulating now: pick ONE headline from the trending list (or a clearly related current AI news beat) and give a practitioner take. Do not paste the headline verbatim as the hook. Do not invent quotes or fake "sources said".
+- React to the single headline in the user message, and to no other news. Name that story once. Do not mention any other product, company, tool, or headline. Do not mention Allos, EZClaw, or OpenClaw unless that exact name is the headline. Do not paste the headline verbatim as the hook. Do not invent quotes or fake "sources said". If no headline is provided, write the ops take and name no product and no news item.
 - No generic "AI will change everything". No hustle, personal-brand tips, or LinkedIn-about-LinkedIn.
 
 Voice rules:
@@ -82,7 +84,7 @@ Structure:
 2. Body: 120–220 words. One idea. How this trend shows up (or fails) in real systems. The second line must not repeat the hook.
 3. Close: one real question that invites a story or a disagreement, not yes/no.
 
-Return JSON only: {"topic":"...","text":"...","hashtags":["AppliedAI","RAG"],"imagePrompt":"one concrete visual metaphor a business reader would recognize, realistic objects or architecture, no words in the picture","newsAngle":"which headline or beat you used"}`;
+Return JSON only: {"topic":"...","text":"...","hashtags":["AppliedAI","RAG"],"imagePrompt":"one concrete visual metaphor a business reader would recognize, realistic objects or architecture, no words in the picture"}`;
 
   const user = `Author profile:
 ${profile}
@@ -90,8 +92,8 @@ ${profile}
 Topic bank (prefer AI-heavy lines):
 ${topics || "(use the profile pillars)"}
 
-Trending AI / tech headlines right now (react to one):
-${trendsBlock}
+The one news item for this post (use it once, and name nothing else):
+${headline ?? "(none — do not name a product, tool, or news story)"}
 
 Today's format: ${format}
 Suggested angle: ${topicHint}
@@ -160,7 +162,19 @@ ${recentBlock}`;
     throw new Error("Generated post had no usable hook. Try again.");
   }
 
-  const result: GeneratedPost = { text, format, topic };
+  if (headline && namesOutsideStory(text, headline).length > 0) {
+    log("Draft named an old story. Rewriting around the one headline.");
+    parsed = await requestDraft(
+      `Rewrite the post. The only news you may name is: ${headline}. Delete every other product or tool name, including Allos, EZClaw, and OpenClaw.`,
+    );
+    topic = parsed.topic || topicHint;
+    suggested = Array.isArray(parsed.hashtags)
+      ? parsed.hashtags.filter((tag): tag is string => typeof tag === "string")
+      : [];
+    text = ensureHashtags(shapeHook(cleanPost(parsed.text ?? "")), topic, suggested);
+  }
+
+  const result: GeneratedPost = { text, format, topic, newsAngle: headline };
   const imageMode = parseImageMode(options.image ?? (config.imageChance >= 1 ? "yes" : "auto"));
   const wantImage = shouldAttachImage(format, imageMode, config.imageChance);
   if (wantImage) {
@@ -173,6 +187,21 @@ ${recentBlock}`;
   }
 
   return result;
+}
+
+const OLD_STORY_NAMES = ["Allos", "EZClaw", "OpenClaw"];
+
+function namesOutsideStory(text: string, headline: string): string[] {
+  return OLD_STORY_NAMES.filter((name) => text.includes(name) && !headline.includes(name));
+}
+
+async function usedNews(recent: HistoryEntry[]): Promise<{ corpus: string; usedAngles: string[] }> {
+  const [queued, drafts] = await Promise.all([listQueue(), listDrafts()]);
+  const posts = [...recent, ...queued, ...drafts];
+  return {
+    corpus: posts.map((post) => post.text).join("\n"),
+    usedAngles: posts.map((post) => ("newsAngle" in post ? post.newsAngle : undefined)).filter((angle): angle is string => Boolean(angle)),
+  };
 }
 
 function pickFormat(count: number): Format {

@@ -32,6 +32,7 @@ function serializePost(doc: Omit<PostDoc, "filePath" | "fileName">): string {
   if (doc.topic) lines.push(`topic: ${doc.topic}`);
   if (doc.createdAt) lines.push(`createdAt: ${doc.createdAt}`);
   if (doc.image) lines.push(`image: ${doc.image}`);
+  if (doc.newsAngle) lines.push(`newsAngle: ${JSON.stringify(doc.newsAngle)}`);
   lines.push("---", "", doc.text.trim(), "");
   return lines.join("\n");
 }
@@ -47,6 +48,7 @@ async function readPost(filePath: string): Promise<PostDoc> {
     topic: meta.topic,
     createdAt: meta.createdAt,
     image: meta.image,
+    newsAngle: meta.newsAngle,
     text: body,
   };
 }
@@ -84,6 +86,7 @@ export async function saveDraft(input: {
   format?: string;
   topic?: string;
   image?: string;
+  newsAngle?: string;
 }): Promise<PostDoc> {
   await ensureContentDirs();
   const createdAt = new Date().toISOString();
@@ -97,6 +100,7 @@ export async function saveDraft(input: {
     topic: input.topic,
     createdAt,
     image: input.image,
+    newsAngle: input.newsAngle,
     text: ensureHashtags(input.text, input.topic),
   };
   await writeFile(filePath, serializePost(doc), "utf8");
@@ -199,6 +203,7 @@ export async function saveQueued(input: {
   format?: string;
   topic?: string;
   image?: string;
+  newsAngle?: string;
 }): Promise<PostDoc> {
   await ensureContentDirs();
   const createdAt = new Date().toISOString();
@@ -214,6 +219,7 @@ export async function saveQueued(input: {
       topic: input.topic,
       createdAt,
       image: input.image,
+      newsAngle: input.newsAngle,
       text: ensureHashtags(input.text, input.topic),
     }),
     "utf8",

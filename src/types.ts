@@ -14,6 +14,7 @@ export type HistoryEntry = {
   source: "queue" | "generated" | "manual";
   file?: string;
   dryRun?: boolean;
+  newsAngle?: string;
 };
 
 export type HistoryFile = {
@@ -28,6 +29,7 @@ export type PostDoc = {
   topic?: string;
   createdAt?: string;
   image?: string;
+  newsAngle?: string;
   text: string;
 };
 

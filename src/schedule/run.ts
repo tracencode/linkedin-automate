@@ -98,10 +98,11 @@ export async function publishNext(config: AppConfig, options: RunOptions = {}) {
       id: "dry-run",
       postedAt: new Date().toISOString(),
       dateLocal,
-      text: doc.text,
-      source,
-      file: doc.fileName,
-      dryRun: true,
+    text: doc.text,
+    source,
+    file: doc.fileName,
+    newsAngle: doc.newsAngle,
+    dryRun: true,
     });
     return { id: "dry-run", text: doc.text, source };
   }
@@ -116,6 +117,7 @@ export async function publishNext(config: AppConfig, options: RunOptions = {}) {
     text: doc.text,
     source,
     file: doc.fileName,
+    newsAngle: doc.newsAngle,
   };
 
   if (doc.filePath) {
