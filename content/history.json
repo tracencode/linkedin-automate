@@ -367,6 +367,14 @@
       "text": "Quick AI deployments often mask deeper issues in data quality.\n\nThe recent buzz around tools like Allos and EZClaw may trigger excitement for rapid integration, but I’ve seen enough projects go sideways due to neglected master data. An impressive AI agent means little if it’s fed garbage data.\nIn one case, we rushed to deploy an AI copilot for invoice processing. It handled the drafting beautifully, but when it encountered variations in our dirty data, it faltered. The missed steps in data cleaning led to errors that not only wasted time but also eroded trust in the system.\nUltimately, AI is only as effective as the quality of input it receives. Relying solely on the promise of quick integration without a solid foundation will lead to pitfalls. Examining and cleaning your master data should be a prerequisite, not an afterthought.\nHave you experienced a similar disconnect between AI performance and data quality?\n\n#AI #AppliedAI #DataCleansing #DataGovernance #DataQuality\n#MasterData #MachineLearning #Integrations #APIs #Invoices\n#InvoiceProcessing #ProcessImprovement #WorkflowAutomation #AccountsPayable #FinanceOps\n#DigitalOperations #EnterpriseSoftware #Operations",
       "source": "queue",
       "file": "2026-11-07T10-42-41-dirty-master-data-will-beat-a-clever-ai-.md"
+    },
+    {
+      "id": "urn:li:share:7526244425639882752",
+      "postedAt": "2026-11-11T11:28:22.552Z",
+      "dateLocal": "2026-11-11",
+      "text": "The appeal of AI copilots for warehouse or finance operations can be tempting.\n\nTools like EZClaw offer rapid deployment, but I've learned the hard way that not everything should be automated. I refuse to automate tasks that rely heavily on nuanced judgment or human insight. In finance, for instance, decisions based on context can make or break a month-end close. Automating those could lead to compliance issues or incorrect reporting. In a recent project, we encountered a situation where an AI copilot was set to make inventory decisions. It faltered under pressure, missing critical context that only a human could provide. This isn't about resisting innovation; it's about recognizing the limits of technology in high-stakes environments. What are your thoughts on the risks of over-automation in operational roles?\n\n#Automation #WorkflowAutomation #Inventory #WarehouseManagement #AI\n#AppliedAI #MachineLearning #CustomerSupport #ChangeManagement #DigitalOperations\n#Operations #TraceNcode #ProcessImprovement #SupplyChain #StockManagement\n#ERP #DocumentAI",
+      "source": "queue",
+      "file": "2026-11-07T14-21-09-copilots-for-finance-warehouse-support-w.md"
     }
   ]
 }
