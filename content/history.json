@@ -375,6 +375,14 @@
       "text": "The appeal of AI copilots for warehouse or finance operations can be tempting.\n\nTools like EZClaw offer rapid deployment, but I've learned the hard way that not everything should be automated. I refuse to automate tasks that rely heavily on nuanced judgment or human insight. In finance, for instance, decisions based on context can make or break a month-end close. Automating those could lead to compliance issues or incorrect reporting. In a recent project, we encountered a situation where an AI copilot was set to make inventory decisions. It faltered under pressure, missing critical context that only a human could provide. This isn't about resisting innovation; it's about recognizing the limits of technology in high-stakes environments. What are your thoughts on the risks of over-automation in operational roles?\n\n#Automation #WorkflowAutomation #Inventory #WarehouseManagement #AI\n#AppliedAI #MachineLearning #CustomerSupport #ChangeManagement #DigitalOperations\n#Operations #TraceNcode #ProcessImprovement #SupplyChain #StockManagement\n#ERP #DocumentAI",
       "source": "queue",
       "file": "2026-11-07T14-21-09-copilots-for-finance-warehouse-support-w.md"
+    },
+    {
+      "id": "urn:li:share:7526307230481195008",
+      "postedAt": "2026-11-11T15:37:56.193Z",
+      "dateLocal": "2026-11-11",
+      "text": "The rush to deploy AI often overlooks critical data quality.\n\nTools like EZClaw and Allos promise quick integration of AI agents into workflows. But I've seen this excitement lead teams down a problematic path. One recent client jumped to automate invoice processing without verifying their data. The consequence? An avalanche of erroneous invoices and support tickets needing manual intervention.\nAI can enhance efficiency, but it doesn't magically fix underlying data issues. If your master data is messy, your AI won't perform reliably.  Data quality checks should never be sidelined. We need to ensure the right systems are in place before trusting AI with operational tasks. Otherwise, we risk creating more chaos than efficiency.\nWhat operational hurdles have you faced when deploying AI in your workflows?\n\n#AI #AppliedAI #SupportOps #Invoices #MachineLearning\n#CustomerSupport #InvoiceProcessing #WorkflowAutomation #DataQuality #AccountsPayable\n#DataGovernance #FinanceOps #DigitalOperations #ProcessImprovement #Integrations\n#MasterData #Automation #EnterpriseSoftware",
+      "source": "queue",
+      "file": "2026-11-07T17-52-10-using-ai-on-invoices-emails-or-support-t.md"
     }
   ]
 }
