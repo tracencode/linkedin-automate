@@ -391,6 +391,14 @@
       "text": "The latest tools like EZClaw and Allos are making AI deployment sound effortless.\n\nBut I can’t stress enough: without proper evaluation sets, you’re risking operational failure.\nRecently, I advised a client to implement an AI-driven support ticket system. They were eager to jump in, dazzled by the promise of speed and efficiency. However, we had to hit pause. I insisted on testing with well-structured evaluation sets first. It revealed critical gaps in how the AI understood nuances in customer queries.\nThis wasn’t just about validation; it was about trust. If an AI solution can’t accurately categorize and respond to tickets, it won’t just look bad—it’ll cost time and money. We refined the model using historical ticket data and established a feedback loop to constantly improve accuracy. After rigorous testing, I finally felt confident in deploying.\nA shiny interface doesn’t guarantee success. Proper evaluations do. What’s your experience with deploying AI in real settings?\n\n#AppliedAI #AI #MachineLearning #CustomerSupport #SupportOps\n#WorkflowAutomation #ERPImplementation #OdooDevelopment #OdooImplementation #TechnicalDebt\n#TraceNcode #DigitalOperations #EnterpriseSoftware #Operations #ProcessImprovement\n#SoftwareDevelopment #DocumentAI #Automation",
       "source": "queue",
       "file": "2026-11-08T10-47-41-eval-sets-beat-vibes-how-i-know-an-ai-wo.md"
+    },
+    {
+      "id": "urn:li:share:7526678703259656192",
+      "postedAt": "2026-11-12T16:14:02.598Z",
+      "dateLocal": "2026-11-12",
+      "text": "The latest excitement around tools like EZClaw promises rapid deployment of AI agents.\n\nHowever, these solutions often gloss over a critical reality: dirty master data. In my experience, the allure of an impressive AI workflow can quickly fade when the underlying data quality is compromised. I once worked with a team eager to automate their invoice processing. They implemented an AI agent in record time, but the data they fed it was riddled with inaccuracies. Instead of streamlining operations, they faced significant backlogs due to incorrect entries and rework. AI can enhance productivity, but it can’t compensate for poor data practices. Before jumping into the latest tools, ensure your foundational data is clean and reliable. Otherwise, you'll find that no AI, no matter how clever, can overcome the chaos of dirty data. How do you ensure data quality before integrating AI into your workflows?\n\n#AI #AppliedAI #WorkflowAutomation #DataQuality #MachineLearning\n#DataCleansing #DataGovernance #MasterData #DigitalOperations #ProcessImprovement\n#Invoices #Automation #InvoiceProcessing #Operations #AccountsPayable\n#ERPImplementation #FinanceOps #OdooImplementation",
+      "source": "queue",
+      "file": "2026-11-08T14-31-24-dirty-master-data-will-beat-a-clever-ai-.md"
     }
   ]
 }

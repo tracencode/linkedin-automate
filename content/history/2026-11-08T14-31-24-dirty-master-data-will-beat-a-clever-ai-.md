@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: tactical_howto
 topic: Dirty master data will beat a clever AI workflow
 createdAt: 2026-11-08T14:31:24.699Z
