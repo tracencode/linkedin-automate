@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: personal_story
 topic: Eval sets beat vibes: how I know an AI workflow is ready for ops
 createdAt: 2026-11-08T10:47:41.479Z

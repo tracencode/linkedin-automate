@@ -383,6 +383,14 @@
       "text": "The rush to deploy AI often overlooks critical data quality.\n\nTools like EZClaw and Allos promise quick integration of AI agents into workflows. But I've seen this excitement lead teams down a problematic path. One recent client jumped to automate invoice processing without verifying their data. The consequence? An avalanche of erroneous invoices and support tickets needing manual intervention.\nAI can enhance efficiency, but it doesn't magically fix underlying data issues. If your master data is messy, your AI won't perform reliably.  Data quality checks should never be sidelined. We need to ensure the right systems are in place before trusting AI with operational tasks. Otherwise, we risk creating more chaos than efficiency.\nWhat operational hurdles have you faced when deploying AI in your workflows?\n\n#AI #AppliedAI #SupportOps #Invoices #MachineLearning\n#CustomerSupport #InvoiceProcessing #WorkflowAutomation #DataQuality #AccountsPayable\n#DataGovernance #FinanceOps #DigitalOperations #ProcessImprovement #Integrations\n#MasterData #Automation #EnterpriseSoftware",
       "source": "queue",
       "file": "2026-11-07T17-52-10-using-ai-on-invoices-emails-or-support-t.md"
+    },
+    {
+      "id": "urn:li:share:7526613018730786816",
+      "postedAt": "2026-11-12T11:53:02.095Z",
+      "dateLocal": "2026-11-12",
+      "text": "The latest tools like EZClaw and Allos are making AI deployment sound effortless.\n\nBut I can’t stress enough: without proper evaluation sets, you’re risking operational failure.\nRecently, I advised a client to implement an AI-driven support ticket system. They were eager to jump in, dazzled by the promise of speed and efficiency. However, we had to hit pause. I insisted on testing with well-structured evaluation sets first. It revealed critical gaps in how the AI understood nuances in customer queries.\nThis wasn’t just about validation; it was about trust. If an AI solution can’t accurately categorize and respond to tickets, it won’t just look bad—it’ll cost time and money. We refined the model using historical ticket data and established a feedback loop to constantly improve accuracy. After rigorous testing, I finally felt confident in deploying.\nA shiny interface doesn’t guarantee success. Proper evaluations do. What’s your experience with deploying AI in real settings?\n\n#AppliedAI #AI #MachineLearning #CustomerSupport #SupportOps\n#WorkflowAutomation #ERPImplementation #OdooDevelopment #OdooImplementation #TechnicalDebt\n#TraceNcode #DigitalOperations #EnterpriseSoftware #Operations #ProcessImprovement\n#SoftwareDevelopment #DocumentAI #Automation",
+      "source": "queue",
+      "file": "2026-11-08T10-47-41-eval-sets-beat-vibes-how-i-know-an-ai-wo.md"
     }
   ]
 }
