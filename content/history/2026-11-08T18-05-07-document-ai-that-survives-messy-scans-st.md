@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: contrarian_take
 topic: Document AI that survives messy scans, stamps, and multilingual invoices
 createdAt: 2026-11-08T18:05:07.229Z

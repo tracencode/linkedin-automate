@@ -399,6 +399,14 @@
       "text": "The latest excitement around tools like EZClaw promises rapid deployment of AI agents.\n\nHowever, these solutions often gloss over a critical reality: dirty master data. In my experience, the allure of an impressive AI workflow can quickly fade when the underlying data quality is compromised. I once worked with a team eager to automate their invoice processing. They implemented an AI agent in record time, but the data they fed it was riddled with inaccuracies. Instead of streamlining operations, they faced significant backlogs due to incorrect entries and rework. AI can enhance productivity, but it can’t compensate for poor data practices. Before jumping into the latest tools, ensure your foundational data is clean and reliable. Otherwise, you'll find that no AI, no matter how clever, can overcome the chaos of dirty data. How do you ensure data quality before integrating AI into your workflows?\n\n#AI #AppliedAI #WorkflowAutomation #DataQuality #MachineLearning\n#DataCleansing #DataGovernance #MasterData #DigitalOperations #ProcessImprovement\n#Invoices #Automation #InvoiceProcessing #Operations #AccountsPayable\n#ERPImplementation #FinanceOps #OdooImplementation",
       "source": "queue",
       "file": "2026-11-08T14-31-24-dirty-master-data-will-beat-a-clever-ai-.md"
+    },
+    {
+      "id": "urn:li:share:7526971370702794752",
+      "postedAt": "2026-11-13T11:37:00.283Z",
+      "dateLocal": "2026-11-13",
+      "text": "The rush to deploy AI often overlooks critical data quality.\n\nWith the recent buzz around tools like EZClaw, it's tempting to think that quick integrations can solve all our problems. But from experience, I know that deploying AI without addressing data quality can lead to chaos. One of our clients eagerly adopted an AI-driven document processing solution, only to struggle with messy scans and inconsistent invoice formats. The AI faltered when it encountered multilingual invoices embedded with stamps and handwritten notes.\nIf we want our AI to work in production, we have to ensure our input data is clean and consistent. A powerful AI tool is rendered useless if it can't handle the real-world complexities we face daily. Our focus should be on the quality of the documents we feed into these systems, or we risk setting ourselves up for failure.\nHave you experienced similar challenges with AI and document processing?\n\n#AI #AppliedAI #InvoiceProcessing #MachineLearning #DataQuality\n#DocumentAI #Invoices #TraceNcode #AccountsPayable #FinanceOps\n#OCR #DataGovernance #Integrations #Operations #ProcessImprovement\n#APIs #DataCleansing #ProductionIssues",
+      "source": "queue",
+      "file": "2026-11-08T18-05-07-document-ai-that-survives-messy-scans-st.md"
     }
   ]
 }
