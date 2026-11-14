@@ -431,6 +431,14 @@
       "text": "The latest tools for AI deployment often gloss over essential checks.\n\nJust because a tool like EZClaw promises a quick setup doesn’t mean it’s ready for real operations. I've seen migrations that integrate AI features without adequately validating the underlying data.\nThe focus tends to be on speed, but the risk of inconsistent or dirty master data can derail an entire project. In fact, I recently halted a migration when it became clear the data integrity wasn't where it needed to be. Ensuring that the data is clean and reliable is non-negotiable if you expect the AI to function effectively.\nBefore any migration, I look for signs of data accuracy and fitness. If the AI features can’t trust the data they're built on, you have a ticking time bomb on your hands. What checks do you require before integrating AI into your ERP workflows?\n\n#Migration #AI #AppliedAI #DataMigration #MachineLearning\n#DataCleansing #DigitalOperations #OdooERP #DataQuality #MasterData\n#EnterpriseSoftware #SaaS #WorkflowAutomation #DataGovernance #ERP\n#ERPImplementation #Odoo #OdooDevelopment",
       "source": "queue",
       "file": "2026-11-10T15-46-54-what-i-check-before-i-trust-an-odoo-migr.md"
+    },
+    {
+      "id": "urn:li:share:7527437449002872832",
+      "postedAt": "2026-11-14T18:29:01.508Z",
+      "dateLocal": "2026-11-14",
+      "text": "The excitement around tools like EZClaw can lead teams into risky territory.\n\nRapid deployment sounds great on paper, but I’ve seen firsthand how automation can fail when it skips critical evaluations. I once worked with a client eager to automate their support ticket handling. They believed AI could manage nuanced customer interactions better than manual review. The result? Misunderstandings piled up, customer satisfaction dropped, and the team lost trust in the AI system.\nIn production, the complexity of human interactions often requires a level of judgment that automation simply can't replicate. If we rush to automate without a thorough understanding of the task at hand, we risk turning our workflows into chaos. Sometimes, a checklist is all we need to avoid automation pitfalls.\n\n#WorkflowAutomation #Automation #AI #AppliedAI #CustomerSupport\n#OdooDevelopment #TechnicalDebt #TraceNcode #MachineLearning #SoftwareDevelopment\n#SupportOps #ProductionIssues #DigitalOperations #EnterpriseSoftware #ProcessImprovement\n#DocumentAI #Helpdesk #Operations",
+      "source": "queue",
+      "file": "2026-11-10T15-47-13-automation-that-should-have-stayed-a-che.md"
     }
   ]
 }

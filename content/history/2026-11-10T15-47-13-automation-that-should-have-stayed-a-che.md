@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: personal_story
 topic: Automation that should have stayed a checklist
 createdAt: 2026-11-10T15:47:13.889Z
