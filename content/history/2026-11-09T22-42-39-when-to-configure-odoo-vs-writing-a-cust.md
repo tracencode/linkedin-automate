@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: framework
 topic: When to configure Odoo vs writing a custom module
 createdAt: 2026-11-09T22:42:39.992Z

@@ -415,6 +415,14 @@
       "text": "Recent tools like EZClaw make it sound simple to deploy AI agents.\n\nHowever, there’s a significant gap between what works in a demo and what’s practical for day-to-day operations. I've seen teams excited about deploying these shiny new tools, only to realize they don't fit the grittiness of real-world workflows.\nA warehouse team needs AI that understands nuances: it should process complicated orders and adapt to unexpected scenarios without misfires. In one instance, a client rushed to implement an AI copilot for inventory management without considering the specific challenges of their operation. They soon faced a barrage of errors that came from an overly simplified understanding of their processes.\nThe lesson here is clear: if a tool can't handle the complexities of real operations, it's just a demo. What’s your experience with deploying AI tools in operational settings?\n\n#AI #AppliedAI #Inventory #WarehouseManagement #MachineLearning\n#Operations #DigitalOperations #ProcessImprovement #ChangeManagement #WorkflowAutomation\n#ERPImplementation #OdooImplementation #Difference #DocumentAI #Automation\n#SupplyChain #StockManagement #ERP",
       "source": "queue",
       "file": "2026-11-09T22-42-11-the-difference-between-a-demo-ai-copilot.md"
+    },
+    {
+      "id": "urn:li:share:7527324034095804416",
+      "postedAt": "2026-11-14T10:58:21.491Z",
+      "dateLocal": "2026-11-14",
+      "text": "Recent tools like EZClaw make deploying AI agents sound simple.\n\nYet, I see teams get into trouble when they rush these implementations without a solid foundation. A quick fix might look appealing, but I've learned the hard way that sometimes, it’s better to take a step back and evaluate whether a custom module is necessary. Odoo's flexibility allows for configurations that can meet many business needs without complicating the ecosystem.\nHowever, when you integrate AI features, the stakes change. Custom modules can provide better control, especially when working with AI that requires specific data handling or business logic. One size fits all doesn’t cut it; you need to assess data quality, user needs, and the intricacies of your workflows. I’ve witnessed projects fail because of hasty decisions, leading to wasted resources and frustration.\nWhen have you encountered this challenge in your deployments?\n\n#CustomModule #OdooDevelopment #Customization #SoftwareDevelopment #Configuration\n#AI #AppliedAI #OdooImplementation #TechnicalDebt #EnterpriseSoftware\n#MachineLearning #Odoo #OdooERP #OpenSource #DataQuality\n#OdooPartner #SaaS #WorkflowAutomation",
+      "source": "queue",
+      "file": "2026-11-09T22-42-39-when-to-configure-odoo-vs-writing-a-cust.md"
     }
   ]
 }
