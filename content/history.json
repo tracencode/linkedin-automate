@@ -423,6 +423,14 @@
       "text": "Recent tools like EZClaw make deploying AI agents sound simple.\n\nYet, I see teams get into trouble when they rush these implementations without a solid foundation. A quick fix might look appealing, but I've learned the hard way that sometimes, it’s better to take a step back and evaluate whether a custom module is necessary. Odoo's flexibility allows for configurations that can meet many business needs without complicating the ecosystem.\nHowever, when you integrate AI features, the stakes change. Custom modules can provide better control, especially when working with AI that requires specific data handling or business logic. One size fits all doesn’t cut it; you need to assess data quality, user needs, and the intricacies of your workflows. I’ve witnessed projects fail because of hasty decisions, leading to wasted resources and frustration.\nWhen have you encountered this challenge in your deployments?\n\n#CustomModule #OdooDevelopment #Customization #SoftwareDevelopment #Configuration\n#AI #AppliedAI #OdooImplementation #TechnicalDebt #EnterpriseSoftware\n#MachineLearning #Odoo #OdooERP #OpenSource #DataQuality\n#OdooPartner #SaaS #WorkflowAutomation",
       "source": "queue",
       "file": "2026-11-09T22-42-39-when-to-configure-odoo-vs-writing-a-cust.md"
+    },
+    {
+      "id": "urn:li:share:7527377389413306368",
+      "postedAt": "2026-11-14T14:30:21.961Z",
+      "dateLocal": "2026-11-14",
+      "text": "The latest tools for AI deployment often gloss over essential checks.\n\nJust because a tool like EZClaw promises a quick setup doesn’t mean it’s ready for real operations. I've seen migrations that integrate AI features without adequately validating the underlying data.\nThe focus tends to be on speed, but the risk of inconsistent or dirty master data can derail an entire project. In fact, I recently halted a migration when it became clear the data integrity wasn't where it needed to be. Ensuring that the data is clean and reliable is non-negotiable if you expect the AI to function effectively.\nBefore any migration, I look for signs of data accuracy and fitness. If the AI features can’t trust the data they're built on, you have a ticking time bomb on your hands. What checks do you require before integrating AI into your ERP workflows?\n\n#Migration #AI #AppliedAI #DataMigration #MachineLearning\n#DataCleansing #DigitalOperations #OdooERP #DataQuality #MasterData\n#EnterpriseSoftware #SaaS #WorkflowAutomation #DataGovernance #ERP\n#ERPImplementation #Odoo #OdooDevelopment",
+      "source": "queue",
+      "file": "2026-11-10T15-46-54-what-i-check-before-i-trust-an-odoo-migr.md"
     }
   ]
 }
