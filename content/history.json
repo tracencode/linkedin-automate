@@ -439,6 +439,14 @@
       "text": "The excitement around tools like EZClaw can lead teams into risky territory.\n\nRapid deployment sounds great on paper, but I’ve seen firsthand how automation can fail when it skips critical evaluations. I once worked with a client eager to automate their support ticket handling. They believed AI could manage nuanced customer interactions better than manual review. The result? Misunderstandings piled up, customer satisfaction dropped, and the team lost trust in the AI system.\nIn production, the complexity of human interactions often requires a level of judgment that automation simply can't replicate. If we rush to automate without a thorough understanding of the task at hand, we risk turning our workflows into chaos. Sometimes, a checklist is all we need to avoid automation pitfalls.\n\n#WorkflowAutomation #Automation #AI #AppliedAI #CustomerSupport\n#OdooDevelopment #TechnicalDebt #TraceNcode #MachineLearning #SoftwareDevelopment\n#SupportOps #ProductionIssues #DigitalOperations #EnterpriseSoftware #ProcessImprovement\n#DocumentAI #Helpdesk #Operations",
       "source": "queue",
       "file": "2026-11-10T15-47-13-automation-that-should-have-stayed-a-che.md"
+    },
+    {
+      "id": "urn:li:share:7527694799706124288",
+      "postedAt": "2026-11-15T11:31:38.842Z",
+      "dateLocal": "2026-11-15",
+      "text": "Tools like EZClaw are generating buzz for making AI agent deployment sound effortless.\n\nHowever, I see a gap between their claims and operational reality. One recent client was excited to automate invoice processing using this tool. They jumped in without addressing their dirty master data. The result? Chaos. The agents struggled to read invoices accurately, leading to inconsistencies and lost time.\nIn my experience, the excitement can lead teams to overlook foundational checks. A shiny new tool doesn’t solve problems if the data feeding it is flawed. When I explain this to non-technical operations owners, I emphasize: proper validation is non-negotiable. It’s not just about deploying AI; it’s about ensuring it can operate seamlessly within existing workflows.\nHow do you ensure data quality before integrating AI into your operations?\n\n#AI #AppliedAI #DataQuality #Invoices #InvoiceProcessing\n#MachineLearning #WorkflowAutomation #AccountsPayable #DataGovernance #DigitalOperations\n#FinanceOps #Operations #MasterData #Automation #ChangeManagement\n#ProcessImprovement #DataCleansing #Deployment",
+      "source": "queue",
+      "file": "2026-11-11T11-28-42-ezclaw-promises-rapid-ai-deployment-but-.md"
     }
   ]
 }

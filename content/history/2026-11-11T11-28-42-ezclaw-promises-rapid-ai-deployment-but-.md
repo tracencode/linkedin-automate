@@ -1,5 +1,5 @@
 ---
-status: queued
+status: posted
 format: tactical_howto
 topic: EZClaw promises rapid AI deployment, but watch the data.
 createdAt: 2026-11-11T11:28:42.409Z
