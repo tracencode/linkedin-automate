@@ -1,10 +1,9 @@
 ---
-status: queued
+status: posted
 format: contrarian_take
 topic: How I debug an AI + Odoo issue that only happens in production
 createdAt: 2026-11-11T15:38:19.090Z
 image: 2026-11-11T15-38-01-How-I-debug-an-AI-Odoo-issue-t.png
-newsAngle: "Show HN: My first project, an AI-powered financial news analyzer"
 ---
 
 I recently encountered an AI implementation issue that only broke in production.
