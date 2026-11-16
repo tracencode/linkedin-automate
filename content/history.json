@@ -456,6 +456,15 @@
       "source": "queue",
       "file": "2026-11-11T15-38-19-how-i-debug-an-ai-odoo-issue-that-only-h.md",
       "newsAngle": "Show HN: My first project, an AI-powered financial news analyzer"
+    },
+    {
+      "id": "urn:li:share:7528065439055159296",
+      "postedAt": "2026-11-16T12:04:26.168Z",
+      "dateLocal": "2026-11-16",
+      "text": "Not all integrations lead to smooth sailing.\n\nA recent project involved automating invoice processing through a popular gateway. The initial tests were flawless. Clean data, clear paths, everything lined up just right. But the moment we pushed it to production, chaos ensued. The real-world data was riddled with errors—scanned invoices that were blurry, stamps obscuring key information, and even foreign language entries.\nIt became evident that while the tech was promising, we had overlooked a critical step: preparing the data for real-world scenarios. This integration taught us that no matter how advanced the AI, if the foundational data is dirty, the results will invariably falter. We now put a greater emphasis on cleaning and validating data before any deployment, ensuring that our AI solutions can handle the messiness of actual operations.\nWhat lessons have you learned from integrations that didn’t go as planned?\n\n#Integrations #APIs #DataCleansing #InvoiceProcessing #Invoices\n#AccountsPayable #AI #AppliedAI #FinanceOps #DocumentAI\n#Automation #MachineLearning #OCR #Operations #PaymentGateway\n#TraceNcode #WorkflowAutomation #ProductionIssues",
+      "source": "queue",
+      "file": "2026-11-12T11-53-22-an-integration-that-taught-a-sharper-les.md",
+      "newsAngle": "Launch HN: Respan (YC W24) – Open-source Rust AI gateway built around plugins"
     }
   ]
 }

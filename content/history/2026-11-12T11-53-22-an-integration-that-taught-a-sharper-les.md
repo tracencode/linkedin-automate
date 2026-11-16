@@ -1,10 +1,9 @@
 ---
-status: queued
+status: posted
 format: lesson_learned
 topic: An integration that taught a sharper lesson than the happy path
 createdAt: 2026-11-12T11:53:22.942Z
 image: 2026-11-12T11-53-08-An-integration-that-taught-a-sha.png
-newsAngle: "Launch HN: Respan (YC W24) – Open-source Rust AI gateway built around plugins"
 ---
 
 Not all integrations lead to smooth sailing.
