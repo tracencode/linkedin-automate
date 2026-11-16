@@ -465,6 +465,15 @@
       "source": "queue",
       "file": "2026-11-12T11-53-22-an-integration-that-taught-a-sharper-les.md",
       "newsAngle": "Launch HN: Respan (YC W24) – Open-source Rust AI gateway built around plugins"
+    },
+    {
+      "id": "urn:li:share:7528146468319260672",
+      "postedAt": "2026-11-16T17:26:24.955Z",
+      "dateLocal": "2026-11-16",
+      "text": "The temptation is to jump straight into custom modules when implementing AI.\n\nYet, more often than not, the configuration options in Odoo can meet our needs without the added complexity. Custom modules carry risks such as increased maintenance, potential bugs, and a longer deployment timeline. I've seen teams get excited about creating something tailored to their specific use case, only to face challenges when it comes time to update or troubleshoot those modules. On the other hand, well-configured existing features often provide a solid foundation for AI workflows with less overhead. This allows us to focus on the data and AI application instead of constantly managing custom code. When I face a decision, I weigh the trade-offs. Is the extra effort for customization justified, or can we achieve our goals with what’s already available?\n\n#OdooDevelopment #CustomModule #Customization #SoftwareDevelopment #Configuration\n#TechnicalDebt #AI #AppliedAI #OdooImplementation #MachineLearning\n#Odoo #OdooERP #OpenSource #EnterpriseSoftware #OdooPartner\n#SaaS #WorkflowAutomation #ERPImplementation",
+      "source": "queue",
+      "file": "2026-11-12T16-14-35-when-to-configure-odoo-vs-writing-a-cust.md",
+      "newsAngle": "Launch HN: Consus (YC F24) – LLM gateway for companies handling sensitive data"
     }
   ]
 }

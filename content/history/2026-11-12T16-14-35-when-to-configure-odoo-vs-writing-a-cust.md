@@ -1,10 +1,9 @@
 ---
-status: queued
+status: posted
 format: framework
 topic: When to configure Odoo vs writing a custom module
 createdAt: 2026-11-12T16:14:35.315Z
 image: 2026-11-12T16-14-21-When-to-configure-Odoo-vs-writin.png
-newsAngle: "Launch HN: Consus (YC F24) – LLM gateway for companies handling sensitive data"
 ---
 
 The temptation is to jump straight into custom modules when implementing AI.
